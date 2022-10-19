@@ -1,13 +1,41 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { ProductType } from "../utils/types";
 import { useContext } from "react";
 import { CartContext } from "../utils/contexts";
 import styles from '../styles/Cart.module.css';
+import { onAuthStateChanged, User } from "firebase/auth";
+import { addItemToCart,auth,getUserData } from "../utils/firebase";
 
 export const Cart = () => {
-  const {cartProducts} = useContext(CartContext);
+  const {cartProducts,updateCart} = useContext(CartContext);
+  const [user,setUser] = useState<User|undefined>();
   const numOfItems = cartProducts.reduce((prev,current)=>prev+current.quantity,0);
   const totalPrice = cartProducts.reduce((prev,current)=>prev+(Math.floor(current.price*current.quantity)),0);
+
+  useEffect(()=>{
+    //Detect if user is signed In
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        // User is signed in
+        console.log('[Auth State] Detected Signed In User!',user);
+        setUser(user);
+        getUserData(user)
+        .then(data=>updateCart(data?.products))
+        .catch(error=>console.log(error));
+        
+      } else {
+        // User is signed out
+        setUser(undefined);
+        console.log('[Auth State] No Signed In User Detected.');
+      }
+    });
+  },[])
+  useEffect(()=>{
+    console.log('user',user);
+    console.log('products',cartProducts);
+    user && addItemToCart(user,cartProducts);
+  },[cartProducts]);
+
   return (
     <>
     <h4>Cart ({numOfItems}) Total: {totalPrice}$</h4>

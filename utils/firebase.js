@@ -1,5 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getAuth,GoogleAuthProvider,signInWithEmailAndPassword,signOut,signInWithPopup,createUserWithEmailAndPassword } from "firebase/auth";
+import { getFirestore,setDoc,collection,getDocs,doc,getDoc } from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBJNW2V_pcOKD1cRJm1kr_ZRA0Tk4wHkqI",
@@ -15,6 +16,8 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 // Initialize Firebase Authentication and get a reference to the service
 export const auth = getAuth(app);
+// Initialize Cloud Firestore and get a reference to the service
+const db = getFirestore(app);
 //Providers
 export const googleProvider = new GoogleAuthProvider();
 
@@ -23,6 +26,7 @@ export const signInUserWithEmailAndPassword = (username,password) =>{
   signInWithEmailAndPassword(auth, username, password)
   .then((userCredential) => {
     console.log('Signed In Succesfully!');
+    setUserToDb(userCredential.user);
   })
   .catch((error) => {
     console.log(error);
@@ -37,6 +41,7 @@ export const signInUserWithGooglePopup = ()=>signInWithPopup(auth, googleProvide
     const token = credential.accessToken;
     // The signed-in user info.
     const user = result.user;
+    //NEED TO CHECK IF SIGN UP
     // ...
   }).catch((error) => {
     // Handle Errors here.
@@ -50,8 +55,55 @@ export const signInUserWithGooglePopup = ()=>signInWithPopup(auth, googleProvide
   });
 
 // Sign Up User (email and password)
-export const signUpUserWithEmailAndPassword = (email,password) => createUserWithEmailAndPassword(auth, email, password).catch((error) => console.log(error)
+export const signUpUserWithEmailAndPassword = (email,password) => createUserWithEmailAndPassword(auth, email, password).then((userDetails)=>setUserToDb(userDetails.user)).catch((error) => console.log(error)
 );
 
 //Sign Out User
 export const signOutUser = ()=> signOut(auth).catch((error)=>console.log(error))
+
+export const setUserToDb = async (userDetails) => {
+  try {
+    await setDoc(doc(db, "users",userDetails.uid), {
+      displayName:userDetails.displayName?userDetails.displayName : userDetails.email.substring(0, userDetails.email.lastIndexOf("@")),
+      email:userDetails.email,
+      createdAt:userDetails.metadata.creationTime,
+      lastSignIn:userDetails.metadata.lastSignInTime,
+      products:[]
+    });
+    // console.log("Document written with ID: ", docRef.id);
+  } catch (e) {
+    console.error("Error adding document: ", e);
+  }
+}
+export const getAllUsers = async () => {
+  const querySnapshot = await getDocs(collection(db, "users"));
+  querySnapshot.forEach((doc) => {
+  console.log(doc.id,doc.data());
+});
+}
+export const getUserData = async (user) => {
+  const docRef = doc(db, "users", user.uid);
+  const docSnap = await getDoc(docRef);
+
+  if (docSnap.exists()) {
+  console.log("Document data:", docSnap.data());
+  return docSnap.data()
+  } else {
+  // doc.data() will be undefined in this case
+  console.log("No such document!");
+}
+}
+
+export const addItemToCart = async(userDetails,products)=>{
+  try {
+    const userData = await getUserData(userDetails);
+    await setDoc(doc(db, "users",userDetails.uid), {
+      ...userData,
+      products
+    });
+    // console.log("Document written with ID: ", docRef.id);
+  } catch (e) {
+    console.error("Error adding document: ", e);
+  }
+}
+getAllUsers();

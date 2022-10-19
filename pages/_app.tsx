@@ -25,8 +25,11 @@ function MyApp({ Component, pageProps }: AppProps) {
       }
     })
   }
+  const updateCart = (products:ProductType[])=>{
+    setCartProducts(products);
+  }
   return (
-  <CartContext.Provider value={{cartProducts,addToCart}}>
+  <CartContext.Provider value={{cartProducts,addToCart,updateCart}}>
     <Layout>
       <Component {...pageProps} />
     </Layout>

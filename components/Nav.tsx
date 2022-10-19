@@ -1,12 +1,11 @@
 import Link from "next/link"
 import Cart from "./Cart"
 import { useEffect, useState,useRef, LegacyRef } from "react"
-import { auth } from "../utils/firebase"
+import { setUserToDb, auth, addItemToCart } from "../utils/firebase"
 import { User,onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth"
 import { signInUserWithEmailAndPassword, signInUserWithGooglePopup,signOutUser,signUpUserWithEmailAndPassword } from "../utils/firebase"
 
 export default function Nav () {
-
   const [user,setUser] = useState<User|undefined>(undefined);
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
