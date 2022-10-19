@@ -8,6 +8,7 @@ import { ProductType } from '../utils/types'
 
 
 function MyApp({ Component, pageProps }: AppProps) {
+
   const [cartProducts,setCartProducts] = useState<ProductType[]>([]);
   const addToCart = (productToAdd:ProductType) => {
     setCartProducts(prev=>{

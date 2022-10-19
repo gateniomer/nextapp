@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import { ReactNode } from "react"
+import { ReactNode, useState } from "react"
 import Nav from './Nav';
 
 type Props = {
@@ -8,7 +8,6 @@ type Props = {
 
 export default function Layout ({children}:Props) {
   return(
-    
   <div className={'layout'}>
     <Head>
       <title>Next E-Store</title>

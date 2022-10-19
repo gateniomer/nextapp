@@ -28,7 +28,7 @@ export const Product:NextPage<{product?:ProductType,error?:Error}> =  ({product,
   return(
     <div>
       <Head>
-        <title>Next E-Store | Product Page</title>
+        <title>Next E-Store | {product?.title}</title>
       </Head>
       {product && <div className={styles.container}>
         <Image src={product.image} width='300px' height='400px'/>

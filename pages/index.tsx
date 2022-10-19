@@ -13,13 +13,10 @@ export const getServerSideProps:GetServerSideProps = async () => {
   }
 }
 
-interface PageProps  {
-  products?:ProductType[]
-}
-
-const Home:NextPage<PageProps> = ({products}) => {
+const Home = ({products,test}:{products:ProductType[],test:any}) => {
   return (
     <>
+    {/* {test} */}
     <div className={styles.container}>
     {products && products.map(product =>
     <Link key={product.id} href={'/products/'+product.id}>
