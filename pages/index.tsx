@@ -1,10 +1,8 @@
-import type { GetServerSideProps, NextPage } from 'next'
+import type { GetServerSideProps } from 'next'
 import { ProductType } from '../utils/types'
 import Image from 'next/image'
 import Link from 'next/link'
 import styles from '../styles/Home.module.css'
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import {auth} from '../utils/firebase';
 
 export const getServerSideProps:GetServerSideProps = async () => {
   const resp = await fetch('https://fakestoreapi.com/products/');
@@ -15,20 +13,6 @@ export const getServerSideProps:GetServerSideProps = async () => {
 }
 
 const Home = ({products,test}:{products:ProductType[],test:any}) => {
-    // // Sign Up
-    // createUserWithEmailAndPassword(auth, 'test@gmail.com', '123456')
-    //   .then((userCredential) => {
-    //     // Signed in 
-    //     const user = userCredential.user;
-    //     console.log('Success!',user);
-    //     // ...
-    //   })
-    //   .catch((error) => {
-    //     const errorCode = error.code;
-    //     const errorMessage = error.message;
-    //     console.log(errorMessage);
-    //     // ..
-    //   });
 
   return (
     <>

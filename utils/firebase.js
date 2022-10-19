@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getAuth,GoogleAuthProvider,signInWithEmailAndPassword,signOut,signInWithPopup } from "firebase/auth";
+import { getAuth,GoogleAuthProvider,signInWithEmailAndPassword,signOut,signInWithPopup,createUserWithEmailAndPassword } from "firebase/auth";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBJNW2V_pcOKD1cRJm1kr_ZRA0Tk4wHkqI",
@@ -18,6 +18,7 @@ export const auth = getAuth(app);
 //Providers
 export const googleProvider = new GoogleAuthProvider();
 
+//Sign In User (email and password)
 export const signInUserWithEmailAndPassword = (username,password) =>{
   signInWithEmailAndPassword(auth, username, password)
   .then((userCredential) => {
@@ -28,14 +29,7 @@ export const signInUserWithEmailAndPassword = (username,password) =>{
   });
 }
 
-export const signOutUser = ()=>{
-  signOut(auth).then(()=>{
-    console.log('Signed Out Succesfully');
-  }).catch((error)=>{
-    console.log(error);
-  })
-}
-
+//Sign In User (google)
 export const signInUserWithGooglePopup = ()=>signInWithPopup(auth, googleProvider)
   .then((result) => {
     // This gives you a Google Access Token. You can use it to access the Google API.
@@ -54,3 +48,10 @@ export const signInUserWithGooglePopup = ()=>signInWithPopup(auth, googleProvide
     const credential = GoogleAuthProvider.credentialFromError(error);
     // ...
   });
+
+// Sign Up User (email and password)
+export const signUpUserWithEmailAndPassword = (email,password) => createUserWithEmailAndPassword(auth, email, password).catch((error) => console.log(error)
+);
+
+//Sign Out User
+export const signOutUser = ()=> signOut(auth).catch((error)=>console.log(error))
