@@ -11,3 +11,5 @@ export const INIT_CART:INIT_CART_TYPE = {
 }
 
 export const CartContext = createContext(INIT_CART);
+
+export const userContext = createContext({});
