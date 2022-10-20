@@ -9,8 +9,8 @@ import { addItemToCart,auth,getUserData } from "../utils/firebase";
 export const Cart = () => {
   const {cartProducts,updateCart} = useContext(CartContext);
   const [user,setUser] = useState<User|undefined>();
-  const numOfItems = cartProducts.reduce((prev,current)=>prev+current.quantity,0);
-  const totalPrice = cartProducts.reduce((prev,current)=>prev+(Math.floor(current.price*current.quantity)),0);
+  const numOfItems = cartProducts?.reduce((prev,current)=>prev+current.quantity,0);
+  const totalPrice = cartProducts?.reduce((prev,current)=>prev+(Math.floor(current.price*current.quantity)),0);
 
   useEffect(()=>{
     //Detect if user is signed In
@@ -20,8 +20,8 @@ export const Cart = () => {
         console.log('[Auth State] Detected Signed In User!',user);
         setUser(user);
         getUserData(user)
-        .then(data=>updateCart(data?.products))
-        .catch(error=>console.log(error));
+        .then(data=>data && updateCart(data.products))
+        .catch(error=>console.log('[CART]: No Doc Found'));
         
       } else {
         // User is signed out
@@ -31,8 +31,6 @@ export const Cart = () => {
     });
   },[])
   useEffect(()=>{
-    console.log('user',user);
-    console.log('products',cartProducts);
     user && addItemToCart(user,cartProducts);
   },[cartProducts]);
 

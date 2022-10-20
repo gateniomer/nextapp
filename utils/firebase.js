@@ -25,8 +25,6 @@ export const googleProvider = new GoogleAuthProvider();
 export const signInUserWithEmailAndPassword = (username,password) =>{
   signInWithEmailAndPassword(auth, username, password)
   .then((userCredential) => {
-    console.log('Signed In Succesfully!');
-    setUserToDb(userCredential.user);
   })
   .catch((error) => {
     console.log(error);
@@ -42,6 +40,9 @@ export const signInUserWithGooglePopup = ()=>signInWithPopup(auth, googleProvide
     // The signed-in user info.
     const user = result.user;
     //NEED TO CHECK IF SIGN UP
+    getUserData(user).then(data=>{
+      if(data === undefined) setUserToDb(user);
+    });
     // ...
   }).catch((error) => {
     // Handle Errors here.
@@ -86,7 +87,7 @@ export const getUserData = async (user) => {
   const docSnap = await getDoc(docRef);
 
   if (docSnap.exists()) {
-  console.log("Document data:", docSnap.data());
+  // console.log("Document data:", docSnap.data());
   return docSnap.data()
   } else {
   // doc.data() will be undefined in this case
@@ -106,4 +107,3 @@ export const addItemToCart = async(userDetails,products)=>{
     console.error("Error adding document: ", e);
   }
 }
-getAllUsers();
