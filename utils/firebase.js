@@ -41,7 +41,7 @@ export const signInUserWithGooglePopup = ()=>signInWithPopup(auth, googleProvide
     const user = result.user;
     //NEED TO CHECK IF SIGN UP
     getUserData(user).then(data=>{
-      if(data === undefined) setUserToDb(user);
+      if(!data) setUserToDb(user);
     });
     // ...
   }).catch((error) => {
