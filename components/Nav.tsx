@@ -15,7 +15,7 @@ export default function Nav () {
     onAuthStateChanged(auth, (user) => {
       if (user) {
         // User is signed in
-        console.log('[Auth State] Detected Signed In User!',user);
+        console.log('[Auth State] Detected Signed In User!');
         setUser(user);
       } else {
         // User is signed out
