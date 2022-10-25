@@ -95,7 +95,7 @@ export const getUserData = async (user) => {
 }
 }
 
-export const addItemToCart = async(userDetails,products)=>{
+export const updateUserCartInFirestore = async(userDetails,products)=>{
   try {
     const userData = await getUserData(userDetails);
     await setDoc(doc(db, "users",userDetails.uid), {
