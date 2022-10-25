@@ -13,7 +13,7 @@ const Checkout = ()=>{
       amount:item.price*100,
       currency:'usd',
       quantity: item.quantity
-    }))
+    }));
 
     const resp = await fetch('/api/checkout-sessions',{
       method:'POST',
