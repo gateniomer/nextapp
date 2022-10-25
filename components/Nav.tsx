@@ -21,6 +21,7 @@ export default function Nav () {
     </>}
     {!user && <button onClick={signInUserWithGooglePopup}>Connect With Google</button>}
     {user && <button onClick={signOutUser}>Sign Out</button>}
+    {user && <Link href={'/checkout'}>Checkout</Link>}
     </div>
   )
 }
