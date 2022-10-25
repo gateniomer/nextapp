@@ -19,5 +19,4 @@ export default async function handler(
     await stripe.checkout.sessions.create(params);
 
   res.status(200).json(checkoutSession);
-  res.status(500).json(res);
 }
