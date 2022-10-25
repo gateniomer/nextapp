@@ -2,18 +2,27 @@ import { useContext } from "react";
 import { CartContext } from "../utils/contexts";
 import { useRouter } from "next/router";
 
+const test = async () =>{
+  // const resps = await Promise.all([fetch('https://fakestoreapi.com/products/'+1),fetch('https://fakestoreapi.com/products/'+2)]).then();
+  // console.log(resps);
+  // const urls = ['https://fakestoreapi.com/products/1','https://fakestoreapi.com/products/2'];
+  // const products = await Promise.all(urls.map(async url => {
+  //   const product = await (await fetch(url)).json();
+  //   return {
+  //     name:product.title,
+  //     price:product.price*100,
+  //     currency:'usd',
+  //     quantity:1
+  //   };
+  // }));
+  // console.log(products);
+}
 const Checkout = ()=>{
   const {cartProducts} = useContext(CartContext);
   const router = useRouter();
-
+  test();
+  
   const onClickHandler = async () => {
-
-    const items = cartProducts.map(item=>({
-      name:item.title,
-      amount:item.price*100,
-      currency:'usd',
-      quantity: item.quantity
-    }));
 
     const resp = await fetch('/api/checkout-sessions',{
       method:'POST',
@@ -21,7 +30,7 @@ const Checkout = ()=>{
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
-      body:JSON.stringify({items})
+      body:JSON.stringify({items:cartProducts})
     }).catch(e=>console.log(e));
 
     const data = resp && await resp.json();
