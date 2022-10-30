@@ -5,6 +5,9 @@ import { CartContext } from "../../utils/contexts";
 import { ProductType } from "../../utils/types";
 import styles from '../../styles/Product.module.css';
 import Image from "next/image";
+import { useAppDispatch } from "../../utils/hooks";
+import { updateCartThunk } from "../../utils/thunk";
+
 export const getServerSideProps:GetServerSideProps = async ({params}) => {
   
   if(!params) return {props:{}}
@@ -23,7 +26,8 @@ export const getServerSideProps:GetServerSideProps = async ({params}) => {
   
 }
 export const Product:NextPage<{product?:ProductType,error?:Error}> =  ({product,error}) => {
-  const {addToCart} = useContext(CartContext);
+  const dispatch = useAppDispatch();
+
   if(error) console.log(error);
   return(
     <div>
@@ -37,7 +41,7 @@ export const Product:NextPage<{product?:ProductType,error?:Error}> =  ({product,
           <p>{product.category}</p>
           <p>{product.price}</p>
           <button onClick={()=>{
-          addToCart(product);
+          dispatch(updateCartThunk(product));
         }}>Add To Cart</button>
           <button>Buy Now</button>
         </div>

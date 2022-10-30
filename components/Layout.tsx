@@ -2,11 +2,7 @@ import Head from 'next/head'
 import { ReactNode } from "react"
 import Nav from './Nav';
 
-type Props = {
-  children?: ReactNode
-}
-
-export default function Layout ({children}:Props) {
+export default function Layout ({children}:{children?: ReactNode}) {
   return(
   <div className={'layout'}>
     <Head>

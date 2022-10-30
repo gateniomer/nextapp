@@ -3,6 +3,8 @@ import { ProductType } from '../utils/types'
 import Image from 'next/image'
 import Link from 'next/link'
 import styles from '../styles/Home.module.css'
+import { useAppDispatch } from '../utils/hooks'
+import { updateProducts } from '../utils/products.slice'
 
 export const getServerSideProps:GetServerSideProps = async () => {
   const resp = await fetch('https://fakestoreapi.com/products/');
@@ -12,8 +14,10 @@ export const getServerSideProps:GetServerSideProps = async () => {
   }
 }
 
-const Home = ({products,test}:{products:ProductType[],test:any}) => {
+const Home = ({products}:{products:ProductType[]}) => {
 
+  const dispatch = useAppDispatch();
+  dispatch(updateProducts(products));
   return (
     <>
     <div className={styles.container}>
