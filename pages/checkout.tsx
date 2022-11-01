@@ -1,10 +1,15 @@
 import { useRouter } from "next/router";
 import { useAppSelector } from "../utils/hooks";
+import {useEffect} from 'react';
 
 const Checkout = ()=>{
   const cartProducts = useAppSelector(state=>state.userDetails.cart);
   const router = useRouter();
+  const user = useAppSelector(state=>state.userDetails.user);
   
+  useEffect(()=>{
+    if(!user) router.replace('/signin');
+  },[user])
   const onClickHandler = async () => {
 
     const resp = await fetch('/api/checkout-sessions',{

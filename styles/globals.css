@@ -31,10 +31,6 @@ header {
   align-items: center;
   justify-content: space-around;
 }
-header h1,
-header div {
-  flex-grow: 1;
-}
 nav {
   display: flex;
   justify-content: center;

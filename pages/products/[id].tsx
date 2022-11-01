@@ -1,7 +1,6 @@
 import { GetServerSideProps, NextPage } from "next"
 import Head from "next/head";
-import { useContext } from "react";
-import { CartContext } from "../../utils/contexts";
+import Link from "next/link";
 import { ProductType } from "../../utils/types";
 import styles from '../../styles/Product.module.css';
 import Image from "next/image";
@@ -31,7 +30,7 @@ export const Product:NextPage<{product?:ProductType}> =  ({product}) => {
   const onAddToCartHandler = (product:ProductType) => {
     dispatch(updateCartThunk(product))
   }
-  
+
   return(
     <div>
       <Head>
@@ -50,7 +49,7 @@ export const Product:NextPage<{product?:ProductType}> =  ({product}) => {
           </div>}
           {!user && 
           <div>
-            <button>Sign In To Buy</button>
+            <Link href={'/signin'}>Sign In To Buy</Link>
           </div>}
         </div>
         </div>}

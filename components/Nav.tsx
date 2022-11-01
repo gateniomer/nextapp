@@ -9,8 +9,6 @@ import { updateUser,updateCart } from "../utils/user.slice"
 import Search from "./search"
 
 export default function Nav () {
-  const emailRef = useRef<HTMLInputElement>(null);
-  const passwordRef = useRef<HTMLInputElement>(null);
   const user = useAppSelector(state=>state.userDetails.user);
   const dispatch = useAppDispatch();
 
@@ -43,17 +41,18 @@ export default function Nav () {
     {/* <nav>
       <Link href={'/'}>Home</Link>
     </nav> */}
-    <div>
-      {user && <Cart />}
-      {!user && <>
-      <input type="email" ref={emailRef}/>
-      <input type="password" ref={passwordRef}/>
-      <button onClick={()=>signInUserWithEmailAndPassword(emailRef.current?.value,passwordRef.current?.value)}>Sign In</button>
-      <button onClick={()=>signUpUserWithEmailAndPassword(emailRef.current?.value,passwordRef.current?.value)}>Sign Up</button>
-      </>}
-      {!user && <button onClick={signInUserWithGooglePopup}>Connect With Google</button>}
-      {user && <button onClick={signOutUser}>Sign Out</button>}
-    </div>
+    {!user && 
+      <div>
+        <Link href={'/signin'}>Sign In</Link>
+      </div>
+    }
+    {user &&
+      <div style={{display:'flex'}}>
+        <Cart />
+        <Link href={'/profile'}>Profile</Link>
+        <button onClick={signOutUser}>Sign Out</button>
+      </div>
+    }
     </header>
   ) 
 }
