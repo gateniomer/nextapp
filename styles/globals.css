@@ -21,9 +21,30 @@ a {
   }
   body {
     color: white;
-    background: black;
+    background: #111;
   }
+}
+header {
+  display: flex;
+  background: #333;
+  padding: 5px;
+  align-items: center;
+  justify-content: space-around;
+}
+header h1,
+header div {
+  flex-grow: 1;
+}
+nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .layout {
   text-align: center;
+}
+@media (max-width: 900px) {
+  header {
+    display: block;
+  }
 }

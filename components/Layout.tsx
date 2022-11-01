@@ -8,7 +8,6 @@ export default function Layout ({children}:{children?: ReactNode}) {
     <Head>
       <title>Next E-Store</title>
     </Head>
-    <h1>Next E-Store</h1>
     <Nav/>
     {children}
   </div>

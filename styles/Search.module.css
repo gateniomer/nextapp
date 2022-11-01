@@ -1,0 +1,27 @@
+.search {
+  flex-grow: 2;
+  position: relative;
+}
+.search input {
+  width: 100%;
+}
+.searchResultsContainer {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  background-color: #111;
+  /* transform: translate(-50%, 0); */
+  width: 100%;
+  z-index: 1;
+  border: 5px solid black;
+  padding: 10px;
+  gap: 10px;
+}
+
+.searchResultsItem {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  gap: 10px;
+  text-align: left;
+}

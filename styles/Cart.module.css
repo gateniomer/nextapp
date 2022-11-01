@@ -1,7 +1,11 @@
 .container {
   /* display: flex; */
+  position: absolute;
+  transform: translate(-50%, 0);
+  z-index: 1;
   max-width: 400px;
   margin: 0 auto;
+  animation: enter 0.4s;
 }
 .cartItem {
   display: flex;
@@ -29,4 +33,13 @@
   width: 30px;
   height: 30px;
   line-height: 30px;
+}
+
+@keyframes enter {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
