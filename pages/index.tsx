@@ -31,6 +31,33 @@ const Home = ({products}:{products:ProductType[]}) => {
         {products && products.map((product) =><Card key={product.id} product={product}/>)}
       </div>
     </main>
+
+    <section id={'section-a'} className={'block'}>
+      <div>
+
+      </div>
+      <div>
+
+      </div>
+    </section>
+
+    <section id={'section-b'} className={'block'}>
+      <div>
+
+      </div>
+      <div>
+
+      </div>
+    </section>
+
+    <section id={'section-c'} className={'block'}>
+      <div>
+
+      </div>
+      <div>
+
+      </div>
+    </section>
     </>
   )
 }
