@@ -3,7 +3,7 @@
   max-width: 1400px;
   margin: 50px auto;
   padding: 20px;
-  align-items: start;
+  align-items: flex-start;
   justify-content: center;
   gap: 50px;
 }
