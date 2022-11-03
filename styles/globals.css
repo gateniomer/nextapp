@@ -17,9 +17,18 @@ a {
 
 header {
   display: flex;
-  padding: 5px;
+  padding: 10px;
   align-items: center;
   justify-content: space-around;
+}
+header::before {
+  content: "";
+  z-index: -1;
+  position: absolute;
+  background: #f6e0fe;
+  border-radius: 0 0 50% 20%;
+  width: 100%;
+  height: 500px;
 }
 nav {
   display: flex;

@@ -7,6 +7,7 @@
   animation: enter 0.4s;
   transform: skew(-10deg, 10deg);
   text-align: end;
+  cursor: pointer;
 }
 .card:hover {
   transform: scale(1.1);
