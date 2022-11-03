@@ -7,14 +7,15 @@
   height: 30px;
   border-radius: 20px;
   border: none;
+  padding: 10px;
 }
 .searchResultsContainer {
   position: absolute;
   display: flex;
   flex-direction: column;
   background-color: #fff;
-  transform: translate(0, 10px);
-  width: 100%;
+  transform: translate(2.5%, 10px);
+  width: 95%;
   z-index: 1;
   padding: 10px;
   gap: 10px;
