@@ -5,7 +5,6 @@ import Link from 'next/link'
 import styles from '../styles/Home.module.css'
 import { useAppDispatch } from '../utils/hooks'
 import { updateProducts } from '../utils/products.slice'
-import Vibrant from 'node-vibrant'
 import Card from '../components/Card'
 
 export const getServerSideProps:GetServerSideProps = async () => {
