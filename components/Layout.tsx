@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import { ReactNode } from "react"
-import Nav from './Nav';
+import Header from './Header';
 import Footer from './Footer';
 export default function Layout ({children}:{children?: ReactNode}) {
   return(
@@ -8,7 +8,7 @@ export default function Layout ({children}:{children?: ReactNode}) {
     <Head>
       <title>Next E-Store</title>
     </Head>
-    <Nav/>
+    <Header/>
     {children}
     <Footer/>
   </div>

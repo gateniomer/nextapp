@@ -1,14 +1,14 @@
 import Link from "next/link"
 import Cart from "./Cart"
-import { useRef,useEffect } from "react"
-import { signInUserWithEmailAndPassword, signInUserWithGooglePopup,signOutUser,signUpUserWithEmailAndPassword } from "../utils/firebase"
+import { useEffect } from "react"
+import { signOutUser} from "../utils/firebase"
 import { useAppDispatch, useAppSelector } from "../utils/hooks"
 import { onAuthStateChanged } from "firebase/auth"
 import { auth,getUserData } from "../utils/firebase"
 import { updateUser,updateCart } from "../utils/user.slice"
 import Search from "./search"
 
-export default function Nav () {
+export default function Header () {
   const user = useAppSelector(state=>state.userDetails.user);
   const dispatch = useAppDispatch();
 
