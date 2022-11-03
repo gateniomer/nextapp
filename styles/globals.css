@@ -21,7 +21,7 @@ header {
   gap: 20px;
   align-items: center;
   justify-content: space-around;
-  max-width: 1200px;
+  max-width: 1600px;
   margin: 0 auto;
 }
 header::before {
@@ -49,6 +49,8 @@ nav {
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-grow: 1;
+  gap: 2rem;
 }
 
 .block {

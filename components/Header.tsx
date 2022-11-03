@@ -37,17 +37,22 @@ export default function Header () {
   return (
   <header>
     <Link href={'/'}><h1>Next E-Store</h1></Link>
-    <Search/>
-    {/* <nav>
+    <nav>
       <Link href={'/'}>Home</Link>
-    </nav> */}
+      <Link href={'/'}>Category 1</Link>
+      <Link href={'/'}>Category 2</Link>
+      <Link href={'/'}>Category 3</Link>
+      <Link href={'/'}>Category 4</Link>
+      <Link href={'/'}>Category 5</Link>
+    </nav>
+    <Search/>
     {!user && 
       <div>
         <Link href={'/signin'}>Sign In</Link>
       </div>
     }
     {user &&
-      <div style={{display:'flex'}}>
+      <div style={{display:'flex',gap:'20px'}}>
         <Cart />
         <Link href={'/profile'}>Profile</Link>
         <button onClick={signOutUser}>Sign Out</button>

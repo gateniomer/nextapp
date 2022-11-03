@@ -1,5 +1,5 @@
 .search {
-  flex-grow: 2;
+  flex-grow: 1;
   position: relative;
 }
 .search input {

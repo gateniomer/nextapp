@@ -12,7 +12,7 @@ export const getServerSideProps:GetServerSideProps = async ({params}) => {
   if(!params) return {props:{}}
 
   try{
-    const resp = await fetch('https://fakestoreapi.com/products/'+params.id);
+    const resp = await fetch('https://api.escuelajs.co/api/v1/products/'+params.id);
     const product = await resp.json();
     return{
       props:{product}
@@ -37,10 +37,12 @@ export const Product:NextPage<{product?:ProductType}> =  ({product}) => {
         <title>Next E-Store | {product?.title}</title>
       </Head>
       {product && <div className={styles.container}>
-        <Image src={product.image} width='300px' height='400px'/>
+        <div>
+          <Image src={product.images[0]} width='300px' height='400px'/>
+        </div>
         <div>
           <h2>{product.title}</h2>
-          <p>{product.category}</p>
+          <p>{product.category.name}</p>
           <p>{product.price}</p>
           {user && 
           <div>

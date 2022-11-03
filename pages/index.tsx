@@ -9,14 +9,14 @@ import Vibrant from 'node-vibrant'
 import Card from '../components/Card'
 
 export const getServerSideProps:GetServerSideProps = async () => {
-  const resp = await fetch('https://api.escuelajs.co/api/v1/products?offset=1&limit=12');
-  const products = await resp.json();
+  const products = await (await fetch('https://api.escuelajs.co/api/v1/products?offset=1&limit=12')).json();
+  const categories = await (await fetch('https://api.escuelajs.co/api/v1/categories')).json();
   return {
-    props:{products}
+    props:{products,categories}
   }
 }
 
-const Home = ({products}:{products:ProductType[]}) => {
+const Home = ({products,categories}:{products:ProductType[],categories:any}) => {
 
   const dispatch = useAppDispatch();
   dispatch(updateProducts(products));
