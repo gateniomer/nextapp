@@ -44,7 +44,7 @@ const Search = () => {
           searchResult.map((product:ProductType)=>
           <Link key={product.id} href={'/products/'+product.id}>
             <div onClick={clearSearch} className={styles.searchResultsItem}>
-              <Image src={product.image} 
+              <Image src={product.images[0]} 
               width={'50%'}
               height={'50%'}
               objectFit='cover'/>
