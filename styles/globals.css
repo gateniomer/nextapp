@@ -4,6 +4,9 @@ body {
   margin: 0;
   font-family: -apple-system, Roboto, BlinkMacSystemFont, Segoe UI, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  background: url("/circle-scatter-haikei.svg");
+  /* background-size: cover; */
+  /* background-position: 50% 200px; */
 }
 
 a {
@@ -23,6 +26,7 @@ header {
   justify-content: space-around;
   max-width: 1600px;
   margin: 0 auto;
+  z-index: 100;
 }
 header::before {
   content: "";

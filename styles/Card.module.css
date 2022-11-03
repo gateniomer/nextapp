@@ -3,7 +3,7 @@
   border-radius: 10px;
   background-color: #f3fee0;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-  transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease;
   animation: enter 0.4s;
   transform: skew(-10deg, 10deg);
   text-align: end;
@@ -13,12 +13,17 @@
   transform: scale(1.1);
   z-index: 100;
 }
+.card:hover .imageContainer {
+  border-radius: 10px 10px 0 0;
+}
 
 .imageContainer {
+  transition: all 0.3s ease-in-out;
   position: relative;
   border-radius: 10px 10px 50% 0;
   width: 100%;
   height: 200px;
+  margin-bottom: 10px;
   overflow: hidden;
 }
 
@@ -59,5 +64,11 @@
   }
   100% {
     opacity: 1;
+  }
+}
+
+@media (max-width: 600px) {
+  .card {
+    transform: skew(0deg);
   }
 }
