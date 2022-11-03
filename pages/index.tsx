@@ -5,10 +5,12 @@ import Link from 'next/link'
 import styles from '../styles/Home.module.css'
 import { useAppDispatch } from '../utils/hooks'
 import { updateProducts } from '../utils/products.slice'
+import Vibrant from 'node-vibrant'
+import Card from '../components/Card'
 
 export const getServerSideProps:GetServerSideProps = async () => {
-  const resp = await fetch('https://fakestoreapi.com/products/');
-  const products:ProductType[] = await resp.json();
+  const resp = await fetch('https://api.escuelajs.co/api/v1/products');
+  const products = await resp.json();
   return {
     props:{products}
   }
@@ -21,17 +23,7 @@ const Home = ({products}:{products:ProductType[]}) => {
   return (
     <>
     <div className={styles.container}>
-    {products && products.map(product =>
-    <Link key={product.id} href={'/products/'+product.id}>
-      <div className={styles.card}>
-        <h4>{product.title}</h4>
-        <span>{product.category}</span>
-        <span>{product.price}</span>
-        <span>{product.description}</span>
-        <Image src={product.image} width={'100px'} height={'300px'}/>
-      </div>
-    </Link>
-    )}
+    {products && products.map((product) =><Card key={product.id} product={product}/>)}
     </div>
     </>
   )
