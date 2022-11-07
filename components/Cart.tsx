@@ -9,7 +9,7 @@ import { ProductType } from '../utils/types';
 import { updateCartThunk } from '../utils/thunk';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCartShopping } from "@fortawesome/free-solid-svg-icons"
+import { faCartShopping,faXmark } from "@fortawesome/free-solid-svg-icons"
 
 export const Cart = () => {
   const cartProducts = useAppSelector(state=>state.userDetails.cart);
@@ -41,9 +41,10 @@ export const Cart = () => {
       <FontAwesomeIcon icon={faCartShopping}/>
       <span>{numOfItems}</span>
     </div>
-    {/* <button onClick={()=>setOpened(prev=>!prev)}>Cart ({numOfItems})</button> */}
+
     {opened && 
     <div className={styles.container}>
+      <FontAwesomeIcon icon={faXmark} className={styles.closeButton} onClick={()=>setOpened(false)}/>
       <h2>Products:</h2>
       {cartProducts && cartProducts.map(product => 
         <div key={product.id} className={styles.cartItem}>
@@ -57,7 +58,8 @@ export const Cart = () => {
           <button onClick={()=>subtractProductQuantity(product)}>-</button>
         </div>
     )}
-    <button className={styles.checkoutButton} onClick={()=>router.push('/checkout')}>Checkout</button>
+    <span>Cart Total: {totalPrice}$</span>
+    <button className={styles.checkoutButton} onClick={()=>router.push('/checkout')}>Proceed to Checkout</button>
   </div>}
   </div>)
 }

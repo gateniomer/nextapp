@@ -63,7 +63,7 @@ export default function Header () {
     {!user && 
         <Link href={'/signin'}>
           <div>
-            Sign In <FontAwesomeIcon icon={faRightFromBracket}/>
+            Sign In <FontAwesomeIcon icon={faRightToBracket}/>
           </div>
         </Link>
     }

@@ -1,5 +1,6 @@
 .container {
-  /* display: flex; */
+  display: flex;
+  flex-direction: column;
   position: absolute;
   transform: translate(100%, 0);
   z-index: 1000;
@@ -36,6 +37,14 @@
   font-size: 0.9rem;
 }
 
+.closeButton {
+  display: inline;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  font-size: 2rem;
+}
+
 .cartItemQuantity {
   display: flex;
   align-items: center;
@@ -49,6 +58,9 @@
 }
 
 .checkoutButton {
+  display: block;
+  width: 100%;
+  margin-top: auto;
   background: #333;
   color: #fff;
   padding: 0.5rem 1rem;
