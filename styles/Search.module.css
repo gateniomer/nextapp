@@ -8,6 +8,11 @@
   border-radius: 20px;
   border: none;
   padding: 10px;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  outline: none;
+}
+.search input:focus {
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 8px;
 }
 .searchResultsContainer {
   position: absolute;
@@ -16,10 +21,11 @@
   background-color: #fff;
   transform: translate(2.5%, 10px);
   width: 95%;
-  z-index: 1;
+  z-index: 999;
   padding: 5px;
   gap: 10px;
   transition: all 1s ease-in-out;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 
 .searchResultsItem {
