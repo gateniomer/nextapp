@@ -2,11 +2,19 @@ html,
 body {
   padding: 0;
   margin: 0;
+
   font-family: -apple-system, Roboto, BlinkMacSystemFont, Segoe UI, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-  background: url("/circle-scatter-haikei.svg");
+  /* background: url("/circle-scatter-haikei.svg"); */
   /* background-size: cover; */
   /* background-position: 50% 200px; */
+  background-color: #fff;
+  background: url("/lauren-mancke-sil2Hx4iupI-unsplash.jpg");
+  background-repeat: no-repeat;
+  /* background-blend-mode: multiply; */
+  /* mix-blend-mode: multiply; */
+  background-size: cover;
+  color: #333;
 }
 
 a {
@@ -28,7 +36,12 @@ header {
   margin: 0 auto;
   z-index: 100;
 }
-header::before {
+
+header h1 {
+  font-size: 1.7rem;
+  cursor: pointer;
+}
+/* header::before {
   content: "";
   z-index: -1;
   position: absolute;
@@ -37,7 +50,7 @@ header::before {
   height: 400px;
 
   /* credit: https://css-generators.com/wavy-shapes/ */
-  --mask: radial-gradient(
+/* --mask: radial-gradient(
         134.16px at 50% calc(100% - 180px),
         #000 99%,
         #0000 101%
@@ -47,7 +60,7 @@ header::before {
       50% calc(100% - 60px) / 240px 100% repeat-x;
   -webkit-mask: var(--mask);
   mask: var(--mask);
-}
+} */
 
 nav {
   display: flex;

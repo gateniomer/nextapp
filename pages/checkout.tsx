@@ -26,7 +26,8 @@ const Checkout = ()=>{
     router.push(data.url);
   }
   return (
-    <div>
+    cartProducts && cartProducts.length!=0 ?
+      <div>
       <h1>Checkout Page</h1>
       {cartProducts.length!=0 && (<>
         <h2>Cart Items:</h2>
@@ -38,9 +39,10 @@ const Checkout = ()=>{
       ))}
       <button onClick={onClickHandler}>Pay Now</button>
       </>)}
-      {cartProducts.length === 0 && (<>
-        <h2>Cart Is Empty!</h2>
-      </>)}
+    </div>
+    :
+    <div>
+      <h2>Cart Is Empty!</h2>
     </div>
   )
 }

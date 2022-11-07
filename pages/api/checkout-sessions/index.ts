@@ -9,7 +9,7 @@ export default async function handler(
   res: NextApiResponse
 ) {
   const products = await Promise.all(req.body.items.map(async (item:Item) => {
-    const product = await (await fetch('https://fakestoreapi.com/products/'+item.id)).json();
+    const product = await (await fetch('https://api.escuelajs.co/api/v1/products/'+item.id)).json();
     return {
       name:product.title,
       amount:product.price*100,

@@ -46,6 +46,9 @@ export const userSlice = createSlice({
     builder.addCase(updateCartThunk.fulfilled,(state,action)=>{
       state.cart = action.payload;
     });
+    builder.addCase(updateCartThunk.rejected,(state,error)=>{
+      console.log('error',error.error)
+    })
   }
 })
 

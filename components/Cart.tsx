@@ -4,6 +4,9 @@ import { useAppSelector } from "../utils/hooks";
 import Link from 'next/link';
 import useOutsideAlerter from '../hooks/useOutsideAlerter';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCartShopping } from "@fortawesome/free-solid-svg-icons"
+
 export const Cart = () => {
   const cartProducts = useAppSelector(state=>state.userDetails.cart);
   const [opened,setOpened] = useState(false);
@@ -16,9 +19,14 @@ export const Cart = () => {
 
   return (
     <div className={styles.cart} ref={ref}>
-    <button onClick={()=>setOpened(prev=>!prev)}>Cart ({numOfItems})</button>
+    <div onClick={()=>setOpened(prev=>!prev)}>
+      <FontAwesomeIcon icon={faCartShopping}/>
+      <span>{numOfItems}</span>
+    </div>
+    {/* <button onClick={()=>setOpened(prev=>!prev)}>Cart ({numOfItems})</button> */}
     {opened && 
     <div className={styles.container} onClick={()=>setOpened(false)}>
+      <h2>Products:</h2>
       {cartProducts && cartProducts.map(product => 
       <Link key={product.id} href={'/products/'+product.id}>
         <div className={styles.cartItem}>

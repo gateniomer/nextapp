@@ -14,6 +14,7 @@ export const getServerSideProps:GetServerSideProps = async ({params}) => {
   try{
     const resp = await fetch('https://api.escuelajs.co/api/v1/products/'+params.id);
     const product = await resp.json();
+    product.image = product.images[0];
     return{
       props:{product}
     }
@@ -28,7 +29,7 @@ export const Product:NextPage<{product?:ProductType}> =  ({product}) => {
   const dispatch = useAppDispatch();
   const user = useAppSelector(state=>state.userDetails.user);
   const onAddToCartHandler = (product:ProductType) => {
-    dispatch(updateCartThunk(product))
+    dispatch(updateCartThunk(product));
   }
 
   return(
@@ -38,7 +39,7 @@ export const Product:NextPage<{product?:ProductType}> =  ({product}) => {
       </Head>
       {product && <div className={styles.container}>
         <div>
-          <Image src={product.images[0]} width='300px' height='400px'/>
+          <Image src={product.image} width='300px' height='400px'/>
         </div>
         <div>
           <h2>{product.title}</h2>
