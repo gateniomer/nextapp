@@ -24,7 +24,7 @@ const Category = ({products}:{products:ProductType[]})=>{
   return(
     <div>
       {products.map(product=>
-      <Link href={'/products/'+product.id}>
+      <Link href={'/products/'+product.id} key={product.id}>
         <div>
           <h3>{product.title}</h3>
           <h3>{product.price}</h3>
