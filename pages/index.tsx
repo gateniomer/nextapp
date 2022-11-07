@@ -27,7 +27,10 @@ const Home = ({products,categories}:{products:ProductType[],categories:any}) => 
         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat, vitae.</p>
       </div>
       <div className={styles.cardContainer}>
-        {products && products.map((product) =><Card key={product.id} product={product}/>)}
+        {products && products.map((product,index) =>{
+          if (index>8) return;
+          return <Card key={product.id} product={product}/>
+        })}
       </div>
     </main>
 
