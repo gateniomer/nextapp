@@ -3,7 +3,7 @@ const nextConfig = {
   reactStrictMode: false,
   swcMinify: true,
   images: {
-    domains: ['fakestoreapi.com','api.escuelajs.co','api.lorem.space','placeimg.com'],
+    domains: ['ih1.redbubble.net','api.escuelajs.co','api.lorem.space','placeimg.com'],
   },
 }
 

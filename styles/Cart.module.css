@@ -21,6 +21,7 @@
   /* background-color: #555; */
   padding: 5px;
   /* border: 5px solid #333; */
+  margin-bottom: 10px;
 }
 
 .cartItem img {
@@ -29,16 +30,32 @@
 
 .cartItemTitle {
   font-weight: bold;
+  display: block;
+}
+.cartItemTotal {
+  font-size: 0.9rem;
 }
 
 .cartItemQuantity {
-  display: inline-block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background-color: #333;
-  border-radius: 50%;
+  border-radius: 10px;
   font-size: 1rem;
-  width: 30px;
-  height: 30px;
-  line-height: 30px;
+  width: 3rem;
+  height: 2rem;
+  color: #fff;
+}
+
+.checkoutButton {
+  background: #333;
+  color: #fff;
+  padding: 0.5rem 1rem;
+  border-radius: 30px;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
 }
 
 @keyframes enter {

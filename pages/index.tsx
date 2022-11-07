@@ -8,7 +8,7 @@ import { updateProducts } from '../utils/products.slice'
 import Card from '../components/Card'
 
 export const getServerSideProps:GetServerSideProps = async () => {
-  const products = await (await fetch('https://api.escuelajs.co/api/v1/products?offset=1&limit=9')).json();
+  const products = await (await fetch('https://api.escuelajs.co/api/v1/products?offset=1&limit=30')).json();
   const categories = await (await fetch('https://api.escuelajs.co/api/v1/categories')).json();
   return {
     props:{products,categories}

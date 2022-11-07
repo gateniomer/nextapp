@@ -4,8 +4,18 @@ import { ProductType } from "./types";
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import { RootState } from "./store";
 
-export const updateCartThunk = createAsyncThunk<any,ProductType,{state:RootState}>('updateCartThunk',async (item:ProductType,{getState})=>{
-  const state = getState();
+type Props = {
+  item:ProductType,
+  subtruct?:boolean
+}
+type ThunkApi = {
+  state:RootState
+}
+export const updateCartThunk = createAsyncThunk
+<any,Props,ThunkApi>
+('updateCartThunk',async (props,thunkApi)=>{
+  const {item,subtruct} = props;
+  const state = thunkApi.getState();
   let isExist = -1;
   const oldCart = state.userDetails.cart ? [...state.userDetails.cart]: [];
   let newCart;
@@ -13,9 +23,14 @@ export const updateCartThunk = createAsyncThunk<any,ProductType,{state:RootState
     if(product.id===item.id) isExist = index;
   })
   if(isExist != -1){
-    const updatedProduct = {...item,quantity:oldCart[isExist].quantity+1};
+    const quantity = subtruct ? oldCart[isExist].quantity-1:oldCart[isExist].quantity+1;
+    const updatedProduct:ProductType = {...item,quantity};
     oldCart.splice(isExist,1);
-    newCart = [updatedProduct,...oldCart];
+    if(quantity>0){
+      newCart = [updatedProduct,...oldCart];
+    }else{
+      newCart = [...oldCart];
+    }
   }else{
     newCart = [{...item,quantity:1},...oldCart];
   }

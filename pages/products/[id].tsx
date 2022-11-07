@@ -29,7 +29,7 @@ export const Product:NextPage<{product?:ProductType}> =  ({product}) => {
   const dispatch = useAppDispatch();
   const user = useAppSelector(state=>state.userDetails.user);
   const onAddToCartHandler = (product:ProductType) => {
-    dispatch(updateCartThunk(product));
+    dispatch(updateCartThunk({item:product}));
   }
 
   return(

@@ -3,6 +3,10 @@ import styles from '../styles/Cart.module.css';
 import { useAppSelector } from "../utils/hooks";
 import Link from 'next/link';
 import useOutsideAlerter from '../hooks/useOutsideAlerter';
+import { useRouter } from 'next/router';
+import { useAppDispatch } from '../utils/hooks';
+import { ProductType } from '../utils/types';
+import { updateCartThunk } from '../utils/thunk';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCartShopping } from "@fortawesome/free-solid-svg-icons"
@@ -13,30 +17,47 @@ export const Cart = () => {
   const numOfItems = cartProducts?.reduce((prev,current)=>prev+current.quantity,0);
   const totalPrice = cartProducts?.reduce((prev,current)=>prev+(Math.floor(current.price*current.quantity)),0);
 
+  const router = useRouter();
+  const dispatch = useAppDispatch();
+
   const ref = useRef(null);
   const [clickedOutside] = useOutsideAlerter(ref);
   useEffect(()=>{setOpened(false)},[clickedOutside]);
 
+  const addProductQuantity = (product:ProductType)=>{
+    dispatch(updateCartThunk({item:product}));
+  } 
+  const subtractProductQuantity = (product:ProductType)=>{
+    dispatch(updateCartThunk({item:product,subtruct:true}));
+  } 
+
+  const navigateToProduct = (id:number)=>{
+    router.push('/products/'+id);
+    setOpened(false);
+  }
   return (
-    <div className={styles.cart} ref={ref}>
+    <div ref={ref}>
     <div onClick={()=>setOpened(prev=>!prev)}>
       <FontAwesomeIcon icon={faCartShopping}/>
       <span>{numOfItems}</span>
     </div>
     {/* <button onClick={()=>setOpened(prev=>!prev)}>Cart ({numOfItems})</button> */}
     {opened && 
-    <div className={styles.container} onClick={()=>setOpened(false)}>
+    <div className={styles.container}>
       <h2>Products:</h2>
       {cartProducts && cartProducts.map(product => 
-      <Link key={product.id} href={'/products/'+product.id}>
-        <div className={styles.cartItem}>
-          <img src={product.image} alt={product.title} />
-          <span className={styles.cartItemTitle}>{product.title}: {Math.floor(product.price * product.quantity)}$</span>
+        <div key={product.id} className={styles.cartItem}>
+          <img src={product.image} alt={product.title} onClick={()=>navigateToProduct(product.id)}/>
+          <div>
+            <span className={styles.cartItemTitle}  onClick={()=>navigateToProduct(product.id)}>{product.title}</span>
+            <span className={styles.cartItemTotal}>Total: {Math.floor(product.price * product.quantity)}$</span>
+          </div>
+          <button onClick={()=>addProductQuantity(product)}>+</button>
           <span className={styles.cartItemQuantity}>{product.quantity}</span>
+          <button onClick={()=>subtractProductQuantity(product)}>-</button>
         </div>
-      </Link>
     )}
-    <Link href={'/checkout'}>Checkout</Link>
+    <button className={styles.checkoutButton} onClick={()=>router.push('/checkout')}>Checkout</button>
   </div>}
   </div>)
 }
