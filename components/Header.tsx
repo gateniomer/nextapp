@@ -68,8 +68,8 @@ export default function Header () {
         </Link>
     }
     {user &&
-      <div style={{display:'flex',gap:'20px'}}>
-        <Cart />
+      <div style={{display:'flex',gap:'20px',fontSize:'1.1rem',cursor:'pointer'}}>
+        <Cart/>
         <Link href={'/profile'}><FontAwesomeIcon icon={faUserGroup}/></Link>
         <FontAwesomeIcon icon={faRightFromBracket} onClick={signOutUser}/>
         {/* <button onClick={signOutUser}>Sign Out</button> */}
