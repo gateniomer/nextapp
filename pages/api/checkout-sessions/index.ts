@@ -1,6 +1,6 @@
 import Stripe from "stripe";
 import type { NextApiRequest, NextApiResponse } from 'next';
-import {findProduct, products} from '../../../data/products';
+import {getProduct} from '../../api/products/[id]'
 
 type Item = {
   [key:string]:any
@@ -11,7 +11,7 @@ export default async function handler(
 ) {
   const products = await Promise.all(req.body.items.map(async (item:Item) => {
     // const product = await (await fetch('https://api.escuelajs.co/api/v1/products/'+item.id)).json();
-    const product = findProduct(item.id);
+    const product = getProduct(item.id);
     if (!product) return;
     return {
       name:product.title,
