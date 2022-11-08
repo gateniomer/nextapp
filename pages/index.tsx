@@ -9,6 +9,7 @@ import Card from '../components/Card'
 
 export const getServerSideProps:GetServerSideProps = async () => {
   const products = await (await fetch(process.env.NEXT_PUBLIC_URL+'/api/products')).json();
+  console.log(products);
   const categories = await (await fetch('https://api.escuelajs.co/api/v1/categories')).json();
   return {
     props:{products,categories}
