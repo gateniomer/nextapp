@@ -4,9 +4,8 @@ import {products} from '../../../data/products';
 export default function handler(req:NextApiRequest,res:NextApiResponse) {
   const {search} = req.query;
   console.log('search',search);
-  if (search) res.status(200).json(searchProducts(search));
-  res.status(200).json(products);
-  res.status(500).json({error:'error'});
+  if (search) res.status(200).json(JSON.stringify(searchProducts(search)));
+  res.status(200).json(JSON.stringify(products));
 }
 
 export const searchProducts = (input:any) => {
