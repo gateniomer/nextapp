@@ -6,12 +6,13 @@ import styles from '../../styles/Product.module.css';
 import Image from "next/image";
 import { useAppDispatch, useAppSelector } from "../../utils/hooks";
 import { updateCartThunk } from "../../utils/thunk";
-import { products,findProduct } from "../../data/products";
+import { products } from "../../data/products";
+import { getProduct } from "../api/products/[id]";
 
 export const getStaticProps:GetStaticProps = async (context)=>{
   const id = context.params?.id;
   // if(!id || typeof id === 'object') return {props:{}};
-  const product = findProduct(id);
+  const product = getProduct(id);
   if (!product) return {props:{}};
 
   return {
