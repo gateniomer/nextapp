@@ -29,6 +29,3 @@ export const products = [
   },
 ];
 
-export const findProduct = (id)=>{
-  return products.find(product=>product.id=== parseInt(id));
-}
