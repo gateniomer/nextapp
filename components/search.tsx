@@ -27,8 +27,11 @@ const Search = () => {
       if(input===''){
         setSearchResult([]);
       }else{
-        const filteredProducts = products.filter(product=>product.title.toLowerCase().includes(input.trim().toLowerCase()));
-        setSearchResult(filteredProducts);
+        // const filteredProducts = products.filter(product=>product.title.toLowerCase().includes(input.trim().toLowerCase()));
+        fetch(`${process.env.NEXT_PUBLIC_URL}/api/products?search=${input}`)
+        .then(resp=>resp.json())
+        .then(filteredProducts=>setSearchResult(filteredProducts))
+        .catch(error=>console.log(error))
       }
     },500);
 
@@ -44,7 +47,7 @@ const Search = () => {
           searchResult.map((product:ProductType)=>
           <Link key={product.id} href={'/products/'+product.id}>
             <div onClick={clearSearch} className={styles.searchResultsItem}>
-              <Image src={product.images[0]} 
+              <Image src={product.image} 
               width={'50%'}
               height={'50%'}
               objectFit='cover'/>
