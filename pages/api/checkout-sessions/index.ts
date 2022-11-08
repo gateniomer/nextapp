@@ -1,6 +1,7 @@
 import Stripe from "stripe";
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from 'next';
+import {findProduct, products} from '../../../data/products';
+
 type Item = {
   [key:string]:any
 }
@@ -9,11 +10,13 @@ export default async function handler(
   res: NextApiResponse
 ) {
   const products = await Promise.all(req.body.items.map(async (item:Item) => {
-    const product = await (await fetch('https://api.escuelajs.co/api/v1/products/'+item.id)).json();
+    // const product = await (await fetch('https://api.escuelajs.co/api/v1/products/'+item.id)).json();
+    const product = findProduct(item.id);
+    if (!product) return;
     return {
       name:product.title,
       amount:product.price*100,
-      currency:'usd',
+      currency:'ils',
       quantity:item.quantity
     };
   }));

@@ -33,7 +33,7 @@ const Checkout = ()=>{
         <h2>Cart Items:</h2>
       {cartProducts.map(product=>(
         <div key={product.id}>
-          <span>{product.title}</span>
+          <span><strong>{product.title}:</strong> </span>
           <span>{product.price}</span>
         </div>
       ))}

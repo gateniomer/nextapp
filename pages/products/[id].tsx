@@ -1,4 +1,4 @@
-import { GetServerSideProps, NextPage } from "next"
+import { GetStaticPaths, GetStaticProps, NextPage } from "next"
 import Head from "next/head";
 import Link from "next/link";
 import { ProductType } from "../../utils/types";
@@ -6,25 +6,27 @@ import styles from '../../styles/Product.module.css';
 import Image from "next/image";
 import { useAppDispatch, useAppSelector } from "../../utils/hooks";
 import { updateCartThunk } from "../../utils/thunk";
+import { products,findProduct } from "../../data/products";
 
-export const getServerSideProps:GetServerSideProps = async ({params}) => {
-  
-  if(!params) return {props:{}}
+export const getStaticProps:GetStaticProps = async (context)=>{
+  const id = context.params?.id;
+  // if(!id || typeof id === 'object') return {props:{}};
+  const product = findProduct(id);
+  if (!product) return {props:{}};
 
-  try{
-    const resp = await fetch('https://api.escuelajs.co/api/v1/products/'+params.id);
-    const product = await resp.json();
-    product.image = product.images[0];
-    return{
-      props:{product}
-    }
-  }catch(e){
-    return{
-      props:{error:'no such id ' + params.id}
-    }
+  return {
+    props: {product}
   }
-  
 }
+
+export const getStaticPaths:GetStaticPaths = async () => {
+  const paths = products.map(product=>({params:{id:product.id.toString()}}))
+  return {
+    paths,
+    fallback: false,
+  }
+}
+
 export const Product:NextPage<{product?:ProductType}> =  ({product}) => {
   const dispatch = useAppDispatch();
   const user = useAppSelector(state=>state.userDetails.user);
