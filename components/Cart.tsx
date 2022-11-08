@@ -51,14 +51,14 @@ export const Cart = () => {
           <img src={product.image} alt={product.title} onClick={()=>navigateToProduct(product.id)}/>
           <div>
             <span className={styles.cartItemTitle}  onClick={()=>navigateToProduct(product.id)}>{product.title}</span>
-            <span className={styles.cartItemTotal}>Total: {Math.floor(product.price * product.quantity)}$</span>
+            <span className={styles.cartItemTotal}>Total: {Math.floor(product.price * product.quantity)}₪</span>
           </div>
           <button onClick={()=>addProductQuantity(product)}>+</button>
           <span className={styles.cartItemQuantity}>{product.quantity}</span>
           <button onClick={()=>subtractProductQuantity(product)}>-</button>
         </div>
     )}
-    <span>Cart Total: {totalPrice}$</span>
+    <span>Cart Total: {totalPrice}₪</span>
     <button className={styles.checkoutButton} onClick={()=>router.push('/checkout')}>Proceed to Checkout</button>
   </div>}
   </div>)
