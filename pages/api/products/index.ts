@@ -3,7 +3,6 @@ import {products} from '../../../data/products';
 
 export default function handler(req:NextApiRequest,res:NextApiResponse) {
   const {search} = req.query;
-  console.log('search',search);
   if (search) return res.status(200).json(searchProducts(search));
   return res.status(200).json(products);
 }
