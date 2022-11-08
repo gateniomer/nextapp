@@ -8,7 +8,8 @@ import { updateProducts } from '../utils/products.slice'
 import Card from '../components/Card'
 
 export const getServerSideProps:GetServerSideProps = async () => {
-  const products = await (await fetch('http://localhost:3000/api/products')).json();
+  const url = process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : 'https://nextapp-gilt.vercel.app/';
+  const products = await (await fetch(url+'/api/products')).json();
   const categories = await (await fetch('https://api.escuelajs.co/api/v1/categories')).json();
   return {
     props:{products,categories}
