@@ -12,7 +12,7 @@ const Card = ({product}:{product:ProductType}) => {
       <div className={styles.imageContainer}>
       <Image src={product.image} layout={'fill'} objectFit={'cover'} placeholder={'blur'} blurDataURL={'/product_placeholder.jpg'}/>
       </div>
-      <span className={styles.category}>{product.category}</span>
+      <span className={styles.category}>{product.category.name}</span>
       <div className={styles.bottomContainer}>
         <span className={styles.title}>{product.title}</span>
         <span className={styles.price}>{product.price}₪</span>

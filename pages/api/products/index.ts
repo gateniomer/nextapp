@@ -2,11 +2,19 @@ import { NextApiRequest, NextApiResponse } from "next";
 import {products} from '../../../data/products';
 
 export default function handler(req:NextApiRequest,res:NextApiResponse) {
-  const {search} = req.query;
-  if (search) return res.status(200).json(searchProducts(search));
-  return res.status(200).json(products);
+  const {search,category} = req.query;
+  return res.status(200).json(searchProductsByQuery({search,category}));
 }
 
-export const searchProducts = (input:any) => {
-  return products.filter(product=>product.title.toLowerCase().includes(input.trim().toLowerCase()));
+export const searchProductsByQuery = (anotherConditions?:any) => {
+  return products.filter(product=>{
+
+    const {search,category} = anotherConditions;
+    let isValid = true;
+
+    if(search) isValid = isValid && product.title.toLowerCase().includes(search.trim().toLowerCase());
+    if(category) isValid = isValid && (product.category.id === parseInt(category));
+
+    return isValid;
+  });
  }

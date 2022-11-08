@@ -11,18 +11,20 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUserGroup,faRightFromBracket,faRightToBracket } from "@fortawesome/free-solid-svg-icons"
 
 import Search from "./search"
+
 type Category = {
   id:number,
   name:string,
-  image:string,
+  image?:string,
 }
+
 export default function Header () {
   const [categories,setCategories] = useState<Category[]>([]);
   const user = useAppSelector(state=>state.userDetails.user);
   const dispatch = useAppDispatch();
 
   useEffect(()=>{
-    fetch('https://api.escuelajs.co/api/v1/categories')
+    fetch(process.env.NEXT_PUBLIC_URL+'/api/categories')
     .then(resp=>resp.json())
     .then(categories=>setCategories(categories))
     .catch(e=>console.log(e))

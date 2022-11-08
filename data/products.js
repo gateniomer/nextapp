@@ -1,30 +1,32 @@
+import {CATEGORIES} from './categories';
+
 export const products = [
   {
-    id:1,
-    title:'test',
+    id:0,
+    title:'SHOE TEST',
     price:120,
-    category:'newcategory',
+    category:CATEGORIES.SHOES,
     image:'/products/test.jpg'
   },
   {
-    id:2,
-    title:'test2',
+    id:1,
+    title:'PANTS TEST',
     price:70,
-    category:'newcategory',
+    category:CATEGORIES.PANTS,
     image:'/products/test.jpg'
   },
   {
     id:3,
-    title:'test3',
+    title:'ANOTHER PANTS',
     price:70,
-    category:'newcategory',
+    category:CATEGORIES.PANTS,
     image:'/products/test.jpg'
   },
   {
     id:4,
-    title:'test4',
+    title:'SHIRT TEST',
     price:70,
-    category:'newcategory',
+    category:CATEGORIES.SHIRTS,
     image:'/products/test.jpg'
   },
 ];
