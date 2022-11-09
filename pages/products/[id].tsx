@@ -11,7 +11,6 @@ import { getProduct } from "../api/products/[id]";
 
 export const getStaticProps:GetStaticProps = async (context)=>{
   const id = context.params?.id;
-  // if(!id || typeof id === 'object') return {props:{}};
   const product = getProduct(id);
   if (!product) return {props:{}};
 
@@ -31,23 +30,33 @@ export const getStaticPaths:GetStaticPaths = async () => {
 export const Product:NextPage<{product?:ProductType}> =  ({product}) => {
   const dispatch = useAppDispatch();
   const user = useAppSelector(state=>state.userDetails.user);
+
+  //dispatch adding product to cart action
   const onAddToCartHandler = (product:ProductType) => {
     dispatch(updateCartThunk({item:product}));
   }
 
   return(
-    <div>
+    <>
       <Head>
         <title>Next E-Store | {product?.title}</title>
       </Head>
-      {product && <div className={styles.container}>
-        <div>
-          <Image src={product.image} width='300px' height='400px'/>
+      {product && 
+      <div className={styles.container}>
+        <div className={styles.productDetailsContainer}>
+        <div className={styles.imageContainer}>
+          <Image src={product.image} layout={'fill'} objectFit={'cover'}/>
         </div>
         <div>
-          <h2>{product.title}</h2>
           <p>{product.category.name}</p>
-          <p>{product.price}</p>
+          <h2>{product.title}</h2>
+          <p>{product.description}</p>
+          
+        </div>
+        </div>
+
+        <div className={styles.productSelections}>
+        <p>{product.price}₪</p>
           {user && 
           <div>
             <button onClick={()=>onAddToCartHandler(product)}>Add To Cart</button>
@@ -59,7 +68,7 @@ export const Product:NextPage<{product?:ProductType}> =  ({product}) => {
           </div>}
         </div>
         </div>}
-    </div>
+    </>
   )
 }
 export default Product;
