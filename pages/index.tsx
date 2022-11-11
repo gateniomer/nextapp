@@ -10,19 +10,11 @@ import { useEffect } from 'react'
 
 export const getServerSideProps:GetServerSideProps = async () => {
   const products = await (await fetch(process.env.NEXT_PUBLIC_URL+'/api/products')).json();
-  return {
-    props:{products}
-  }
-}
-
-const Home = ({products}:{products:ProductType[]}) => {
-  const dispatch = useAppDispatch();
-  dispatch(updateProducts(products));
-
 
   const getRandomProducts = (num:number) => {
     let productsArray:ProductType[] = [];
     let productsID:number[] = [];
+
     while(productsArray.length<num){
       const random = Math.floor(Math.random()*products.length);
       if(!productsID.includes(random)){
@@ -33,8 +25,18 @@ const Home = ({products}:{products:ProductType[]}) => {
 
     return productsArray;
   }
+  
   const productsToDisplay = getRandomProducts(10);
-  console.log(productsToDisplay);
+
+  return {
+    props:{products:productsToDisplay}
+  }
+}
+
+const Home = ({products}:{products:ProductType[]}) => {
+  const dispatch = useAppDispatch();
+  dispatch(updateProducts(products));
+
   return (
     <>
     <main className={styles.container}>
@@ -44,7 +46,7 @@ const Home = ({products}:{products:ProductType[]}) => {
       </div>
       <div className={styles.cardContainer}>
         {
-          productsToDisplay.map(product=><Card key={product.id} product={product}/>)
+          products.map(product=><Card key={product.id} product={product}/>)
         }
       </div>
     </main>
