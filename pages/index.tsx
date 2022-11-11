@@ -1,12 +1,9 @@
 import type { GetServerSideProps } from 'next'
 import { ProductType } from '../utils/types'
-import Image from 'next/image'
-import Link from 'next/link'
 import styles from '../styles/Home.module.css'
 import { useAppDispatch } from '../utils/hooks'
 import { updateProducts } from '../utils/products.slice'
 import Card from '../components/Card'
-import { useEffect } from 'react'
 
 export const getServerSideProps:GetServerSideProps = async () => {
   const products = await (await fetch(process.env.NEXT_PUBLIC_URL+'/api/products')).json();
@@ -25,8 +22,8 @@ export const getServerSideProps:GetServerSideProps = async () => {
 
     return productsArray;
   }
-  
-  const productsToDisplay = getRandomProducts(10);
+
+  const productsToDisplay = getRandomProducts(9);
 
   return {
     props:{products:productsToDisplay}
