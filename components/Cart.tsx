@@ -59,7 +59,10 @@ export const Cart = () => {
         </div>
     )}
     <span>Cart Total: {totalPrice}₪</span>
-    <button className={styles.checkoutButton} onClick={()=>router.push('/checkout')}>Proceed to Checkout</button>
+    <button className={styles.checkoutButton} onClick={()=>{
+      setOpened(false);
+      router.push('/checkout')
+    }}>Proceed to Checkout</button>
   </div>}
   </div>)
 }
