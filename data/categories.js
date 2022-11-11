@@ -1,14 +1,18 @@
 export const CATEGORIES = {
-  SHOES:{
+  TOP:{
     id:0,
+    name:'Tops'
+  },
+  TROUSERS:{
+    id:1,
+    name:'Trousers'
+  },
+  SHOES:{
+    id:2,
     name:'Shoes'
   },
-  SHIRTS:{
-    id:1,
-    name:'Shirts'
-  },
-  PANTS:{
-    id:2,
-    name:'Pants'
+  ACCESSORIES:{
+    id:3,
+    name:'Accessories'
   },
 }
