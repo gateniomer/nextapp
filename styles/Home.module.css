@@ -37,4 +37,7 @@
     margin: 0 auto;
     /* overflow: hidden; */
   }
+  .cardContainer > div {
+    transform: skew(0deg);
+  }
 }
