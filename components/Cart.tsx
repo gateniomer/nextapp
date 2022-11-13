@@ -54,9 +54,9 @@ export const Cart = () => {
             <span className={styles.cartItemTitle}  onClick={()=>navigateToProduct(product.id)}>{product.title}</span>
             <span className={styles.cartItemTotal}>Total: {Math.floor(product.price * product.quantity)}₪</span>
           </div>
-          <button onClick={()=>addProductQuantity(product)}>+</button>
-          <span className={styles.cartItemQuantity}>{product.quantity}</span>
           <button onClick={()=>subtractProductQuantity(product)}>-</button>
+          <span className={styles.cartItemQuantity}>{product.quantity}</span>
+          <button onClick={()=>addProductQuantity(product)}>+</button>
         </div>
     )}
     </div>

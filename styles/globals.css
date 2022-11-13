@@ -6,12 +6,11 @@ html,
 body {
   padding: 0;
   margin: 0;
-
   font-family: -apple-system, Roboto, BlinkMacSystemFont, Segoe UI, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
   background-color: #fafafa;
   /* background-image: url("/background.svg"); */
-  background-image: url("/background4.svg");
+  background-image: url("/background.svg");
   background-repeat: no-repeat;
   background-size: cover;
   color: #333;
@@ -80,6 +79,21 @@ nav {
 .block div {
   width: 100%;
   /* border: 1px solid black; */
+}
+
+.btn {
+  color: #fff;
+  background: #ffbd59;
+  padding: 5px 15px;
+  border: none;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  font-size: 1.2rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+.btn:hover {
+  opacity: 0.8;
 }
 
 @media (max-width: 900px) {

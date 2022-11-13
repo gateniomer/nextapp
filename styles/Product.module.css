@@ -48,7 +48,7 @@
 .productSelections {
   background: var(--product-background);
   width: 500px;
-  padding: 20px;
+  padding: 30px;
   border-radius: 20px;
   border: 5px solid white;
   opacity: 0;
@@ -64,6 +64,30 @@
   gap: 30px;
   padding: 20px;
   margin: 0 auto;
+}
+
+.price {
+  font-size: 1.8rem;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.quantityContainer {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+.quantityContainer span {
+  font-size: 1.2rem;
+}
+
+.buttonsContainer {
+  display: flex;
+  align-items: center;
+  /* justify-content: center; */
+  gap: 10px;
 }
 
 @media (max-width: 900px) {

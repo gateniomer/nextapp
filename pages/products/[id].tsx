@@ -10,6 +10,7 @@ import { products } from "../../data/products";
 import { getProduct } from "../api/products/[id]";
 import { searchProductsByQuery } from "../api/products";
 import Card from "../../components/Card";
+import {useState} from 'react';
 
 export const getStaticProps:GetStaticProps = async (context)=>{
   const id = context.params?.id;
@@ -40,9 +41,18 @@ export const Product:NextPage<{product:ProductType,relatedProducts:ProductType[]
   const dispatch = useAppDispatch();
   const user = useAppSelector(state=>state.userDetails.user);
 
+  const [quantity,setQuantity] = useState(1);
+
   //dispatch adding product to cart action
   const onAddToCartHandler = (product:ProductType) => {
     dispatch(updateCartThunk({item:product}));
+  }
+
+  const addQuantity = () => {
+    setQuantity(prev=>prev+1);
+  }
+  const subtractQuantity = () => {
+    setQuantity(prev=> (prev===1) ? prev : prev-1);
   }
 
   return(
@@ -65,15 +75,22 @@ export const Product:NextPage<{product:ProductType,relatedProducts:ProductType[]
         </div>
 
         <div className={styles.productSelections}>
-        <p>{product.price}₪</p>
+        <span className={styles.price}>{product.price}₪</span >
+
+        <div className={styles.quantityContainer}>
+          <button className="btn" onClick={subtractQuantity}>-</button>
+          <span>{quantity}</span>
+          <button className="btn" onClick={addQuantity}>+</button>
+        </div>
+
           {user && 
-          <div>
-            <button onClick={()=>onAddToCartHandler(product)}>Add To Cart</button>
-            <button>Buy Now</button>
+          <div className={styles.buttonsContainer}>
+            <button className='btn' onClick={()=>onAddToCartHandler(product)}>Add to Cart</button>
+            <button className='btn'>Buy Now</button>
           </div>}
           {!user && 
           <div>
-            <Link href={'/signin'}>Sign In To Buy</Link>
+            <Link href={'/signin'}>Login to Buy</Link>
           </div>}
         </div>
         
