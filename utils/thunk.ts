@@ -24,18 +24,20 @@ export const updateCartThunk = createAsyncThunk
     if(product.id===item.id) isExist = index;
   })
   
-  const addValue = quantity ? quantity : 1;
+  const quantityToAdd = quantity ? quantity : 1;
   if(isExist != -1){
-    const newQuantity = subtruct ? oldCart[isExist].quantity-1:oldCart[isExist].quantity+addValue;
-    const updatedProduct:ProductType = {...item,quantity:newQuantity};
+    const updatedProduct:ProductType = {
+      ...item,
+      quantity:subtruct ? oldCart[isExist].quantity-1:oldCart[isExist].quantity+quantityToAdd
+    };
     oldCart.splice(isExist,1);
-    if(newQuantity>0){
+    if(updatedProduct.quantity>0){
       newCart = [updatedProduct,...oldCart];
     }else{
       newCart = [...oldCart];
     }
   }else{
-    newCart = [{...item,quantity:addValue},...oldCart];
+    newCart = [{...item,quantity:quantityToAdd},...oldCart];
   }
   state.userDetails.user && await updateUserCartInFirestore(state.userDetails.user,newCart);
   return newCart;
