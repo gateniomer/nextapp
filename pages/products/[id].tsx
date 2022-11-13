@@ -115,7 +115,7 @@ export const Product:NextPage<{product:ProductType,relatedProducts:ProductType[]
           </div>}
           {!user && 
           <div>
-            <Link href={'/signin'}>Login to Buy</Link>
+            <Link href={'/signin'}><span className="btn">Login to Buy</span></Link>
           </div>}
         </div>
         
