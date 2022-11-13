@@ -75,7 +75,7 @@ export const Product:NextPage<{product:ProductType,relatedProducts:ProductType[]
           <h3>Related Products</h3>
         <div style={{display:'flex'}}>
           {relatedProducts.map(product=>
-            <Card product={product}/>
+            <Card key={product.id} product={product}/>
           )}
         </div>
     </>
