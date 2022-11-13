@@ -46,8 +46,8 @@ export const Product:NextPage<{product:ProductType,relatedProducts:ProductType[]
   const [selectedSize,setSelectedSize] = useState(0);
 
   //dispatch adding product to cart action
-  const onAddToCartHandler = (product:ProductType) => {
-    dispatch(updateCartThunk({item:product}));
+  const onAddToCartHandler = () => {
+    dispatch(updateCartThunk({item:product,quantity}));
   }
 
   const addQuantity = () => {
@@ -110,7 +110,7 @@ export const Product:NextPage<{product:ProductType,relatedProducts:ProductType[]
 
           {user && 
           <div className={styles.buttonsContainer}>
-            <button className='btn' onClick={()=>onAddToCartHandler(product)}>Add to Cart</button>
+            <button className='btn' onClick={()=>onAddToCartHandler()}>Add to Cart</button>
             <button className='btn'>Buy Now</button>
           </div>}
           {!user && 
