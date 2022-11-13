@@ -2,11 +2,11 @@
   position: relative;
   border-radius: 10px;
   border: 4px solid #fff;
-  background-color: #f3fee0;
+  background-color: #ffefbc;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   transition: all 0.3s ease;
   animation: enter 0.4s;
-  transform: skew(-10deg, 10deg);
+  min-width: 250px;
   text-align: end;
   cursor: pointer;
 }

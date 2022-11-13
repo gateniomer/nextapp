@@ -56,6 +56,16 @@
   margin-top: 100px;
 }
 
+.relatedProductsContainer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+  padding: 20px;
+  margin: 0 auto;
+}
+
 @media (max-width: 900px) {
   .container {
     flex-direction: column;

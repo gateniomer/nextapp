@@ -15,7 +15,13 @@ export const getStaticProps:GetStaticProps = async (context)=>{
   const id = context.params?.id;
   const product = getProduct(id);
   if (!product) return {props:{}};
-  const relatedProducts = searchProductsByQuery({limit:4,category:product.category.id,ignore:[product.id]});
+  const relatedProducts = searchProductsByQuery(
+    {
+      limit:4,
+      category:product.category.id,
+      ignore:[product.id],
+      random:'true'
+    });
 
   return {
     props: {product,relatedProducts}
@@ -72,8 +78,8 @@ export const Product:NextPage<{product:ProductType,relatedProducts:ProductType[]
         </div>
         
         </div>}
-          <h3>Related Products</h3>
-        <div style={{display:'flex'}}>
+          {/* <h3>Related Products</h3> */}
+        <div className={styles.relatedProductsContainer}>
           {relatedProducts.map(product=>
             <Card key={product.id} product={product}/>
           )}

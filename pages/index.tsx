@@ -6,24 +6,10 @@ import { updateProducts } from '../utils/products.slice'
 import Card from '../components/Card'
 
 export const getServerSideProps:GetServerSideProps = async () => {
-  const products = await (await fetch(process.env.NEXT_PUBLIC_URL+'/api/products')).json();
-
-  const getRandomProducts = (num:number) => {
-    let productsArray:ProductType[] = [];
-
-    while(productsArray.length<num){
-      const random = Math.floor(Math.random()*products.length);
-        productsArray.push(products[random]);
-        products.splice(random,1);
-    }
-
-    return productsArray;
-  }
-
-  const productsToDisplay = getRandomProducts(9);
+  const products = await (await fetch(process.env.NEXT_PUBLIC_URL+'/api/products?random=true')).json();
 
   return {
-    props:{products:productsToDisplay}
+    props:{products}
   }
 }
 

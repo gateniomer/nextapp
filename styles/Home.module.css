@@ -23,6 +23,10 @@
   /* overflow: hidden; */
 }
 
+.cardContainer > div {
+  transform: skew(-10deg, 10deg);
+}
+
 @media (max-width: 900px) {
   .container {
     display: block;

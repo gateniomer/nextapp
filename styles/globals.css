@@ -13,11 +13,11 @@ body {
   /* background-size: cover; */
   /* background-position: 50% 200px; */
   background-color: #fff;
-  background: url("/lauren-mancke-sil2Hx4iupI-unsplash.jpg");
-  background-repeat: no-repeat;
+  background: url("/background.svg");
+  /* background-repeat: no-repeat; */
   /* background-blend-mode: multiply; */
   /* mix-blend-mode: multiply; */
-  background-size: cover;
+  /* background-size: cover; */
   color: #333;
 }
 

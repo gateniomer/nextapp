@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import {products} from '../../../data/products';
-
+import { ProductType } from "../../../utils/types";
 // type APIQuery = {
 //   search?:string | undefined,
 //   category?:number,
@@ -9,17 +9,20 @@ import {products} from '../../../data/products';
 // }
 
 export default function handler(req:NextApiRequest,res:NextApiResponse) {
-  const {search,category,limit,ignore} = req.query;
-  return res.status(200).json(searchProductsByQuery({search,category,limit,ignore}));
+  const {search,category,limit,ignore,random} = req.query;
+  return res.status(200).json(searchProductsByQuery({search,category,limit,ignore,random}));
 }
 
 export const searchProductsByQuery = (anotherConditions?:any) => {
   //destructure conditions
-  const {search,category,limit,ignore} = anotherConditions;
+  const {search,category,limit,ignore,random} = anotherConditions;
   //count number of filteredItems
   let counter=0;
+  //decide if products are random or not
+  let productsArray:ProductType[] = [...products];
+  if(random && random === 'true') productsArray = randomArary(products);
 
-  return products.filter((product)=>{
+  return productsArray.filter((product)=>{
     //if items exceeds limit (if exists)
     if((limit && counter >= limit)|| 
     (ignore && ignore.includes(product.id)))
@@ -37,3 +40,16 @@ export const searchProductsByQuery = (anotherConditions?:any) => {
     return isValid;
   });
  }
+
+ const randomArary = (orignalArray:ProductType[]) => {
+  let temp = [...orignalArray];
+  let productsArray:ProductType[] = [];
+
+  while(temp.length>0){
+    const random = Math.floor(Math.random()*temp.length);
+      productsArray.push(temp[random]);
+      temp.splice(random,1);
+  }
+
+  return productsArray;
+}
