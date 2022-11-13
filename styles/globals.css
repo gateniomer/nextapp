@@ -13,11 +13,12 @@ body {
   /* background-size: cover; */
   /* background-position: 50% 200px; */
   background-color: #fff;
-  background: url("/background.svg");
+  /* background: url("/background.svg"); */
+  background: url("/background2.svg");
   /* background-repeat: no-repeat; */
   /* background-blend-mode: multiply; */
   /* mix-blend-mode: multiply; */
-  /* background-size: cover; */
+  background-size: contain;
   color: #333;
 }
 
