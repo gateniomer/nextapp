@@ -10,14 +10,11 @@ export const getServerSideProps:GetServerSideProps = async () => {
 
   const getRandomProducts = (num:number) => {
     let productsArray:ProductType[] = [];
-    let productsID:number[] = [];
 
     while(productsArray.length<num){
       const random = Math.floor(Math.random()*products.length);
-      if(!productsID.includes(random)){
-        productsID.push(random);
         productsArray.push(products[random]);
-      }
+        products.splice(random,1);
     }
 
     return productsArray;
