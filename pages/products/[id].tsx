@@ -8,14 +8,17 @@ import { useAppDispatch, useAppSelector } from "../../utils/hooks";
 import { updateCartThunk } from "../../utils/thunk";
 import { products } from "../../data/products";
 import { getProduct } from "../api/products/[id]";
+import { searchProductsByQuery } from "../api/products";
+import Card from "../../components/Card";
 
 export const getStaticProps:GetStaticProps = async (context)=>{
   const id = context.params?.id;
   const product = getProduct(id);
   if (!product) return {props:{}};
+  const relatedProducts = searchProductsByQuery({limit:4,category:product.category.id,ignore:[product.id]});
 
   return {
-    props: {product}
+    props: {product,relatedProducts}
   }
 }
 
@@ -27,7 +30,7 @@ export const getStaticPaths:GetStaticPaths = async () => {
   }
 }
 
-export const Product:NextPage<{product?:ProductType}> =  ({product}) => {
+export const Product:NextPage<{product:ProductType,relatedProducts:ProductType[]}> =  ({product,relatedProducts}) => {
   const dispatch = useAppDispatch();
   const user = useAppSelector(state=>state.userDetails.user);
 
@@ -67,7 +70,14 @@ export const Product:NextPage<{product?:ProductType}> =  ({product}) => {
             <Link href={'/signin'}>Sign In To Buy</Link>
           </div>}
         </div>
+        
         </div>}
+          <h3>Related Products</h3>
+        <div style={{display:'flex'}}>
+          {relatedProducts.map(product=>
+            <Card product={product}/>
+          )}
+        </div>
     </>
   )
 }

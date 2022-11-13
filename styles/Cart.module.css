@@ -14,6 +14,11 @@
   animation: enter 0.4s forwards;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
+.itemsContainer {
+  overflow: hidden;
+  overflow-y: scroll;
+  margin-bottom: 20px;
+}
 .cartItem {
   display: flex;
   justify-content: space-between;

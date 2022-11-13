@@ -46,6 +46,7 @@ export const Cart = () => {
     <div className={styles.container}>
       <FontAwesomeIcon icon={faXmark} className={styles.closeButton} onClick={()=>setOpened(false)}/>
       <h2>Products:</h2>
+      <div className={styles.itemsContainer}>
       {cartProducts && cartProducts.map(product => 
         <div key={product.id} className={styles.cartItem}>
           <img src={product.image} alt={product.title} onClick={()=>navigateToProduct(product.id)}/>
@@ -58,6 +59,7 @@ export const Cart = () => {
           <button onClick={()=>subtractProductQuantity(product)}>-</button>
         </div>
     )}
+    </div>
     <span>Cart Total: {totalPrice}₪</span>
     <button className={styles.checkoutButton} onClick={()=>{
       setOpened(false);
