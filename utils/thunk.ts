@@ -7,7 +7,8 @@ import { RootState } from "./store";
 type Props = {
   item:ProductType,
   subtruct?:boolean,
-  quantity?:number
+  quantity?:number,
+  size?:number|string
 }
 type ThunkApi = {
   state:RootState
@@ -15,7 +16,7 @@ type ThunkApi = {
 export const updateCartThunk = createAsyncThunk
 <any,Props,ThunkApi>
 ('updateCartThunk',async (props,thunkApi)=>{
-  const {item,subtruct,quantity} = props;
+  const {item,subtruct,quantity,size} = props;
   const state = thunkApi.getState();
   let isExist = -1;
   const oldCart = state.userDetails.cart ? [...state.userDetails.cart]: [];
@@ -28,7 +29,7 @@ export const updateCartThunk = createAsyncThunk
   if(isExist != -1){
     const updatedProduct:ProductType = {
       ...item,
-      quantity:subtruct ? oldCart[isExist].quantity-1:oldCart[isExist].quantity+quantityToAdd
+      quantity:subtruct ? oldCart[isExist].quantity-1:oldCart[isExist].quantity+quantityToAdd,
     };
     oldCart.splice(isExist,1);
     if(updatedProduct.quantity>0){
