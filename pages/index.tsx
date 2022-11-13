@@ -39,24 +39,6 @@ const Home = ({products}:{products:ProductType[]}) => {
 
       </div>
     </section>
-
-    <section id={'section-b'} className={'block'}>
-      <div>
-
-      </div>
-      <div>
-
-      </div>
-    </section>
-
-    <section id={'section-c'} className={'block'}>
-      <div>
-
-      </div>
-      <div>
-
-      </div>
-    </section>
     </>
   )
 }

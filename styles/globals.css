@@ -9,16 +9,11 @@ body {
 
   font-family: -apple-system, Roboto, BlinkMacSystemFont, Segoe UI, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-  /* background: url("/circle-scatter-haikei.svg"); */
-  /* background-size: cover; */
-  /* background-position: 50% 200px; */
-  background-color: #fff;
-  /* background: url("/background.svg"); */
-  background: url("/background2.svg");
-  /* background-repeat: no-repeat; */
-  /* background-blend-mode: multiply; */
-  /* mix-blend-mode: multiply; */
-  background-size: contain;
+  background-color: #fafafa;
+  /* background-image: url("/background.svg"); */
+  background-image: url("/background4.svg");
+  background-repeat: no-repeat;
+  background-size: cover;
   color: #333;
 }
 
@@ -83,13 +78,10 @@ nav {
 }
 
 .block div {
-  background: #555;
   width: 100%;
-  border: 1px solid black;
+  /* border: 1px solid black; */
 }
-.block :first-child {
-  background: #777;
-}
+
 @media (max-width: 900px) {
   header {
     display: block;
