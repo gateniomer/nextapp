@@ -69,7 +69,7 @@ export const Product:NextPage<{product:ProductType,relatedProducts:ProductType[]
           <Image src={product.image} layout={'fill'} objectFit={'cover'}/>
         </div>
         <div>
-          <p>{product.category.name}</p>
+          <Link href={'/categories/'+product.category.id}><span>{product.category.name}</span></Link>
           <h2>{product.title}</h2>
           <p>{product.description}</p>
           
