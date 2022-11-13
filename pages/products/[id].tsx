@@ -11,6 +11,7 @@ import { getProduct } from "../api/products/[id]";
 import { searchProductsByQuery } from "../api/products";
 import Card from "../../components/Card";
 import {useState} from 'react';
+import {CLOTH_SIZES,SHOE_SIZES} from '../../data/sizes';
 
 export const getStaticProps:GetStaticProps = async (context)=>{
   const id = context.params?.id;
@@ -42,6 +43,7 @@ export const Product:NextPage<{product:ProductType,relatedProducts:ProductType[]
   const user = useAppSelector(state=>state.userDetails.user);
 
   const [quantity,setQuantity] = useState(1);
+  const [selectedSize,setSelectedSize] = useState(0);
 
   //dispatch adding product to cart action
   const onAddToCartHandler = (product:ProductType) => {
@@ -76,6 +78,29 @@ export const Product:NextPage<{product:ProductType,relatedProducts:ProductType[]
 
         <div className={styles.productSelections}>
         <span className={styles.price}>{product.price}₪</span >
+
+        <div className={styles.sizeContainer}>
+          {product.category.id === 2 && 
+          SHOE_SIZES.map((size,index)=>{
+            return <button key={size} className={`btn ${(selectedSize===index) ? styles.selected:''}`} 
+            onClick={()=>setSelectedSize(index)}>
+              {size}
+              </button>
+          })}
+
+          {(product.category.id === 0 || product.category.id === 1) && 
+          CLOTH_SIZES.map((size,index)=>{
+            return <button key={size} className={`btn ${(selectedSize===index) ? styles.selected:''}`} 
+            onClick={()=>setSelectedSize(index)}>
+              {size}
+              </button>
+          })}
+          {(product.category.id === 3) && 
+            <button className={`btn ${styles.selected}`}>
+              One Size
+            </button>
+          }
+        </div>
 
         <div className={styles.quantityContainer}>
           <button className="btn" onClick={subtractQuantity}>-</button>
