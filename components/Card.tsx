@@ -10,7 +10,7 @@ const Card = ({product}:{product:ProductType}) => {
     <Link key={product.id} href={'/products/'+product.id}>
     <div className={styles.card}>
       <div className={styles.imageContainer}>
-      <Image src={product.image} layout={'fill'} objectFit={'cover'} placeholder={'blur'} blurDataURL={'/product_placeholder.jpg'}/>
+      <Image src={product.image} layout={'fill'} objectFit={'cover'} placeholder={'blur'} blurDataURL={product.image}/>
       </div>
       <span className={styles.category}>{product.category.name}</span>
       <div className={styles.bottomContainer}>
