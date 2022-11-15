@@ -26,7 +26,7 @@ export const getStaticProps:GetStaticProps = async (context)=>{
     });
 
   return {
-    props: {title:`Next E-Store | ${product.title}`,product,relatedProducts}
+    props: {title:`${product.title}`,product,relatedProducts}
   }
 }
 

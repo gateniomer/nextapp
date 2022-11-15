@@ -8,7 +8,7 @@ export default function Layout ({children}:{children?: ReactElement}) {
   return(
   <div>
     <Head>
-      <title>{children?.props.title ? children?.props.title : 'Next E-Store'}</title>
+      <title>{children?.props.title ? 'Next E-Store | ' + children?.props.title : 'Next E-Store'}</title>
     </Head>
     <Header/>
     {children}

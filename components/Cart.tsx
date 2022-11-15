@@ -49,7 +49,7 @@ export const Cart = () => {
       <h2>Products:</h2>
       <div className={styles.itemsContainer}>
       {cartProducts && cartProducts.map(product => 
-        <div key={product.id+product.size} className={styles.cartItem}>
+        <div key={''+product.id+product.size} className={styles.cartItem}>
           <img src={product.image} alt={product.title} onClick={()=>navigateToProduct(product.id)}/>
           <div>
             <span className={styles.cartItemTitle}  onClick={()=>navigateToProduct(product.id)}>{product.title}</span>

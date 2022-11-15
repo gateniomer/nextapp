@@ -18,9 +18,12 @@ export const getStaticPaths:GetStaticPaths = () => {
 
 export const getStaticProps:GetStaticProps = (context) => {
   const id = context.params?.id;
+  if(!id || typeof id === 'object') return{props:{}};
+
   const products=searchProductsByQuery({category:id});
+  
   return {
-    props:{title:`Next E-Store | Category`,products}
+    props:{title:Object.values(CATEGORIES)[parseInt(id)].name,products}
   }
 }
 // export const getServerSideProps:GetServerSideProps = async ({params}) => {

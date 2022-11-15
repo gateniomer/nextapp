@@ -32,8 +32,8 @@ const Checkout = ()=>{
       {cartProducts.length!=0 && (<>
         <h2>Cart Items:</h2>
       {cartProducts.map(product=>(
-        <div key={product.id}>
-          <span><strong>{product.title}:</strong> </span>
+        <div key={''+product.id+product.size}>
+          <span><strong>{product.title} [{product.size}]:</strong> </span>
           <span>{product.price}</span>
         </div>
       ))}
