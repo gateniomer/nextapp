@@ -25,10 +25,11 @@ export const Cart = () => {
   useEffect(()=>{setOpened(false)},[clickedOutside]);
 
   const addProductQuantity = (product:ProductType)=>{
-    dispatch(updateCartThunk({item:product}));
+    dispatch(updateCartThunk({product}));
   } 
   const subtractProductQuantity = (product:ProductType)=>{
-    dispatch(updateCartThunk({item:product,subtruct:true}));
+    console.log(product);
+    dispatch(updateCartThunk({product,subtruct:true}));
   } 
 
   const navigateToProduct = (id:number)=>{
@@ -48,10 +49,11 @@ export const Cart = () => {
       <h2>Products:</h2>
       <div className={styles.itemsContainer}>
       {cartProducts && cartProducts.map(product => 
-        <div key={product.id} className={styles.cartItem}>
+        <div key={product.id+product.size} className={styles.cartItem}>
           <img src={product.image} alt={product.title} onClick={()=>navigateToProduct(product.id)}/>
           <div>
             <span className={styles.cartItemTitle}  onClick={()=>navigateToProduct(product.id)}>{product.title}</span>
+            {product.size && <span className={styles.cartItemTotal}>Size: {product.size}</span>}
             <span className={styles.cartItemTotal}>Total: {Math.floor(product.price * product.quantity)}₪</span>
           </div>
           <button onClick={()=>subtractProductQuantity(product)}>-</button>

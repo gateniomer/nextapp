@@ -45,9 +45,24 @@ export const Product:NextPage<{product:ProductType,relatedProducts:ProductType[]
   const [quantity,setQuantity] = useState(1);
   const [selectedSize,setSelectedSize] = useState(0);
 
+  switch(product.category.id){
+    case 0:
+      product.size = CLOTH_SIZES[selectedSize];
+      break;
+    case 1:
+      product.size = CLOTH_SIZES[selectedSize];
+      break;
+    case 2:
+      product.size = SHOE_SIZES[selectedSize];
+      break;
+    default:
+      product.size = "One-Size"
+  }
+  
+
   //dispatch adding product to cart action
   const onAddToCartHandler = () => {
-    dispatch(updateCartThunk({item:product,quantity}));
+    dispatch(updateCartThunk({product,quantity}));
   }
 
   const addQuantity = () => {
@@ -82,7 +97,7 @@ export const Product:NextPage<{product:ProductType,relatedProducts:ProductType[]
         <div className={styles.sizeContainer}>
           {product.category.id === 2 && 
           SHOE_SIZES.map((size,index)=>{
-            return <button key={size} className={`btn ${(selectedSize===index) ? styles.selected:''}`} 
+            return <button key={size} className={`btn ${selectedSize === index ? styles.selected:''}`} 
             onClick={()=>setSelectedSize(index)}>
               {size}
               </button>

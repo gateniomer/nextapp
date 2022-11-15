@@ -7,7 +7,6 @@ import styles from '../styles/Search.module.css';
 import useOutsideAlerter from '../hooks/useOutsideAlerter';
 
 const Search = () => {
-  const products = useAppSelector(state=>state.products.products);
   const [input,setInput] = useState('');
   const [searchResult,setSearchResult] = useState<ProductType[]>([]);
 
@@ -27,7 +26,6 @@ const Search = () => {
       if(input===''){
         setSearchResult([]);
       }else{
-        // const filteredProducts = products.filter(product=>product.title.toLowerCase().includes(input.trim().toLowerCase()));
         fetch(`${process.env.NEXT_PUBLIC_URL}/api/products?search=${input}`)
         .then(resp=>resp.json())
         .then(filteredProducts=>setSearchResult(filteredProducts))
