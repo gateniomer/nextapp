@@ -26,7 +26,7 @@ export const getStaticProps:GetStaticProps = async (context)=>{
     });
 
   return {
-    props: {product,relatedProducts}
+    props: {title:`Next E-Store | ${product.title}`,product,relatedProducts}
   }
 }
 
@@ -41,7 +41,7 @@ export const getStaticPaths:GetStaticPaths = async () => {
 export const Product:NextPage<{product:ProductType,relatedProducts:ProductType[]}> =  ({product,relatedProducts}) => {
   const dispatch = useAppDispatch();
   const user = useAppSelector(state=>state.userDetails.user);
-
+  
   const [quantity,setQuantity] = useState(1);
   const [selectedSize,setSelectedSize] = useState(0);
 
@@ -74,9 +74,6 @@ export const Product:NextPage<{product:ProductType,relatedProducts:ProductType[]
 
   return(
     <>
-      <Head>
-        <title>Next E-Store | {product?.title}</title>
-      </Head>
       {product && 
       <div className={styles.container}>
         <div className={styles.productDetailsContainer}>

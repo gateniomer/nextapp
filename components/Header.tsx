@@ -6,7 +6,7 @@ import { useAppDispatch, useAppSelector } from "../utils/hooks"
 import { onAuthStateChanged } from "firebase/auth"
 import { auth,getUserData } from "../utils/firebase"
 import { updateUser,updateCart } from "../utils/user.slice"
-
+import Head from "next/head"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUserGroup,faRightFromBracket,faRightToBracket } from "@fortawesome/free-solid-svg-icons"
 
@@ -51,7 +51,7 @@ export default function Header () {
       }
     });
   },[])
-  
+
   return (
   <header>
     <Link href={'/'}><h1>🛍️ Next E-Store</h1></Link>

@@ -20,7 +20,7 @@ export const getStaticProps:GetStaticProps = (context) => {
   const id = context.params?.id;
   const products=searchProductsByQuery({category:id});
   return {
-    props:{products}
+    props:{title:`Next E-Store | Category`,products}
   }
 }
 // export const getServerSideProps:GetServerSideProps = async ({params}) => {

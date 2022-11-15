@@ -1,12 +1,14 @@
 import Head from 'next/head'
-import { ReactNode } from "react"
+import {ReactElement } from "react"
 import Header from './Header';
 import Footer from './Footer';
-export default function Layout ({children}:{children?: ReactNode}) {
+
+
+export default function Layout ({children}:{children?: ReactElement}) {
   return(
   <div>
     <Head>
-      <title>Next E-Store</title>
+      <title>{children?.props.title ? children?.props.title : 'Next E-Store'}</title>
     </Head>
     <Header/>
     {children}

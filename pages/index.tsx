@@ -13,7 +13,7 @@ export const getServerSideProps:GetServerSideProps = async () => {
   }
 }
 
-const Home = ({products}:{products:ProductType[]}) => {
+const Home = ({products}:{title:string,products:ProductType[]}) => {
   const dispatch = useAppDispatch();
   dispatch(updateProducts(products));
 
@@ -42,5 +42,4 @@ const Home = ({products}:{products:ProductType[]}) => {
     </>
   )
 }
-
 export default Home
