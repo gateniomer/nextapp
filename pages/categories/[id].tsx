@@ -3,7 +3,8 @@ import Link from "next/link";
 import { ProductType } from "../../utils/types";
 import { CATEGORIES } from "../../data/categories";
 import { searchProductsByQuery } from "../api/products";
-
+import styles from '../../styles/Category.module.css';
+import Card from "../../components/Card";
 
 export const getStaticPaths:GetStaticPaths = () => {
   const paths = Object.values(CATEGORIES).map(category=>(
@@ -23,37 +24,25 @@ export const getStaticProps:GetStaticProps = (context) => {
   const products=searchProductsByQuery({category:id});
   
   return {
-    props:{title:Object.values(CATEGORIES)[parseInt(id)].name,products}
+    props:{
+      title:Object.values(CATEGORIES)[parseInt(id)].name,
+      products,
+      category:Object.values(CATEGORIES)[parseInt(id)]}
   }
 }
-// export const getServerSideProps:GetServerSideProps = async ({params}) => {
-  
-//   if(!params) return {props:{}}
 
-//   try{
-//     const resp = await fetch('https://api.escuelajs.co/api/v1/categories/'+params.id+'/products');
-//     const products = await resp.json();
-//     return{
-//       props:{products}
-//     }
-//   }catch(e){
-//     return{
-//       props:{error:'no such id ' + params.id}
-//     }
-//   }
-  
-// }
-
-const Category = ({products}:{products:ProductType[]})=>{
+const Category = ({products,title,category}:{products:ProductType[],title:string,category:any})=>{
   return(
-    <div>
+    <div className={styles.container}>
+      <div>
+      <h2>Browsing {title}</h2>
+      <p>{category.description}</p>
+      </div>
+      <div className={styles.cardContainer}>
       {products.map(product=>
-      <Link href={'/products/'+product.id} key={product.id}>
-        <div>
-          <h3>{product.title}</h3>
-          <h3>{product.price}</h3>
-        </div>
-      </Link>)}
+        <Card product={product}/>
+      )}
+      </div>
     </div>
   )
 }
