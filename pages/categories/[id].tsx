@@ -39,8 +39,8 @@ const Category = ({products,title,category}:{products:ProductType[],title:string
       <p>{category.description}</p>
       </div>
       <div className={styles.cardContainer}>
-      {products.map(product=>
-        <Card product={product}/>
+      {products.map((product,index)=>
+        <Card key={index} product={product}/>
       )}
       </div>
     </div>
