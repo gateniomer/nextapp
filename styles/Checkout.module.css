@@ -1,0 +1,50 @@
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 50px;
+  position: relative;
+  overflow: hidden;
+  min-height: 85vh;
+}
+.container h2 {
+  font-size: 3rem;
+  margin: 0;
+}
+.container p {
+  max-width: 70%;
+  font-style: italic;
+}
+
+.detailsContainer {
+  display: flex;
+  gap: 20px;
+  padding: 20px;
+  background: #f4f4f4;
+  border-radius: 20px;
+}
+.checkoutItemsContainer {
+  display: flex;
+  width: 400px;
+  flex-direction: column;
+  gap: 10px;
+  margin: 20px 0px;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  max-height: 500px;
+  padding: 20px;
+}
+.checkoutItem {
+  background: #333;
+  color: #f4f4f4;
+  padding: 10px 20px;
+  border-radius: 10px;
+  border: 3px solid white;
+}
+.checkoutItem span {
+  display: block;
+  margin-bottom: 5px;
+}
+.checkoutItem span:first-child {
+  font-weight: bold;
+  font-size: 1.2rem;
+}
