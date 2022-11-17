@@ -9,9 +9,10 @@
 .container h2 {
   font-size: 3rem;
   margin: 0;
+  margin-bottom: 20px;
 }
 .container p {
-  max-width: 70%;
+  /* max-width: 70%; */
   font-style: italic;
 }
 
@@ -21,10 +22,11 @@
   padding: 20px;
   background: #f4f4f4;
   border-radius: 20px;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
 .checkoutItemsContainer {
   display: flex;
-  width: 400px;
+  width: 50%;
   flex-direction: column;
   gap: 10px;
   margin: 20px 0px;
@@ -36,9 +38,15 @@
 .checkoutItem {
   background: #333;
   color: #f4f4f4;
-  padding: 10px 20px;
   border-radius: 10px;
   border: 3px solid white;
+  align-items: center;
+  display: flex;
+  gap: 10px;
+  /* overflow: hidden; */
+}
+.checkoutItem img {
+  border-radius: 5px 0 0 5px;
 }
 .checkoutItem span {
   display: block;
@@ -47,4 +55,32 @@
 .checkoutItem span:first-child {
   font-weight: bold;
   font-size: 1.2rem;
+}
+
+.stripeBudgetContainer {
+  width: 200px;
+  height: 50px;
+  position: relative;
+  /* height: 100px; */
+}
+.stripeContainer {
+  display: flex;
+  flex-direction: column;
+  /* justify-content: center; */
+  position: relative;
+  padding: 20px;
+  width: 50%;
+}
+
+.stripeContainer h3 {
+  font-size: 1.3rem;
+}
+
+.btnStripe {
+  background: #635bff;
+}
+
+.totalPrice {
+  font-size: 1.5rem;
+  margin: 20px 0;
 }
