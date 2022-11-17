@@ -5,6 +5,9 @@ import styles from '../styles/Profile.module.css';
 import { Timestamp } from "firebase/firestore";
 import { getUserData } from "../utils/firebase";
 
+export const getServerSideProps = async () => {
+  return {props:{title:'User Profile'}}
+}
 const Profile = () =>{
   const [userData,setUserData] = useState<any>(undefined);
   const user = useAppSelector(state=>state.userDetails.user);
