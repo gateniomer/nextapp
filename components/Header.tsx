@@ -1,7 +1,7 @@
 import Link from "next/link"
 import Cart from "./Cart"
 import { useEffect,useState } from "react"
-import { signOutUser} from "../utils/firebase"
+import { signOutUser, updateUserLoginInFirestore} from "../utils/firebase"
 import { useAppDispatch, useAppSelector } from "../utils/hooks"
 import { onAuthStateChanged } from "firebase/auth"
 import { auth,getUserData } from "../utils/firebase"
@@ -35,6 +35,7 @@ export default function Header () {
       if (user) {
         // User is signed in
         console.log('[Auth State] Detected Signed In User!');
+        updateUserLoginInFirestore(user);
         //get user data then set user & cart state
         getUserData(user)
         .then(data=>{

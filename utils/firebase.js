@@ -65,7 +65,9 @@ export const signOutUser = ()=> signOut(auth).catch((error)=>console.log(error))
 export const setUserToDb = async (userDetails) => {
   try {
     await setDoc(doc(db, "users",userDetails.uid), {
-      displayName:userDetails.displayName?userDetails.displayName : userDetails.email.substring(0, userDetails.email.lastIndexOf("@")),
+      displayName:userDetails.displayName ? 
+      userDetails.displayName : 
+      userDetails.email.substring(0, userDetails.email.lastIndexOf("@")),
       email:userDetails.email,
       createdAt:userDetails.metadata.creationTime,
       lastSignIn:userDetails.metadata.lastSignInTime,
@@ -101,6 +103,19 @@ export const updateUserCartInFirestore = async(userDetails,products)=>{
     await setDoc(doc(db, "users",userDetails.uid), {
       ...userData,
       products
+    });
+    // console.log("Document written with ID: ", docRef.id);
+  } catch (e) {
+    console.error("Error adding document: ", e);
+  }
+}
+
+export const updateUserLoginInFirestore = async(userDetails)=>{
+  try {
+    const userData = await getUserData(userDetails);
+    await setDoc(doc(db, "users",userDetails.uid), {
+      ...userData,
+      lastSignIn:userDetails.metadata.lastSignInTime
     });
     // console.log("Document written with ID: ", docRef.id);
   } catch (e) {

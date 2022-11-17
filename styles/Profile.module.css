@@ -1,0 +1,39 @@
+.container {
+  max-width: 1200px;
+  padding: 50px;
+  margin: 0 auto;
+  min-height: 85vh;
+}
+.container h2 {
+  font-size: 3rem;
+  margin: 0;
+  margin-top: 20px;
+}
+.container h3 {
+  font-size: 1.5rem;
+}
+
+.avatar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100px;
+  height: 100px;
+  color: #f4f4f4;
+  font-size: 3rem;
+  background: #333;
+  border-radius: 50%;
+  margin: 10px 0;
+  border: 5px solid #ffbd59;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+}
+
+.userDetailsContainer {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.userDetailsContainer span {
+  display: block;
+  font-size: 1.2rem;
+}
