@@ -11,12 +11,6 @@ const Checkout = ()=>{
   const [loading,setLoading] = useState(false);
 
   const total = cartProducts.reduce((acc,product)=>product.price*product.quantity+acc,0);
-  
-  
-  //redirect user if not signed-in
-  // useEffect(()=>{
-  //   if(!user) router.replace('/signin');
-  // },[user])
 
   //sending request to 'checkout-sessions' endpoint which return stripe's payment intent
   const onClickHandler = async () => {

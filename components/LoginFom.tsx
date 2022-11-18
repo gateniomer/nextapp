@@ -1,5 +1,4 @@
-import {useRef,useEffect} from 'react';
-import { useRouter } from 'next/router';
+import {useRef} from 'react';
 import { useAppSelector } from '../utils/hooks';
 import { 
   signInUserWithEmailAndPassword,
@@ -7,16 +6,12 @@ import {
   signInUserWithGooglePopup,
   signOutUser } from '../utils/firebase';
 
-const Signin = () => {
-  const router = useRouter();
+export const LoginForm = () => {
   const user = useAppSelector((state)=>state.userDetails.user);
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
-  useEffect(()=>{
-    if(user) router.replace('/profile');
-  },[user]);
 
-  return !user && (
+  return (
     <div>
       <h2>Please Sign In</h2>
       {!user && <>
@@ -31,4 +26,4 @@ const Signin = () => {
   )
 }
 
-export default Signin;
+export default LoginForm;

@@ -1,27 +1,14 @@
-import { useAppSelector } from "../utils/hooks";
-import { useRouter } from "next/router";
 import {useEffect,useState} from 'react';
 import styles from '../styles/Profile.module.css';
-import { Timestamp } from "firebase/firestore";
 import { getUserData } from "../utils/firebase";
+import { User } from "firebase/auth";
 
-export const getServerSideProps = async () => {
-  return {props:{title:'User Profile'}}
-}
-const Profile = () =>{
+const Profile = ({user}:{user:User}) =>{
   const [userData,setUserData] = useState<any>(undefined);
-  const user = useAppSelector(state=>state.userDetails.user);
-  const router = useRouter();
-  console.log(userData);
-  
+
   useEffect(()=>{
     user && getUserData(user).then(data=>setUserData(data));
-  },[user]);
-
-  //redirect to login page if user not signed in
-  useEffect(()=>{
-    if(!user) router.replace('/signin');
-  },[user])
+  },[]);
 
   return user && (
     <div className={styles.container}>

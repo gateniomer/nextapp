@@ -64,7 +64,7 @@ export default function Header () {
     </nav>
     <Search/>
     {!user && 
-        <Link href={'/signin'}>
+        <Link href={'/auth'}>
           <div>
             Sign In <FontAwesomeIcon icon={faRightToBracket}/>
           </div>
@@ -73,7 +73,7 @@ export default function Header () {
     {user &&
       <div style={{display:'flex',gap:'20px',fontSize:'1.1rem',cursor:'pointer'}}>
         <Cart/>
-        <Link href={'/profile'}><FontAwesomeIcon icon={faUserGroup}/></Link>
+        <Link href={'/auth'}><FontAwesomeIcon icon={faUserGroup}/></Link>
         <FontAwesomeIcon icon={faRightFromBracket} onClick={signOutUser}/>
         {/* <button onClick={signOutUser}>Sign Out</button> */}
       </div>
