@@ -2,7 +2,7 @@ import {useState,useEffect} from 'react';
 import styles from '../styles/Page404.module.css';
 import {useRouter} from 'next/router';
 
-export const page404 = () => {
+export const Page404 = () => {
   const [count,setCount] = useState(5);
   const router = useRouter();
   
@@ -23,4 +23,4 @@ export const page404 = () => {
   </div>
   )
 }
-export default page404;
+export default Page404;
