@@ -1,12 +1,13 @@
 import { useRouter } from "next/router";
-import { useAppSelector } from "../utils/hooks";
+import { useAppSelector } from "../../utils/hooks";
 import {useEffect,useState} from 'react';
-import styles from '../styles/Checkout.module.css';
+import styles from '../../styles/Checkout.module.css';
 import Image from "next/image";
 
 const Checkout = ()=>{
   const cartProducts = useAppSelector(state=>state.userDetails.cart);
   const router = useRouter();
+  const {failed} = router.query;
   const user = useAppSelector(state=>state.userDetails.user);
   const [loading,setLoading] = useState(false);
 
@@ -30,6 +31,10 @@ const Checkout = ()=>{
   }
   return (
     <div className={styles.container}>
+    {failed && 
+    <div className={styles.failedAlert}>
+      <span><strong>Error:</strong> Purchase failed to complete, please try again.</span>
+    </div>}
     <h2>Proceed to Payment</h2>
     
     <div className={styles.detailsContainer}>

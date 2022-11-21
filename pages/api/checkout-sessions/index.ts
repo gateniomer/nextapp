@@ -37,8 +37,8 @@ export default async function handler(
     payment_intent_data:{
       metadata:meta
     },
-    success_url: `${req.headers.origin}/checkout`,
-    cancel_url: `${req.headers.origin}/checkout`,
+    success_url: `${req.headers.origin}/checkout/success`,
+    cancel_url: `${req.headers.origin}/checkout?failed=true`,
   };
   const checkoutSession: Stripe.Checkout.Session =
     await stripe.checkout.sessions.create(params);

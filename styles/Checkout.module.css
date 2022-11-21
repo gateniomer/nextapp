@@ -84,3 +84,10 @@
   font-size: 1.5rem;
   margin: 20px 0;
 }
+
+.failedAlert {
+  background: #333;
+  color: #fff;
+  padding: 15px 20px;
+  border-radius: 5px;
+}
