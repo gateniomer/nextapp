@@ -1,5 +1,5 @@
 import Stripe from "stripe";
-import { buffer } from "micro";
+
 import { updateUserOrdersInFirestore } from "../../../utils/firebase";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET, {
@@ -12,6 +12,14 @@ export const config = {
     bodyParser: false,
   },
 };
+
+async function buffer(readable) {
+  const chunks = [];
+  for await (const chunk of readable) {
+    chunks.push(typeof chunk === 'string' ? Buffer.from(chunk) : chunk);
+  }
+  return Buffer.concat(chunks);
+}
 
 const handler = async (req, res) => {
   if (req.method === "POST") {
