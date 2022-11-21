@@ -1,7 +1,5 @@
 import Stripe from "stripe";
 
-import { updateUserOrdersInFirestore } from "../../../utils/firebase";
-
 const stripe = new Stripe(process.env.STRIPE_SECRET, {
   apiVersion: "2020-08-27",
 });
@@ -41,15 +39,26 @@ const handler = async (req, res) => {
         const paymentIntent = event.data.object;
         console.log(`PaymentIntent for ${paymentIntent.amount} was successful!`);
         // Then define and call a method to handle the successful payment intent.
-        console.log('DATA',paymentIntent.metadata);
         const products = Object.entries(paymentIntent.metadata).filter(([key,value])=>key!=='uid').map(([key,value]) =>JSON.parse(value));
-        console.log(paymentIntent.metadata.uid);
-        updateUserOrdersInFirestore(paymentIntent.metadata.uid,products);
-        break;
-      case 'payment_method.attached':
-        const paymentMethod = event.data.object;
-        // Then define and call a method to handle the successful attachment of a PaymentMethod.
-        // handlePaymentMethodAttached(paymentMethod);
+
+
+        var admin = require("firebase-admin");
+        var serviceAccount = JSON.parse(process.env.FIREBASE_ADMIN_SDK);
+
+        if(!admin.app)admin.initializeApp({
+          credential: admin.credential.cert(serviceAccount)
+        });
+        
+        const user = await admin.auth().getUser(paymentIntent.metadata.uid);
+        const doc = admin.firestore().collection('users').doc(user.uid);
+        const docData = (await doc.get()).data();
+
+        if(docData.orders){
+          await doc.set({...docData,orders:[{id:docData.orders.length,products},...docData.orders]});
+        }else{
+          await doc.set({...docData,orders:[{id:0,products}]});
+        }
+
         break;
       default:
         // Unexpected event type

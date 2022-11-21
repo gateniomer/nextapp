@@ -135,16 +135,3 @@ export const updateUserLoginInFirestore = async(userDetails)=>{
     console.error("Error adding document: ", e);
   }
 }
-
-export const updateUserOrdersInFirestore = async(uid,order)=>{
-  try {
-    const userData = await getUserDataById(uid);
-    await setDoc(doc(db, "users",uid), {
-      ...userData,
-      orders:userData.orders ? [{id:Object.keys(userData.orders).length,products:order},...userData.orders] : [{id:0,products:order}]
-    });
-    // console.log("Document written with ID: ", docRef.id);
-  } catch (e) {
-    console.error("Error adding document: ", e);
-  }
-}

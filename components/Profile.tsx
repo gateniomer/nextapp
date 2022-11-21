@@ -22,8 +22,8 @@ const Profile = ({user}:{user:User}) =>{
           <span><strong>Created at:</strong> {userData?.createdAt}</span>
         </div>
       </div>
-      <h3>Order History : {userData?.orders.length} in total</h3>
-      {userData?.orders.map((order:any)=><div key={order.id}>
+      <h3>Order History : {userData?.orders?.length} in total</h3>
+      {userData?.orders?.map((order:any)=><div key={order.id}>
         <h4>Order #{order.id}</h4>
         {order.products.map((product:any)=><p key={product.name}>{product.name} x {product.quantity} </p>)}
       </div>)}
