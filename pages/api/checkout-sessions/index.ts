@@ -9,7 +9,9 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const products = await Promise.all(req.body.items.map(async (item:Item) => {
+  if(req.headers.origin!==process.env.NEXT_PUBLIC_URL) res.status(405).end("Method Not Allowed");
+
+  const products:Item[] = req.body.items ? await Promise.all(req.body.items.map(async (item:Item) => {
     // const product = await (await fetch('https://api.escuelajs.co/api/v1/products/'+item.id)).json();
     const product = getProduct(item.id);
     if (!product) return;
@@ -19,17 +21,25 @@ export default async function handler(
       currency:'ils',
       quantity:item.quantity
     };
-  }));
+  })) : [];
+
+  let meta:Item = {};
+  meta['uid']=req.body.user.uid;
+  products.forEach((product,index) => {
+    meta[index] = JSON.stringify(product)
+  });
 
   const stripe = require('stripe')(process.env.STRIPE_SECRET);
   const params: Stripe.Checkout.SessionCreateParams = {
     mode: 'payment',
     payment_method_types: ['card'],
     line_items: products,
+    payment_intent_data:{
+      metadata:meta
+    },
     success_url: `${req.headers.origin}/checkout`,
     cancel_url: `${req.headers.origin}/checkout`,
   };
-  
   const checkoutSession: Stripe.Checkout.Session =
     await stripe.checkout.sessions.create(params);
 

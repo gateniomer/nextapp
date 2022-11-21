@@ -21,7 +21,7 @@ const Checkout = ()=>{
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
-      body:JSON.stringify({items:cartProducts})
+      body:JSON.stringify({items:cartProducts,user})
     }).catch(e=>console.log(e));
 
     const data = resp && await resp.json();
