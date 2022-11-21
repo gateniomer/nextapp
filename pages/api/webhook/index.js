@@ -54,9 +54,9 @@ const handler = async (req, res) => {
         const docData = (await doc.get()).data();
 
         if(docData.orders){
-          await doc.set({...docData,orders:[{id:docData.orders.length,products},...docData.orders]});
+          await doc.set({...docData,orders:[{id:docData.orders.length,products},...docData.orders],products:[]});
         }else{
-          await doc.set({...docData,orders:[{id:0,products}]});
+          await doc.set({...docData,orders:[{id:0,products}],products:[]});
         }
 
         break;
