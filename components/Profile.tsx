@@ -15,17 +15,17 @@ const Profile = ({user}:{user:User}) =>{
       <h2>Hello {userData?.displayName} 👋</h2>
       <h3>User Details</h3>
       <div className={styles.userDetailsContainer}>
-        <div className={styles.avatar}>{userData?.displayName[0].toUpperCase()}</div>
+        <div className={styles.avatar}>{userData?.displayName && userData.displayName[0].toUpperCase()}</div>
         <div>
           <span><strong>Email:</strong> {userData?.email}</span>
           <span><strong>Last sign-in:</strong> {userData?.lastSignIn}</span>
           <span><strong>Created at:</strong> {userData?.createdAt}</span>
         </div>
       </div>
-      <h3>Order History : {userData?.orders?.length} in total</h3>
+      <h3>Order History : {userData?.orders?.length | 0} in total</h3>
       {userData?.orders?.map((order:any)=><div key={order.id}>
         <h4>Order #{order.id}</h4>
-        {order.products.map((product:any)=><p key={product.name}>{product.name} x {product.quantity} </p>)}
+        {order.products.map((product:any)=><p key={product.price_data?.product_data?.name}>{product.price_data?.product_data?.name} x {product.quantity} </p>)}
       </div>)}
     </div>
   )
