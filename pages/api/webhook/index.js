@@ -20,14 +20,10 @@ async function buffer(readable) {
 }
 
 const handler = async (req, res) => {
-  console.log('test');
   if (req.method === "POST") {
-    console.log('test');
     const buf = await buffer(req);
     const sig = req.headers["stripe-signature"];
-    console.log('test');
     let event;
-    console.log('test');
     try {
       event = stripe.webhooks.constructEvent(buf, sig, webhookSecret);
     } catch (err) {
@@ -39,8 +35,6 @@ const handler = async (req, res) => {
     switch (event.type) {
       case 'payment_intent.succeeded':
         const paymentIntent = event.data.object;
-        console.log(`PaymentIntent for ${paymentIntent.amount} was successful!`);
-        // Then define and call a method to handle the successful payment intent.
         handleIntent(paymentIntent);
         break;
       default:
@@ -56,6 +50,8 @@ const handler = async (req, res) => {
 };
 
 const handleIntent = async (paymentIntent)=>{
+  if(!paymentIntent.metadata.uid) return;
+  
   const products = Object.entries(paymentIntent.metadata).filter(([key,value])=>key!=='uid').map(([key,value]) =>JSON.parse(value));
 
 
