@@ -16,9 +16,13 @@ export default async function handler(
     const product = getProduct(item.id);
     if (!product) return;
     return {
-      name:product.title,
-      amount:product.price*100,
-      currency:'ils',
+      price_data:{
+        currency:'ils',
+        unit_amount:product.price*100,
+        product_data:{
+          name:product.title,
+        },
+      },
       quantity:item.quantity
     };
   })) : [];
