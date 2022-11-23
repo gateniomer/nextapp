@@ -86,8 +86,13 @@ const handler = async (req, res) => {
 const handleCheckoutSession = async (uid,products)=>{
   if(!uid) return console.log("uid",uid);
   console.log('test');
-  var serviceAccount = await JSON.parse(process.env.FIREBASE_ADMIN_SDK);
-
+  let serviceAccount;
+  try{
+    serviceAccount = await JSON.parse(process.env.FIREBASE_ADMIN_SDK);
+  }catch(error){
+    console.log(error);
+  }
+  
   //initialize firebase-admin app if there isn't any
   if (getApps().length < 1) {
     initializeApp(
