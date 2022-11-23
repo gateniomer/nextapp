@@ -27,7 +27,7 @@ const Profile = ({user}:{user:User}) =>{
         <h4>Order #{order.id}</h4>
         {order.products.map((product:any,index:number)=>
         <div key={`${order.id}${product.id}${product.size}`}>
-          <p key={index}>{product.name} x {product.quantity} </p>
+          <p>{product.name} x {product.quantity} </p>
           <p>size: {product.size}</p>
           <p>total: {product.price}</p>
         </div>
