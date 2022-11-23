@@ -1,4 +1,6 @@
 import Stripe from "stripe";
+const admin = require("firebase-admin");
+const {initializeApp,getApps} = require("firebase-admin/app");
 
 //disable body parser (need raw body cus of Stripe)
 export const config = {
@@ -79,13 +81,11 @@ const handler = async (req, res) => {
 const handleCheckoutSession = async (uid,products)=>{
   if(!uid) return console.log("uid",uid);
   console.log('test');
-  const admin = require("firebase-admin");
-  // const {initializeApp,getApps} = require("firebase-admin/app");
   var serviceAccount = await JSON.parse(process.env.FIREBASE_ADMIN_SDK);
-  
+
   //initialize firebase-admin app if there isn't any
-  if (await admin.auth().app.length < 1) {
-    admin.initializeApp(
+  if (getApps().length < 1) {
+    initializeApp(
     {
       credential: admin.credential.cert(serviceAccount)
     });
