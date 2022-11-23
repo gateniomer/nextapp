@@ -28,7 +28,7 @@ const handler = async (req, res) => {
     const buf = await buffer(req);
     const sig = req.headers["stripe-signature"];
     const webhookSecret = process.env.STRIPE_WEBHOOK;
-
+    console.log('testing2');
     let event;
     try {
       event = stripe.webhooks.constructEvent(buf, sig, webhookSecret);
@@ -36,6 +36,7 @@ const handler = async (req, res) => {
       res.status(400).send(`Webhook Error: ${err.message}`);
       return;
     }
+    console.log('testing3');
 
     // Handle the event
     switch (event.type) {
