@@ -35,7 +35,7 @@ export default function Header () {
       if (user) {
         // User is signed in
         console.log('[Auth State] Detected Signed In User!');
-        updateUserLoginInFirestore(user);
+        // updateUserLoginInFirestore(user);
         //get user data then set user & cart state
         getUserData(user)
         .then(data=>{
