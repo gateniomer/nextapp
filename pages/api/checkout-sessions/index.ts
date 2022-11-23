@@ -11,8 +11,6 @@ export default async function handler(
 ) {
   
 
-  if(req.headers.origin!==process.env.NEXT_PUBLIC_URL) res.status(405).end("Method Not Allowed");
-
   const products:Item[] = req.body.items ? req.body.items.map((item:Item) => {
     //get product from server database
     const product = getProduct(item.id);
