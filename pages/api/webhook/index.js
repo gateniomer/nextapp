@@ -24,7 +24,7 @@ const handler = async (req, res) => {
       apiVersion: "2022-11-15",
     });
 
-    const buf = await buffer(req);
+    const buf = await buffer(req.body);
     const sig = req.headers["stripe-signature"];
     const webhookSecret = process.env.STRIPE_WEBHOOK;
 
