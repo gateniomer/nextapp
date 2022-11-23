@@ -51,7 +51,7 @@ const handler = async (req, res) => {
             limit:100,
             expand: ['data.price.product'],
           },
-          function(err, lineItems) {
+          async function(err, lineItems) {
             // asynchronously called
             if(err) console.log(err);
             if(lineItems){
@@ -64,7 +64,7 @@ const handler = async (req, res) => {
                 }
               })
               console.log('lineitems',products);
-              handleCheckoutSession(uid,products);
+              await handleCheckoutSession(uid,products);
             }
           }
         );
