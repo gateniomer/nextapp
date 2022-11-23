@@ -54,7 +54,9 @@ const handler = async (req, res) => {
           async function(err, lineItems) {
             // asynchronously called
             if(err) console.log(err);
+            console.log('testing3');
             if(lineItems){
+              console.log('testing4');
               const products = lineItems.data.map((item,index)=>{
                 return{
                   name:item.description,
