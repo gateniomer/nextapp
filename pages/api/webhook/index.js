@@ -45,7 +45,7 @@ const handler = async (req, res) => {
 
         const uid = checkoutSession.metadata.uid;
 
-        stripe.checkout.sessions.listLineItems(
+        await stripe.checkout.sessions.listLineItems(
           event.data.object.id,
           {
             limit:100,
