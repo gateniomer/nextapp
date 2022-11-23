@@ -78,14 +78,14 @@ const handler = async (req, res) => {
 
 const handleCheckoutSession = async (uid,products)=>{
   if(!uid) return console.log("uid",uid);
-
+  console.log('test');
   const admin = require("firebase-admin");
-  const {initializeApp,getApps} = require("firebase-admin/app");
+  // const {initializeApp,getApps} = require("firebase-admin/app");
   var serviceAccount = await JSON.parse(process.env.FIREBASE_ADMIN_SDK);
-
+  
   //initialize firebase-admin app if there isn't any
-  if (getApps().length < 1) {
-    initializeApp(
+  if (await admin.getApps().length < 1) {
+    admin.initializeApp(
     {
       credential: admin.credential.cert(serviceAccount)
     });
