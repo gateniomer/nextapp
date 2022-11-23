@@ -78,11 +78,13 @@ const handler = async (req, res) => {
 };
 
 const handleCheckoutSession = async (uid,products)=>{
-  
   if(!uid) return;
 
   const admin = require("firebase-admin");
   const {initializeApp,getApps} = require("firebase-admin/app");
+  console.log(admin);
+  await admin.auth.getUser(uid);
+  console.log(admin);
   var serviceAccount = JSON.parse(process.env.FIREBASE_ADMIN_SDK);
 
   // console.log(admin.apps.length);
