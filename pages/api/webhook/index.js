@@ -19,7 +19,6 @@ async function buffer(readable) {
 }
 
 const handler = async (req, res) => {
-  console.log('testing');
   if (req.method === "POST") {
     const stripe = new Stripe(process.env.STRIPE_SECRET, {
       apiVersion: "2022-11-15",
@@ -28,7 +27,7 @@ const handler = async (req, res) => {
     const buf = await buffer(req);
     const sig = req.headers["stripe-signature"];
     const webhookSecret = process.env.STRIPE_WEBHOOK;
-    console.log('buf',buf);
+
     let event;
     try {
       event = stripe.webhooks.constructEvent(buf, sig, webhookSecret);
@@ -36,7 +35,6 @@ const handler = async (req, res) => {
       res.status(400).send(`Webhook Error: ${err.message}`);
       return;
     }
-    console.log('event',event);
 
     // Handle the event
     switch (event.type) {
@@ -51,12 +49,10 @@ const handler = async (req, res) => {
             limit:100,
             expand: ['data.price.product'],
           },
-          async function(err, lineItems) {
+          function(err, lineItems) {
             // asynchronously called
             if(err) console.log(err);
-            console.log('testing3');
             if(lineItems){
-              console.log('testing4');
               const products = lineItems.data.map((item,index)=>{
                 return{
                   name:item.description,
@@ -65,8 +61,7 @@ const handler = async (req, res) => {
                   quantity:item.quantity
                 }
               })
-              console.log('lineitems',products);
-              await handleCheckoutSession(uid,products);
+              handleCheckoutSession(uid,products);
             }
           }
         );
@@ -85,7 +80,6 @@ const handler = async (req, res) => {
 
 const handleCheckoutSession = async (uid,products)=>{
   if(!uid) return console.log("uid",uid);
-  console.log('test');
   let serviceAccount;
   try{
     serviceAccount = await JSON.parse(process.env.FIREBASE_ADMIN_SDK);
