@@ -50,6 +50,7 @@ const handler = async (req, res) => {
 };
 
 const handleIntent = async (paymentIntent)=>{
+  
   if(!paymentIntent.metadata.uid) return;
   
   const products = Object.entries(paymentIntent.metadata).filter(([key,value])=>key!=='uid').map(([key,value]) =>JSON.parse(value));
@@ -57,11 +58,12 @@ const handleIntent = async (paymentIntent)=>{
 
         var admin = require("firebase-admin");
         var serviceAccount = JSON.parse(process.env.FIREBASE_ADMIN_SDK);
+        console.log(admin.apps.length);
 
-        !admin.apps.length &&
+        !admin.apps.length ?
         admin.initializeApp({
           credential: admin.credential.cert(serviceAccount)
-        }) 
+        }) : admin.app();
         
         const user = await admin.auth().getUser(paymentIntent.metadata.uid);
         const doc = admin.firestore().collection('users').doc(user.uid);
