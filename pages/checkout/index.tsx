@@ -19,15 +19,14 @@ const Checkout = ()=>{
     const resp = await fetch('/api/checkout-sessions',{
       method:'POST',
       headers: {
-        'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
       body:JSON.stringify({items:cartProducts,user})
     }).catch(e=>console.log(e));
-
+    console.log(resp);
     const data = resp && await resp.json();
-    
-    router.push(data.url); 
+    console.log(data);
+    // router.push(data.url); 
   }
   return (
     <div className={styles.container}>
