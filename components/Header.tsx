@@ -6,36 +6,24 @@ import { useAppDispatch, useAppSelector } from "../utils/hooks"
 import { onAuthStateChanged } from "firebase/auth"
 import { auth,getUserData } from "../utils/firebase"
 import { updateUser,updateCart } from "../utils/user.slice"
-import Head from "next/head"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faUserGroup,faRightFromBracket,faRightToBracket } from "@fortawesome/free-solid-svg-icons"
+import { faUserGroup,faRightFromBracket,faRightToBracket } from "@fortawesome/free-solid-svg-icons";
+import {CATEGORIES} from '../data/categories';
+import Search from "./search";
 
-import Search from "./search"
-
-type Category = {
-  id:number,
-  name:string,
-  image?:string,
-}
 
 export default function Header () {
-  const [categories,setCategories] = useState<Category[]>([]);
+
   const user = useAppSelector(state=>state.userDetails.user);
   const dispatch = useAppDispatch();
 
-  useEffect(()=>{
-    fetch(process.env.NEXT_PUBLIC_URL+'/api/categories')
-    .then(resp=>resp.json())
-    .then(categories=>setCategories(categories))
-    .catch(e=>console.log(e))
-  },[])
 
   useEffect(()=>{
     onAuthStateChanged(auth, (user) => {
       if (user) {
         // User is signed in
         console.log('[Auth State] Detected Signed In User!');
-        // updateUserLoginInFirestore(user);
+        updateUserLoginInFirestore(user);
         //get user data then set user & cart state
         getUserData(user)
         .then(data=>{
@@ -57,7 +45,7 @@ export default function Header () {
   <header>
     <Link href={'/'}><h1>🛍️ Next E-Store</h1></Link>
     <nav>
-      {categories.map(category=>
+      {Object.values(CATEGORIES).map(category=>
       <Link key={category.id} href={'/categories/'+category.id}>{category.name}</Link>
       )}
       
