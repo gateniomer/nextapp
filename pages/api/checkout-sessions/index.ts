@@ -10,22 +10,13 @@ export default async function handler(
   res: NextApiResponse
 ) {
   
-  
-  if(req.headers.origin!==process.env.NEXT_PUBLIC_URL) res.status(405).end("Method Not Allowed");
 
-  //array that contains additional product details (such as size,id,etc...)
-  let productsDetails:object[] = [];
+  if(req.headers.origin!==process.env.NEXT_PUBLIC_URL) res.status(405).end("Method Not Allowed");
 
   const products:Item[] = req.body.items ? req.body.items.map((item:Item) => {
     //get product from server database
     const product = getProduct(item.id);
     if (!product) return;
-
-    //add additional details if there is any
-    productsDetails.push({
-      id:item.id,
-      size:item.size
-    });
 
     //return the product as line item object by Stripe requirements
     return {
@@ -33,7 +24,7 @@ export default async function handler(
         currency:'ils',
         unit_amount:product.price*100,
         product_data:{
-          name:product.title,
+          name:`${product.title} [${item.size}]`
         },
       },
       quantity:item.quantity,
@@ -46,7 +37,7 @@ export default async function handler(
     mode: 'payment',
     payment_method_types: ['card'],
     line_items: products,
-    metadata:{productsDetails:JSON.stringify(productsDetails),uid:req.body.user.uid},
+    metadata:{uid:req.body.user.uid},
     success_url: `${req.headers.origin}/checkout/success`,
     cancel_url: `${req.headers.origin}/checkout?failed=true`,
   };

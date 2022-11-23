@@ -40,13 +40,12 @@ const handler = async (req, res) => {
         const checkoutSession = event.data.object;
 
         const uid = checkoutSession.metadata.uid;
-
-        const productsDetails = checkoutSession.metadata.productsDetails ?
-        JSON.parse(checkoutSession.metadata.productsDetails) : [];
+        
 
         stripe.checkout.sessions.listLineItems(
           event.data.object.id,
           {
+            limit:100,
             expand: ['data.price.product'],
           },
           function(err, lineItems) {
@@ -55,7 +54,6 @@ const handler = async (req, res) => {
             if(lineItems){
               const products = lineItems.data.map((item,index)=>{
                 return{
-                  ...productsDetails[index],
                   name:item.description,
                   price:item.amount_total/100,
                   currency:item.currency,
