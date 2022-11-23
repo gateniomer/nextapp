@@ -77,7 +77,7 @@ const handler = async (req, res) => {
 };
 
 const handleCheckoutSession = async (uid,products)=>{
-  if(!uid) return;
+  if(!uid) return console.log("uid",uid);
 
   const admin = require("firebase-admin");
   const {initializeApp,getApps} = require("firebase-admin/app");
