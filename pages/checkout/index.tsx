@@ -23,10 +23,10 @@ const Checkout = ()=>{
       },
       body:JSON.stringify({items:cartProducts,user})
     }).catch(e=>console.log(e));
-    console.log(resp);
+
     const data = resp && await resp.json();
-    console.log(data);
-    // router.push(data.url); 
+
+    router.push(data.url); 
   }
   return (
     <div className={styles.container}>
