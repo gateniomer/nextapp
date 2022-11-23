@@ -6,7 +6,8 @@ import { updateProducts } from '../utils/products.slice'
 import Card from '../components/Card'
 
 export const getServerSideProps:GetServerSideProps = async () => {
-  const products = await (await fetch(process.env.NEXT_PUBLIC_URL+'/api/products?random=true&limit=9')).json();
+  const {products} = require('../data/products');
+  // const products = await (await fetch(process.env.NEXT_PUBLIC_URL+'/api/products?random=true&limit=9')).json();
 
   return {
     props:{products}
