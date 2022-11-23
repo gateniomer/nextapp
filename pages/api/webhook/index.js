@@ -24,13 +24,13 @@ const handler = async (req, res) => {
       apiVersion: "2022-11-15",
     });
 
-    // const buf = await buffer(req);
+    const buf = await buffer(req);
     const sig = req.headers["stripe-signature"];
     const webhookSecret = process.env.STRIPE_WEBHOOK;
 
     let event;
     try {
-      event = stripe.webhooks.constructEvent(req, sig, webhookSecret);
+      event = stripe.webhooks.constructEvent(buf, sig, webhookSecret);
     } catch (err) {
       res.status(400).send(`Webhook Error: ${err.message}`);
       return;
