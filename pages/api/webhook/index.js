@@ -1,5 +1,5 @@
 import Stripe from "stripe";
-
+import { getApps,initializeApp } from "firebase-admin/app";
 //disable body parser (need raw body cus of Stripe)
 export const config = {
   api: {
@@ -86,10 +86,17 @@ const handleCheckoutSession = async (uid,products)=>{
 
   console.log(admin.apps.length);
 
-  !admin.apps.length ?
-  admin.initializeApp({
-    credential: admin.credential.cert(serviceAccount)
-  }) : admin.app();
+  // !admin.apps.length ?
+  // admin.initializeApp({
+  //   credential: admin.credential.cert(serviceAccount)
+  // }) : admin.app();
+  
+  if (getApps().length < 1) {
+    initializeApp(
+    {
+      credential: admin.credential.cert(serviceAccount)
+    });
+  }
   
   const doc = admin.firestore().collection('users').doc(uid);
   const docData = (await doc.get()).data();
