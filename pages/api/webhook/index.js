@@ -19,6 +19,7 @@ async function buffer(readable) {
 }
 
 const handler = async (req, res) => {
+  console.log('testing');
   if (req.method === "POST") {
     const stripe = new Stripe(process.env.STRIPE_SECRET, {
       apiVersion: "2022-11-15",
