@@ -1,6 +1,6 @@
 import Stripe from "stripe";
 import type { NextApiRequest, NextApiResponse } from 'next';
-import {getProduct} from '../../api/products/[id]'
+import {getProduct} from '../../api/products/[id]';
 
 type Item = {
   [key:string]:any
@@ -9,12 +9,25 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
+  
+  
   if(req.headers.origin!==process.env.NEXT_PUBLIC_URL) res.status(405).end("Method Not Allowed");
 
-  const products:Item[] = req.body.items ? await Promise.all(req.body.items.map(async (item:Item) => {
-    // const product = await (await fetch('https://api.escuelajs.co/api/v1/products/'+item.id)).json();
+  //array that contains additional product details (such as size,id,etc...)
+  let productsDetails:object[] = [];
+
+  const products:Item[] = req.body.items ? req.body.items.map((item:Item) => {
+    //get product from server database
     const product = getProduct(item.id);
     if (!product) return;
+
+    //add additional details if there is any
+    productsDetails.push({
+      id:item.id,
+      size:item.size
+    });
+
+    //return the product as line item object by Stripe requirements
     return {
       price_data:{
         currency:'ils',
@@ -23,29 +36,29 @@ export default async function handler(
           name:product.title,
         },
       },
-      quantity:item.quantity
+      quantity:item.quantity,
     };
-  })) : [];
+  }) : [];
 
-  let meta:Item = {};
-  meta['uid']=req.body.user.uid;
-  products.forEach((product,index) => {
-    meta[index] = JSON.stringify(product)
-  });
 
-  const stripe = require('stripe')(process.env.STRIPE_SECRET);
+  //checkout session params
   const params: Stripe.Checkout.SessionCreateParams = {
     mode: 'payment',
     payment_method_types: ['card'],
     line_items: products,
-    payment_intent_data:{
-      metadata:meta
-    },
+    metadata:{productsDetails:JSON.stringify(productsDetails),uid:req.body.user.uid},
     success_url: `${req.headers.origin}/checkout/success`,
     cancel_url: `${req.headers.origin}/checkout?failed=true`,
   };
-  const checkoutSession: Stripe.Checkout.Session =
-    await stripe.checkout.sessions.create(params);
 
-  res.status(200).json(checkoutSession);
+  //create checkout session and send it to user
+  if(process.env.STRIPE_SECRET){
+    const stripe = new Stripe(process.env.STRIPE_SECRET, {
+      apiVersion: "2022-11-15",
+    });
+    const checkoutSession: Stripe.Checkout.Session =
+    await stripe.checkout.sessions.create(params);
+    res.status(200).json(checkoutSession);
+  }
+  
 }

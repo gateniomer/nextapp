@@ -1,16 +1,13 @@
 import Stripe from "stripe";
 
-const stripe = new Stripe(process.env.STRIPE_SECRET, {
-  apiVersion: "2022-11-15",
-});
-const webhookSecret = process.env.STRIPE_WEBHOOK;
-
+//disable body parser (need raw body cus of Stripe)
 export const config = {
   api: {
     bodyParser: false,
   },
 };
 
+//convert request body to Buffer (need raw body cus of Stripe)
 async function buffer(readable) {
   const chunks = [];
   for await (const chunk of readable) {
@@ -21,8 +18,14 @@ async function buffer(readable) {
 
 const handler = async (req, res) => {
   if (req.method === "POST") {
+    const stripe = new Stripe(process.env.STRIPE_SECRET, {
+      apiVersion: "2022-11-15",
+    });
+
     const buf = await buffer(req);
     const sig = req.headers["stripe-signature"];
+    const webhookSecret = process.env.STRIPE_WEBHOOK;
+
     let event;
     try {
       event = stripe.webhooks.constructEvent(buf, sig, webhookSecret);
@@ -33,9 +36,36 @@ const handler = async (req, res) => {
 
     // Handle the event
     switch (event.type) {
-      case 'payment_intent.succeeded':
-        const paymentIntent = event.data.object;
-        handleIntent(paymentIntent);
+      case 'checkout.session.completed':
+        const checkoutSession = event.data.object;
+
+        const uid = checkoutSession.metadata.uid;
+
+        const productsDetails = checkoutSession.metadata.productsDetails ?
+        JSON.parse(checkoutSession.metadata.productsDetails) : [];
+
+        stripe.checkout.sessions.listLineItems(
+          event.data.object.id,
+          {
+            expand: ['data.price.product'],
+          },
+          function(err, lineItems) {
+            // asynchronously called
+            if(err) console.log(err);
+            if(lineItems){
+              const products = lineItems.data.map((item,index)=>{
+                return{
+                  ...productsDetails[index],
+                  name:item.description,
+                  price:item.amount_total/100,
+                  currency:item.currency,
+                  quantity:item.quantity
+                }
+              })
+              handleCheckoutSession(uid,products);
+            }
+          }
+        );
         break;
       default:
         // Unexpected event type
@@ -49,30 +79,27 @@ const handler = async (req, res) => {
   }
 };
 
-const handleIntent = async (paymentIntent)=>{
+const handleCheckoutSession = async (uid,products)=>{
   
-  if(!paymentIntent.metadata.uid) return;
+  if(!uid) return;
+
+  var admin = require("firebase-admin");
+  var serviceAccount = JSON.parse(process.env.FIREBASE_ADMIN_SDK);
+
+  console.log(admin.apps.length);
+
+  !admin.apps.length ?
+  admin.initializeApp({
+    credential: admin.credential.cert(serviceAccount)
+  }) : admin.app();
   
-  const products = Object.entries(paymentIntent.metadata).filter(([key,value])=>key!=='uid').map(([key,value]) =>JSON.parse(value));
+  const doc = admin.firestore().collection('users').doc(uid);
+  const docData = (await doc.get()).data();
 
-
-        var admin = require("firebase-admin");
-        var serviceAccount = JSON.parse(process.env.FIREBASE_ADMIN_SDK);
-        console.log(admin.apps.length);
-
-        !admin.apps.length ?
-        admin.initializeApp({
-          credential: admin.credential.cert(serviceAccount)
-        }) : admin.app();
-        
-        const user = await admin.auth().getUser(paymentIntent.metadata.uid);
-        const doc = admin.firestore().collection('users').doc(user.uid);
-        const docData = (await doc.get()).data();
-
-        if(docData.orders){
-          await doc.set({...docData,orders:[{id:docData.orders.length,products},...docData.orders],products:[]});
-        }else{
-          await doc.set({...docData,orders:[{id:0,products}],products:[]});
-        }
+  if(docData.orders){
+    await doc.set({...docData,orders:[{id:docData.orders.length,products},...docData.orders],products:[]});
+  }else{
+    await doc.set({...docData,orders:[{id:0,products}],products:[]});
+  }
 }
 export default handler;
