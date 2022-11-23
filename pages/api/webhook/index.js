@@ -84,7 +84,7 @@ const handleCheckoutSession = async (uid,products)=>{
   var serviceAccount = await JSON.parse(process.env.FIREBASE_ADMIN_SDK);
   
   //initialize firebase-admin app if there isn't any
-  if (await admin.getApps().length < 1) {
+  if (await admin.auth().app.length < 1) {
     admin.initializeApp(
     {
       credential: admin.credential.cert(serviceAccount)
