@@ -81,7 +81,7 @@ const handleCheckoutSession = async (uid,products)=>{
 
   const admin = require("firebase-admin");
   const {initializeApp,getApps} = require("firebase-admin/app");
-  var serviceAccount = JSON.parse(process.env.FIREBASE_ADMIN_SDK);
+  var serviceAccount = await JSON.parse(process.env.FIREBASE_ADMIN_SDK);
 
   //initialize firebase-admin app if there isn't any
   if (getApps().length < 1) {
@@ -100,15 +100,19 @@ const handleCheckoutSession = async (uid,products)=>{
   }
   
   //if user exist, add the products from cart as new order & clean cart.
-  if(user){
-    const doc = admin.firestore().collection('users').doc(uid);
-    const docData = (await doc.get()).data();
-  
-    if(docData.orders){
-      await doc.set({...docData,orders:[{id:docData.orders.length,products},...docData.orders],products:[]});
-    }else{
-      await doc.set({...docData,orders:[{id:0,products}],products:[]});
+  try{
+    if(user){
+      const doc = admin.firestore().collection('users').doc(uid);
+      const docData = (await doc.get()).data();
+      console.log(user);
+      if(docData.orders){
+        await doc.set({...docData,orders:[{id:docData.orders.length,products},...docData.orders],products:[]});
+      }else{
+        await doc.set({...docData,orders:[{id:0,products}],products:[]});
+      }
     }
+  }catch(error){
+    console.log(error);
   }
   
 }
