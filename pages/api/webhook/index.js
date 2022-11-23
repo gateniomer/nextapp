@@ -82,6 +82,7 @@ const handleCheckoutSession = async (uid,products)=>{
   if(!uid) return;
 
   const admin = require("firebase-admin");
+  const {initializeApp,getApps} = require("firebase-admin/app");
   var serviceAccount = JSON.parse(process.env.FIREBASE_ADMIN_SDK);
 
   // console.log(admin.apps.length);
@@ -90,9 +91,8 @@ const handleCheckoutSession = async (uid,products)=>{
   // admin.initializeApp({
   //   credential: admin.credential.cert(serviceAccount)
   // }) : admin.app();
-  
-  if (admin.getApps().length < 1) {
-    admin.initializeApp(
+  if (getApps().length < 1) {
+    initializeApp(
     {
       credential: admin.credential.cert(serviceAccount)
     });
