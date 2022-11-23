@@ -40,7 +40,6 @@ const handler = async (req, res) => {
         const checkoutSession = event.data.object;
 
         const uid = checkoutSession.metadata.uid;
-        
 
         stripe.checkout.sessions.listLineItems(
           event.data.object.id,
@@ -82,31 +81,35 @@ const handleCheckoutSession = async (uid,products)=>{
 
   const admin = require("firebase-admin");
   const {initializeApp,getApps} = require("firebase-admin/app");
-  console.log(admin);
-  await admin.auth.getUser(uid);
-  console.log(admin);
   var serviceAccount = JSON.parse(process.env.FIREBASE_ADMIN_SDK);
 
-  // console.log(admin.apps.length);
-
-  // !admin.apps.length ?
-  // admin.initializeApp({
-  //   credential: admin.credential.cert(serviceAccount)
-  // }) : admin.app();
+  //initialize firebase-admin app if there isn't any
   if (getApps().length < 1) {
     initializeApp(
     {
       credential: admin.credential.cert(serviceAccount)
     });
   }
-  
-  const doc = admin.firestore().collection('users').doc(uid);
-  const docData = (await doc.get()).data();
 
-  if(docData.orders){
-    await doc.set({...docData,orders:[{id:docData.orders.length,products},...docData.orders],products:[]});
-  }else{
-    await doc.set({...docData,orders:[{id:0,products}],products:[]});
+  //add user to firebase-admin app, so firewall can detect the user in the request
+  let user;
+  try{
+    user = await admin.auth().getUser(uid);
+  }catch(error){
+    console.log(error);
   }
+  
+  //if user exist, add the products from cart as new order & clean cart.
+  if(user){
+    const doc = admin.firestore().collection('users').doc(uid);
+    const docData = (await doc.get()).data();
+  
+    if(docData.orders){
+      await doc.set({...docData,orders:[{id:docData.orders.length,products},...docData.orders],products:[]});
+    }else{
+      await doc.set({...docData,orders:[{id:0,products}],products:[]});
+    }
+  }
+  
 }
 export default handler;
