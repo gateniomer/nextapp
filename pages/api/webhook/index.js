@@ -63,6 +63,7 @@ const handler = async (req, res) => {
                   quantity:item.quantity
                 }
               })
+              console.log('lineitems',products);
               handleCheckoutSession(uid,products);
             }
           }
