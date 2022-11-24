@@ -35,7 +35,7 @@ const handler = async (req, res) => {
       res.status(400).send(`Webhook Error: ${err.message}`);
       return;
     }
-    console.log(event);
+
     // Handle the event
     switch (event.type) {
       case 'checkout.session.completed':
@@ -43,34 +43,28 @@ const handler = async (req, res) => {
 
         const uid = checkoutSession.metadata.uid;
 
-        await stripe.checkout.sessions.listLineItems(
+        const lineItems = await stripe.checkout.sessions.listLineItems(
           event.data.object.id,
           {
             limit:100,
             expand: ['data.price.product'],
-          },
-          async function(err, lineItems) {
-            // asynchronously called
-            if(err) console.log(err);
-            if(lineItems){
-              const products = lineItems.data.map((item,index)=>{
-                return{
-                  name:item.description,
-                  price:item.amount_total/100,
-                  currency:item.currency,
-                  quantity:item.quantity
-                }
-              })
-              await handleCheckoutSession(uid,products);
-            }
           }
         );
+        const products = lineItems.data.map((item,index)=>{
+          return{
+            name:item.description,
+            price:item.amount_total/100,
+            currency:item.currency,
+            quantity:item.quantity
+          }
+        });
+        console.log('line',products);
+        await handleCheckoutSession(uid,products);
         break;
       default:
         // Unexpected event type
         console.log(`Unhandled event type ${event.type}.`);
     }
-
     res.json({ received: true });
   } else {
     res.setHeader("Allow", "POST");
@@ -108,7 +102,6 @@ const handleCheckoutSession = async (uid,products)=>{
     if(user){
       const doc = admin.firestore().collection('users').doc(uid);
       const docData = (await doc.get()).data();
-      console.log(user);
       if(docData.orders){
         await doc.set({...docData,orders:[{id:docData.orders.length,products},...docData.orders],products:[]});
       }else{
