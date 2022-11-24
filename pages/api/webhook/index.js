@@ -35,7 +35,7 @@ const handler = async (req, res) => {
       res.status(400).send(`Webhook Error: ${err.message}`);
       return;
     }
-
+    console.log(event);
     // Handle the event
     switch (event.type) {
       case 'checkout.session.completed':

@@ -46,7 +46,7 @@ export default async function handler(
       apiVersion: "2022-11-15",
     });
     const checkoutSession: Stripe.Checkout.Session = await stripe.checkout.sessions.create(params);
-    console.log(checkoutSession);
+
     res.status(200).send(checkoutSession);
   }
   
