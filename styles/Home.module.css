@@ -42,12 +42,17 @@
   }
   .cardContainer {
     width: 100%;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     margin: 0;
     gap: 5px;
     overflow: hidden;
   }
   .cardContainer > div {
     transform: skew(0deg);
+  }
+}
+@media (max-width: 600px) {
+  .cardContainer {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
   }
 }
