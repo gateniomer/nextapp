@@ -1,4 +1,4 @@
-import { GetStaticPaths, GetStaticProps, NextPage } from "next"
+import { GetStaticPaths, GetStaticProps, NextPage, } from "next"
 import Link from "next/link";
 import { ProductType } from "../../utils/types";
 import styles from '../../styles/Product.module.css';
@@ -11,11 +11,13 @@ import Card from "../../components/Card";
 import {useState,useEffect} from 'react';
 import {CLOTH_SIZES,SHOE_SIZES} from '../../data/sizes';
 import { searchProductsByQuery } from "../api/products";
+import { useRouter } from "next/router";
 
 export const getStaticProps:GetStaticProps = async (context)=>{
   const id = context.params?.id;
   const product = getProduct(id);
   if (!product) return {props:{}};
+
   const relatedProducts = searchProductsByQuery({
     limit:4,
     random:'true',
@@ -39,7 +41,7 @@ export const getStaticPaths:GetStaticPaths = async () => {
 export const Product:NextPage<{product:ProductType,relatedProducts:ProductType[]}> =  ({product,relatedProducts}) => {
   const dispatch = useAppDispatch();
   const user = useAppSelector(state=>state.userDetails.user);
-
+  const router = useRouter();
   
   const [quantity,setQuantity] = useState(1);
   const [selectedSize,setSelectedSize] = useState(0);
@@ -63,6 +65,20 @@ export const Product:NextPage<{product:ProductType,relatedProducts:ProductType[]
   //dispatch adding product to cart action
   const onAddToCartHandler = () => {
     dispatch(updateCartThunk({product,quantity}));
+  }
+  const onBuyNowHandler = async () => {
+    // setLoading(true);
+    const resp = await fetch('/api/checkout-sessions',{
+      method:'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body:JSON.stringify({items:[{...product,quantity}],user,buynow:true})
+    }).catch(e=>console.log(e));
+
+    const data = resp && await resp.json();
+    
+    router.push(data.url); 
   }
 
   const addQuantity = () => {
@@ -123,7 +139,7 @@ export const Product:NextPage<{product:ProductType,relatedProducts:ProductType[]
           {user && 
           <div className={styles.buttonsContainer}>
             <button className='btn' onClick={()=>onAddToCartHandler()}>Add to Cart</button>
-            <button className='btn'>Buy Now</button>
+            <button className='btn' onClick={()=>onBuyNowHandler()}>Buy Now</button>
           </div>}
           {!user && 
           <div className={styles.buttonsContainer}>

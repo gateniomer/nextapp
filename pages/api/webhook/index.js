@@ -42,6 +42,7 @@ const handler = async (req, res) => {
         const checkoutSession = event.data.object;
 
         const uid = checkoutSession.metadata.uid;
+        const buynow = checkoutSession.metadata.buynow;
 
         const lineItems = await stripe.checkout.sessions.listLineItems(
           event.data.object.id,
@@ -58,8 +59,7 @@ const handler = async (req, res) => {
             quantity:item.quantity
           }
         });
-        console.log('line',products);
-        await handleCheckoutSession(uid,products);
+        await handleCheckoutSession(uid,products,buynow);
         break;
       default:
         // Unexpected event type
@@ -72,7 +72,7 @@ const handler = async (req, res) => {
   }
 };
 
-const handleCheckoutSession = async (uid,products)=>{
+const handleCheckoutSession = async (uid,products,buynow)=>{
   if(!uid) return console.log("uid",uid);
 
   let serviceAccount;
@@ -105,19 +105,27 @@ const handleCheckoutSession = async (uid,products)=>{
       const doc = admin.firestore().collection('users').doc(uid);
       const docData = (await doc.get()).data();
       if(docData.orders){
-        await doc.set({...docData,orders:[
+        await doc.set({
+          ...docData,
+          orders:[
           {id:docData.orders.length,
           createdAt:new Date().toString(),
           products,
           total
-          },...docData.orders],products:[]});
+          },
+          ...docData.orders],
+          products:buynow ? docData.products : []});
       }else{
-        await doc.set({...docData,orders:[{
+        await doc.set({
+          ...docData
+          ,orders:[
+          {
           id:0,
           createdAt:`${new Date()}`,
           products,
           total
-        }],products:[]});
+        }],
+        products:buynow ? docData.products : []});
       }
     }
   }catch(error){

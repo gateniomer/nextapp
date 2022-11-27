@@ -35,7 +35,7 @@ export default async function handler(
     mode: 'payment',
     payment_method_types: ['card'],
     line_items: products,
-    metadata:{uid:req.body.user.uid},
+    metadata:{uid:req.body.user.uid,buynow:req.body.buynow},
     success_url: `${req.headers.origin}/checkout/success`,
     cancel_url: `${req.headers.origin}/checkout?failed=true`,
   };
