@@ -65,7 +65,15 @@
 
 .orderHistoryItem {
   display: flex;
+  gap: 10px;
   flex-direction: column;
+}
+.orderHistoryItem div:first-child {
+  padding-bottom: 5px;
+  border-bottom: 1px solid #f4f4f4;
+}
+.orderHistoryItem span {
+  display: block;
 }
 
 .orderHistoryItem .createdAt {

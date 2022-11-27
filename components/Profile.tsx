@@ -25,12 +25,14 @@ const Profile = ({user}:{user:User}) =>{
       <div className={styles.orderHistoryContainer}>
         {userData?.orders?.map((order:any)=>
         <div key={order.id} className={styles.orderHistoryItem}>
-          <h4>Order #{order.id}</h4>
-          <span className={styles.createdAt}>{order.createdAt}</span>
+          <div>
+            <h4>Order #{order.id}</h4>
+            <span className={styles.createdAt}>{order.createdAt}</span>
+          </div>
           {order.products.map((product:any)=>
           <div key={`${order.id}${product.id}${product.size}`}>
-            <p><strong>{product.name} x {product.quantity} </strong></p>
-            <p>price: {product.price/product.quantity} x {product.quantity} = {product.price}</p>
+            <span><strong>{product.name} x {product.quantity} </strong></span>
+            <span>price: {product.price/product.quantity} x {product.quantity} = {product.price}</span>
           </div>
           )}
           {order.total && <span className={styles.orderTotal}><strong>Order Total: {order.total}</strong></span>}
