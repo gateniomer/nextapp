@@ -10,14 +10,21 @@ import { getProduct } from "../api/products/[id]";
 import Card from "../../components/Card";
 import {useState,useEffect} from 'react';
 import {CLOTH_SIZES,SHOE_SIZES} from '../../data/sizes';
+import { searchProductsByQuery } from "../api/products";
 
 export const getStaticProps:GetStaticProps = async (context)=>{
   const id = context.params?.id;
   const product = getProduct(id);
   if (!product) return {props:{}};
+  const relatedProducts = searchProductsByQuery({
+    limit:4,
+    random:'true',
+    category:product.category.id,
+    ignore:[product.id]
+  });
 
   return {
-    props: {title:`${product.title}`,product}
+    props: {title:`${product.title}`,product,relatedProducts}
   }
 }
 
@@ -29,20 +36,20 @@ export const getStaticPaths:GetStaticPaths = async () => {
   }
 }
 
-export const Product:NextPage<{product:ProductType}> =  ({product}) => {
+export const Product:NextPage<{product:ProductType,relatedProducts:ProductType[]}> =  ({product,relatedProducts}) => {
   const dispatch = useAppDispatch();
   const user = useAppSelector(state=>state.userDetails.user);
-  const [relatedProducts,setRelatedProducts] = useState<any[]>([]);
+  // const [relatedProducts,setRelatedProducts] = useState<any[]>([]);
   
   const [quantity,setQuantity] = useState(1);
   const [selectedSize,setSelectedSize] = useState(0);
 
-  useEffect(()=>{
-    const url = process.env.NODE_ENV === 'development' ? window.location.origin : process.env.NEXT_PUBLIC_URL;
-    fetch(`${url}/api/products?limit=4&random=true&ignore=${product.id}&category=${product.category.id}`)
-    .then(resp=>resp.json())
-    .then(data=>setRelatedProducts(data));
-  },[]);
+  // useEffect(()=>{
+  //   const url = process.env.NODE_ENV === 'development' ? window.location.origin : process.env.NEXT_PUBLIC_URL;
+  //   fetch(`${url}/api/products?limit=4&random=true&ignore=${product.id}&category=${product.category.id}`)
+  //   .then(resp=>resp.json())
+  //   .then(data=>setRelatedProducts(data));
+  // },[]);
 
   switch(product.category.id){
     case 0:
