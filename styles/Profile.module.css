@@ -68,6 +68,10 @@
   flex-direction: column;
 }
 
+.orderHistoryItem .createdAt {
+  font-style: italic;
+}
+
 @media (max-width: 900px) {
   .container {
     width: 90%;

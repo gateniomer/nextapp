@@ -101,20 +101,20 @@ const handleCheckoutSession = async (uid,products)=>{
   //if user exist, add the products from cart as new order & clean cart.
   try{
     if(user){
-      const total = products.reduce((product,acc)=>product.price+acc,0);
+      const total = await products.reduce((acc,product)=>product.price+acc,0);
       const doc = admin.firestore().collection('users').doc(uid);
       const docData = (await doc.get()).data();
       if(docData.orders){
         await doc.set({...docData,orders:[
           {id:docData.orders.length,
-          createdAt:new Date(),
+          createdAt:new Date().toString(),
           products,
           total
           },...docData.orders],products:[]});
       }else{
         await doc.set({...docData,orders:[{
           id:0,
-          createdAt:new Date(),
+          createdAt:`${new Date()}`,
           products,
           total
         }],products:[]});
