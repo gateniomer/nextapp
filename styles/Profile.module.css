@@ -50,14 +50,8 @@
   max-height: 300px;
   max-width: 600px;
 }
-.orderHistoryContainer > div {
-  background: #333;
-  color: #f4f4f4;
-  padding: 5px 10px;
-  border-radius: 10px;
-  width: 90%;
-}
-.orderHistoryContainer > div h4 {
+
+.orderHistoryItem h4 {
   padding: 0;
   margin: 0;
   font-size: 1.5rem;
@@ -67,6 +61,11 @@
   display: flex;
   gap: 10px;
   flex-direction: column;
+  padding: 20px;
+  background: #333;
+  color: #f4f4f4;
+  border-radius: 10px;
+  width: 90%;
 }
 .orderHistoryItem div:first-child {
   padding-bottom: 5px;
