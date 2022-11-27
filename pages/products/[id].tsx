@@ -39,17 +39,11 @@ export const getStaticPaths:GetStaticPaths = async () => {
 export const Product:NextPage<{product:ProductType,relatedProducts:ProductType[]}> =  ({product,relatedProducts}) => {
   const dispatch = useAppDispatch();
   const user = useAppSelector(state=>state.userDetails.user);
-  // const [relatedProducts,setRelatedProducts] = useState<any[]>([]);
+
   
   const [quantity,setQuantity] = useState(1);
   const [selectedSize,setSelectedSize] = useState(0);
 
-  // useEffect(()=>{
-  //   const url = process.env.NODE_ENV === 'development' ? window.location.origin : process.env.NEXT_PUBLIC_URL;
-  //   fetch(`${url}/api/products?limit=4&random=true&ignore=${product.id}&category=${product.category.id}`)
-  //   .then(resp=>resp.json())
-  //   .then(data=>setRelatedProducts(data));
-  // },[]);
 
   switch(product.category.id){
     case 0:
@@ -138,7 +132,7 @@ export const Product:NextPage<{product:ProductType,relatedProducts:ProductType[]
         </div>
         
         </div>}
-          {/* <h3>Related Products</h3> */}
+        
         <div className={styles.relatedProductsContainer}>
           {relatedProducts.map(product=>
             <Card key={product.id} product={product}/>
