@@ -34,15 +34,18 @@
   .container {
     flex-direction: column;
     margin: 0;
-    padding: 0 10px;
+    padding: 10px;
   }
   .mainTextContainer {
     margin-top: 0px;
     width: 100%;
   }
+  .mainTextContainer h1 {
+    margin: 0;
+    padding: 0;
+  }
   .cardContainer {
     width: 100%;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     margin: 0;
     gap: 5px;
     overflow: hidden;

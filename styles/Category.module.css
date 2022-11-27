@@ -20,3 +20,14 @@
   gap: 10px;
   margin-top: 50px;
 }
+@media (max-width: 900px) {
+  .container {
+    margin: 0;
+    padding: 10px;
+  }
+}
+@media (max-width: 600px) {
+  .cardContainer {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  }
+}

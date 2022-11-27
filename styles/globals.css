@@ -91,7 +91,10 @@ nav {
 .btn:hover {
   opacity: 0.8;
 }
-
+.space-filler-mobile {
+  height: 100px;
+  display: none;
+}
 @media (max-width: 1100px) {
   header {
     justify-content: space-between;
@@ -101,6 +104,21 @@ nav {
     display: none;
   }
   .header-mobile {
+    display: block;
+  }
+}
+@media (max-width: 900px) {
+  header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: #fbfbfb;
+    width: 100%;
+    z-index: 10000;
+    padding: 0px 20px;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  }
+  .space-filler-mobile {
     display: block;
   }
 }

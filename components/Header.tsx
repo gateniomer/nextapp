@@ -43,6 +43,8 @@ export default function Header () {
   },[])
 
   return (
+  <>
+  <div className="space-filler-mobile"></div>
   <header>
     <Link href={'/'}><h1>🛍️ Next E-Store</h1></Link>
     <div className='header-desktop'>
@@ -72,5 +74,6 @@ export default function Header () {
       <MobileMenu/>
     </div>
     </header>
+  </>
   ) 
 }
