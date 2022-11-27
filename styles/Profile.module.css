@@ -1,13 +1,16 @@
 .container {
+  display: block;
   max-width: 1200px;
   padding: 50px;
   margin: 0 auto;
   min-height: 85vh;
+  background: #f4f4f4;
+  border-radius: 20px;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
 .container h2 {
   font-size: 3rem;
   margin: 0;
-  margin-top: 20px;
 }
 .container h3 {
   font-size: 1.5rem;
@@ -15,17 +18,17 @@
 
 .avatar {
   display: flex;
+  min-width: 100px;
   justify-content: center;
   align-items: center;
   width: 100px;
   height: 100px;
   color: #f4f4f4;
-  font-size: 3rem;
+  font-size: 2rem;
   background: #333;
   border-radius: 50%;
   margin: 10px 0;
   border: 5px solid #ffbd59;
-  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
 }
 
 .userDetailsContainer {
@@ -36,4 +39,51 @@
 .userDetailsContainer span {
   display: block;
   font-size: 1.2rem;
+}
+
+.orderHistoryContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  max-height: 300px;
+  max-width: 600px;
+}
+.orderHistoryContainer > div {
+  background: #333;
+  color: #f4f4f4;
+  padding: 5px 10px;
+  border-radius: 10px;
+  width: 90%;
+}
+.orderHistoryContainer > div h4 {
+  padding: 0;
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.orderHistoryItem {
+  display: flex;
+  flex-direction: column;
+}
+
+@media (max-width: 900px) {
+  .container {
+    width: 90%;
+    padding: 10px;
+    min-height: 80vh;
+  }
+  .userDetailsContainer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+  }
+  .avatar {
+    min-width: 70px;
+    width: 70px;
+    height: 70px;
+    font-size: 1.5rem;
+    border-width: 3px;
+  }
 }

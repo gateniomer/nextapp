@@ -13,7 +13,6 @@ const Profile = ({user}:{user:User}) =>{
   return user && (
     <div className={styles.container}>
       <h2>Hello {userData?.displayName} 👋</h2>
-      <h3>User Details</h3>
       <div className={styles.userDetailsContainer}>
         <div className={styles.avatar}>{userData?.displayName && userData.displayName[0].toUpperCase()}</div>
         <div>
@@ -23,15 +22,21 @@ const Profile = ({user}:{user:User}) =>{
         </div>
       </div>
       <h3>Order History : {userData?.orders?.length | 0} in total</h3>
-      {userData?.orders?.map((order:any)=><div key={order.id}>
-        <h4>Order #{order.id}</h4>
-        {order.products.map((product:any,index:number)=>
-        <div key={`${order.id}${product.id}${product.size}`}>
-          <p>{product.name} x {product.quantity} </p>
-          <p>total: {product.price}</p>
-        </div>
-        )}
-      </div>)}
+      <div className={styles.orderHistoryContainer}>
+        {userData?.orders?.map((order:any)=>
+        <div key={order.id} className={styles.orderHistoryItem}>
+          <h4>Order #{order.id}</h4>
+          <span>{order.createdAt}</span>
+          {order.products.map((product:any)=>
+          <div key={`${order.id}${product.id}${product.size}`}>
+            <p><strong>{product.name} x {product.quantity} </strong></p>
+            <p>price: {product.price/product.quantity} x {product.quantity} = {product.price}</p>
+          </div>
+          )}
+          {order.total && <span><strong>Order Total: {order.total}</strong></span>}
+        </div>)}
+      </div>
+      
     </div>
   )
 }

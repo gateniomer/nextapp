@@ -74,6 +74,7 @@ const handler = async (req, res) => {
 
 const handleCheckoutSession = async (uid,products)=>{
   if(!uid) return console.log("uid",uid);
+
   let serviceAccount;
   try{
     serviceAccount = await JSON.parse(process.env.FIREBASE_ADMIN_SDK);
@@ -100,12 +101,23 @@ const handleCheckoutSession = async (uid,products)=>{
   //if user exist, add the products from cart as new order & clean cart.
   try{
     if(user){
+      const total = products.reduce((product,acc)=>product.price+acc,0);
       const doc = admin.firestore().collection('users').doc(uid);
       const docData = (await doc.get()).data();
       if(docData.orders){
-        await doc.set({...docData,orders:[{id:docData.orders.length,products},...docData.orders],products:[]});
+        await doc.set({...docData,orders:[
+          {id:docData.orders.length,
+          createdAt:new Date(),
+          products,
+          total
+          },...docData.orders],products:[]});
       }else{
-        await doc.set({...docData,orders:[{id:0,products}],products:[]});
+        await doc.set({...docData,orders:[{
+          id:0,
+          createdAt:new Date(),
+          products,
+          total
+        }],products:[]});
       }
     }
   }catch(error){
