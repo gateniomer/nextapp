@@ -1,9 +1,10 @@
+.button {
+  font-size: 1.8rem;
+}
 .container {
-  display: flex;
-  flex-direction: column;
   position: absolute;
-  transform: translate(100%, 0);
   z-index: 1000;
+  width: 100%;
   max-width: 400px;
   margin: 0 auto;
   height: 100vh;
@@ -14,19 +15,29 @@
   animation: enter 0.4s forwards;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
-.button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
+
+.container .searchContainer {
+  margin: 20px 0;
 }
-.button svg {
-  /* align-self: center; */
+.container nav {
+  display: block;
+  margin-top: 20px;
+  font-size: 1.3rem;
+}
+.container nav ul {
+  list-style: none;
+  list-space: 10px;
+  padding: 0;
+  margin: 0;
+}
+.container nav ul li {
+  margin-bottom: 20px;
 }
 .itemsContainer {
   overflow: hidden;
   overflow-y: scroll;
   margin-bottom: 20px;
+  max-height: 300px;
 }
 .cartItem {
   display: flex;
@@ -57,12 +68,23 @@
   font-size: 0.9rem;
 }
 
-.closeButton {
-  display: inline;
-  width: 30px;
-  height: 30px;
+.iconContainer {
+  display: flex;
+  justify-content: space-between;
+}
+.iconContainer svg {
   cursor: pointer;
   font-size: 2rem;
+}
+.userDetailsContainer {
+  display: flex;
+  align-items: center;
+  font-size: 1.1rem;
+  cursor: pointer;
+  gap: 10px;
+}
+.userDetailsContainer svg {
+  font-size: 1.5rem;
 }
 
 .cartItemQuantity {
@@ -96,6 +118,5 @@
   }
   100% {
     opacity: 1;
-    transform: translate(0, 0);
   }
 }

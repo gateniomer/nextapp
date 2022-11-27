@@ -6,7 +6,7 @@ import Image from 'next/image';
 import styles from '../styles/Search.module.css';
 import useOutsideAlerter from '../hooks/useOutsideAlerter';
 
-const Search = () => {
+const Search = ({callback}:{callback?:()=>void}) => {
   const [input,setInput] = useState('');
   const [searchResult,setSearchResult] = useState<ProductType[]>([]);
 
@@ -38,13 +38,16 @@ const Search = () => {
 
   return (
     <div className={styles.search} ref={ref}>
-      <input type="text" value={input} onInput={(e)=>setInput((e.target as HTMLInputElement).value)}/>
+      <input type="text" value={input} onInput={(e)=>setInput((e.target as HTMLInputElement).value)} placeholder='search for products'/>
       {(searchResult.length>0) && 
       <div className={styles.searchResultsContainer}>
         {
           searchResult.map((product:ProductType)=>
           <Link key={product.id} href={'/products/'+product.id}>
-            <div onClick={clearSearch} className={styles.searchResultsItem}>
+            <div onClick={()=>{
+              clearSearch();
+              callback && callback();
+            }} className={styles.searchResultsItem}>
               <Image src={product.image} 
               width={'50%'}
               height={'50%'}

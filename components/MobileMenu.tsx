@@ -1,5 +1,5 @@
 import { useState,useRef,useEffect } from 'react';
-import styles from '../styles/Cart.module.css';
+import styles from '../styles/MobileMenu.module.css';
 import { useAppSelector } from "../utils/hooks";
 import Link from 'next/link';
 import useOutsideAlerter from '../hooks/useOutsideAlerter';
@@ -7,15 +7,18 @@ import { useRouter } from 'next/router';
 import { useAppDispatch } from '../utils/hooks';
 import { ProductType } from '../utils/types';
 import { updateCartThunk } from '../utils/thunk';
-
+import { CATEGORIES } from '../data/categories';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCartShopping,faXmark } from "@fortawesome/free-solid-svg-icons"
+import { faCartShopping,faXmark,faBurger, faUser, faRightFromBracket } from "@fortawesome/free-solid-svg-icons"
+import Search from './search';
+import { signOutUser } from '../utils/firebase';
 
-export const Cart = () => {
+export const MobileMenu = () => {
   const cartProducts = useAppSelector(state=>state.userDetails.cart);
   const [opened,setOpened] = useState(false);
   const numOfItems = cartProducts?.reduce((prev,current)=>prev+current.quantity,0);
   const totalPrice = cartProducts?.reduce((prev,current)=>prev+(Math.floor(current.price*current.quantity)),0);
+  const user = useAppSelector(state=>state.userDetails.user);
 
   const router = useRouter();
   const dispatch = useAppDispatch();
@@ -39,14 +42,41 @@ export const Cart = () => {
   return (
     <div ref={ref}>
     <div className={styles.button} onClick={()=>setOpened(prev=>!prev)}>
-      <FontAwesomeIcon icon={faCartShopping}/>
+      <FontAwesomeIcon icon={faBurger}/>
       <span>{numOfItems}</span>
     </div>
 
     {opened && 
     <div className={styles.container}>
-      <FontAwesomeIcon icon={faXmark} className={styles.closeButton} onClick={()=>setOpened(false)}/>
-      <h2>Products:</h2>
+      <div className={styles.iconContainer}>
+        <FontAwesomeIcon icon={faXmark} className={styles.closeButton} onClick={()=>setOpened(false)}/>
+          <div className={styles.userDetailsContainer}>
+            <div onClick={()=>{
+            setOpened(false);
+            router.push('/auth');
+          }} style={{display:'flex',gap:'10px'}}>
+            <span>{user ? user.email : 'Sign In'}</span>
+            <FontAwesomeIcon icon={faUser} className={styles.closeButton} onClick={()=>setOpened(false)}/>
+            </div>
+            {user && <FontAwesomeIcon icon={faRightFromBracket} onClick={()=>signOutUser()}/>}
+          </div>
+      </div>
+
+      <div className={styles.searchContainer}>
+        <Search callback={()=>{setOpened(false)}}/>
+      </div>
+      <h2>Browse Categories</h2>
+      <nav>
+        <ul>
+          {Object.values(CATEGORIES).map(category=>
+          <li onClick={()=>setOpened(false)} key={category.id}>
+            <Link key={category.id} href={'/categories/'+category.id}>{category.name}</Link>
+          </li>
+          )}
+        </ul>
+      </nav>
+      {user && <>
+        <h2>Cart Items</h2>
       <div className={styles.itemsContainer}>
       {cartProducts && cartProducts.map(product => 
         <div key={''+product.id+product.size} className={styles.cartItem}>
@@ -67,8 +97,9 @@ export const Cart = () => {
       setOpened(false);
       router.push('/checkout')
     }}>Proceed to Checkout</button>
+      </>}
   </div>}
   </div>)
 }
 
-export default Cart;
+export default MobileMenu;

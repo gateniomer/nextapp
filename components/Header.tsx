@@ -1,15 +1,16 @@
 import Link from "next/link"
 import Cart from "./Cart"
-import { useEffect,useState } from "react"
+import { useEffect } from "react"
 import { signOutUser, updateUserLoginInFirestore} from "../utils/firebase"
 import { useAppDispatch, useAppSelector } from "../utils/hooks"
 import { onAuthStateChanged } from "firebase/auth"
 import { auth,getUserData } from "../utils/firebase"
 import { updateUser,updateCart } from "../utils/user.slice"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faUserGroup,faRightFromBracket,faRightToBracket } from "@fortawesome/free-solid-svg-icons";
+import { faUserGroup,faRightFromBracket,faRightToBracket,faBurger } from "@fortawesome/free-solid-svg-icons";
 import {CATEGORIES} from '../data/categories';
 import Search from "./search";
+import MobileMenu from "./MobileMenu"
 
 
 export default function Header () {
@@ -44,28 +45,33 @@ export default function Header () {
   return (
   <header>
     <Link href={'/'}><h1>🛍️ Next E-Store</h1></Link>
-    <nav>
-      {Object.values(CATEGORIES).map(category=>
-      <Link key={category.id} href={'/categories/'+category.id}>{category.name}</Link>
-      )}
-      
-    </nav>
-    <Search/>
-    {!user && 
-        <Link href={'/auth'}>
-          <div>
-            Sign In <FontAwesomeIcon icon={faRightToBracket}/>
-          </div>
-        </Link>
-    }
-    {user &&
-      <div style={{display:'flex',gap:'20px',fontSize:'1.1rem',cursor:'pointer'}}>
-        <Cart/>
-        <Link href={'/auth'}><FontAwesomeIcon icon={faUserGroup}/></Link>
-        <FontAwesomeIcon icon={faRightFromBracket} onClick={signOutUser}/>
-        {/* <button onClick={signOutUser}>Sign Out</button> */}
-      </div>
-    }
+    <div className='header-desktop'>
+      <nav>
+        {Object.values(CATEGORIES).map(category=>
+        <Link key={category.id} href={'/categories/'+category.id}>{category.name}</Link>
+        )}
+        
+      </nav>
+      <Search/>
+      {!user && 
+          <Link href={'/auth'}>
+            <div>
+              Sign In <FontAwesomeIcon icon={faRightToBracket}/>
+            </div>
+          </Link>
+      }
+      {user &&
+        <>
+          <Cart/>
+          <Link href={'/auth'}><FontAwesomeIcon icon={faUserGroup}/></Link>
+          <FontAwesomeIcon icon={faRightFromBracket} onClick={signOutUser}/>
+          {/* <button onClick={signOutUser}>Sign Out</button> */}
+        </>
+      }
+    </div>
+    <div className='header-mobile'>
+      <MobileMenu/>
+    </div>
     </header>
   ) 
 }
