@@ -40,7 +40,13 @@ header h1 {
   font-size: 1.7rem;
   cursor: pointer;
 }
-
+.header-links-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  justify-content: center;
+  font-size: 1.1rem;
+}
 .header-desktop {
   display: flex;
   gap: 10px;
@@ -50,10 +56,6 @@ header h1 {
 }
 .header-mobile {
   display: none;
-}
-.header-desktop svg {
-  font-size: 20px;
-  align-self: center;
 }
 nav {
   display: flex;

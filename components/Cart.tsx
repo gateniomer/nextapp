@@ -46,7 +46,7 @@ export const Cart = () => {
     {opened && 
     <div className={styles.container}>
       <FontAwesomeIcon icon={faXmark} className={styles.closeButton} onClick={()=>setOpened(false)}/>
-      <h2>Products:</h2>
+      <h2>Cart Items:</h2>
       <div className={styles.itemsContainer}>
       {cartProducts && cartProducts.map(product => 
         <div key={''+product.id+product.size} className={styles.cartItem}>

@@ -61,12 +61,11 @@ export default function Header () {
           </Link>
       }
       {user &&
-        <>
+        <div className='header-links-container'>
           <Cart/>
           <Link href={'/auth'}><FontAwesomeIcon icon={faUserGroup}/></Link>
           <FontAwesomeIcon icon={faRightFromBracket} onClick={signOutUser}/>
-          {/* <button onClick={signOutUser}>Sign Out</button> */}
-        </>
+        </div>
       }
     </div>
     <div className='header-mobile'>

@@ -4,10 +4,10 @@ import styles from '../styles/Home.module.css'
 import { useAppDispatch } from '../utils/hooks'
 import { updateProducts } from '../utils/products.slice'
 import Card from '../components/Card'
+import { searchProductsByQuery } from './api/products'
 
 export const getServerSideProps:GetServerSideProps = async () => {
-  const {products} = require('../data/products');
-  // const products = await (await fetch(process.env.NEXT_PUBLIC_URL+'/api/products?random=true&limit=9')).json();
+  const products = searchProductsByQuery({limit:9,random:'true'});
 
   return {
     props:{products}
@@ -24,6 +24,8 @@ const Home = ({products}:{title:string,products:ProductType[]}) => {
       <div className={styles.mainTextContainer}>
         <h1>Awesome Next Store</h1>
         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat, vitae.</p>
+        <button className='btn' style={{marginRight:'10px'}}>Button 1</button>
+        <button className='btn'>Button 2</button>
       </div>
       <div className={styles.cardContainer}>
         {
