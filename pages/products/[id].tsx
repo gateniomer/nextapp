@@ -1,5 +1,4 @@
 import { GetStaticPaths, GetStaticProps, NextPage } from "next"
-import Head from "next/head";
 import Link from "next/link";
 import { ProductType } from "../../utils/types";
 import styles from '../../styles/Product.module.css';
@@ -8,25 +7,17 @@ import { useAppDispatch, useAppSelector } from "../../utils/hooks";
 import { updateCartThunk } from "../../utils/thunk";
 import { products } from "../../data/products";
 import { getProduct } from "../api/products/[id]";
-import { searchProductsByQuery } from "../api/products";
 import Card from "../../components/Card";
-import {useState} from 'react';
+import {useState,useEffect} from 'react';
 import {CLOTH_SIZES,SHOE_SIZES} from '../../data/sizes';
 
 export const getStaticProps:GetStaticProps = async (context)=>{
   const id = context.params?.id;
   const product = getProduct(id);
   if (!product) return {props:{}};
-  const relatedProducts = searchProductsByQuery(
-    {
-      limit:4,
-      category:product.category.id,
-      ignore:[product.id],
-      random:'true'
-    });
 
   return {
-    props: {title:`${product.title}`,product,relatedProducts}
+    props: {title:`${product.title}`,product}
   }
 }
 
@@ -38,12 +29,19 @@ export const getStaticPaths:GetStaticPaths = async () => {
   }
 }
 
-export const Product:NextPage<{product:ProductType,relatedProducts:ProductType[]}> =  ({product,relatedProducts}) => {
+export const Product:NextPage<{product:ProductType}> =  ({product}) => {
   const dispatch = useAppDispatch();
   const user = useAppSelector(state=>state.userDetails.user);
+  const [relatedProducts,setRelatedProducts] = useState<any[]>([]);
   
   const [quantity,setQuantity] = useState(1);
   const [selectedSize,setSelectedSize] = useState(0);
+
+  useEffect(()=>{
+    fetch(`${process.env.NEXT_PUBLIC_URL}/api/products?limit=4&random=true&ignore=${product.id}&category=${product.category.id}`)
+    .then(resp=>resp.json())
+    .then(data=>setRelatedProducts(data));
+  },[]);
 
   switch(product.category.id){
     case 0:
@@ -126,7 +124,7 @@ export const Product:NextPage<{product:ProductType,relatedProducts:ProductType[]
             <button className='btn'>Buy Now</button>
           </div>}
           {!user && 
-          <div>
+          <div className={styles.buttonsContainer}>
             <Link href={'/auth'}><span className="btn">Login to Buy</span></Link>
           </div>}
         </div>
