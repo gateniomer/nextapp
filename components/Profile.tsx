@@ -33,7 +33,7 @@ const Profile = ({user}:{user:User}) =>{
             <p>price: {product.price/product.quantity} x {product.quantity} = {product.price}</p>
           </div>
           )}
-          {order.total && <span><strong>Order Total: {order.total}</strong></span>}
+          {order.total && <span className={styles.orderTotal}><strong>Order Total: {order.total}</strong></span>}
         </div>)}
       </div>
       
