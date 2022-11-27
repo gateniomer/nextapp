@@ -86,13 +86,13 @@ export const MobileMenu = () => {
             {product.size && <span className={styles.cartItemTotal}>Size: {product.size}</span>}
             <span className={styles.cartItemTotal}>Total: {Math.floor(product.price * product.quantity)}₪</span>
           </div>
-          <button onClick={()=>subtractProductQuantity(product)}>-</button>
+          <button onClick={()=>subtractProductQuantity(product)} className={'btn'}>-</button>
           <span className={styles.cartItemQuantity}>{product.quantity}</span>
-          <button onClick={()=>addProductQuantity(product)}>+</button>
+          <button onClick={()=>addProductQuantity(product)} className={'btn'}>+</button>
         </div>
     )}
     </div>
-    <span>Cart Total: {totalPrice}₪</span>
+    <span><strong>Cart Total: {totalPrice}₪</strong></span>
     <button className={styles.checkoutButton} onClick={()=>{
       setOpened(false);
       router.push('/checkout')
