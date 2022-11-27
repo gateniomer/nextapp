@@ -32,10 +32,10 @@ const Profile = ({user}:{user:User}) =>{
           {order.products.map((product:any)=>
           <div key={`${order.id}${product.id}${product.size}`}>
             <span><strong>{product.name} x {product.quantity} </strong></span>
-            <span>price: {product.price/product.quantity} x {product.quantity} = {product.price}</span>
+            <span>price: {product.price/product.quantity}₪ x {product.quantity} = {product.price}₪</span>
           </div>
           )}
-          {order.total && <span className={styles.orderTotal}><strong>Order Total: {order.total}</strong></span>}
+          {order.total && <span className={styles.orderTotal}><strong>Order Total: {order.total}₪</strong></span>}
         </div>)}
       </div>
       
