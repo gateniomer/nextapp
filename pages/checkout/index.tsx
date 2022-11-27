@@ -41,7 +41,7 @@ const Checkout = ()=>{
       {
         cartProducts.map((product,index)=>{
           return <div key={index} className={styles.checkoutItem}>
-            <Image src={product.image} width='90px' height='100px' objectFit="cover" />
+            <Image src={product.image} width='90px' height='130px' objectFit="cover" />
             <div>
               <span>{product.title} x{product.quantity}</span>
               <span>Size: {product.size}</span>

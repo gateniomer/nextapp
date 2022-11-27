@@ -42,8 +42,11 @@
   align-items: center;
   display: flex;
   gap: 10px;
+  /* min-height: 100px; */
+  position: relative;
   /* overflow: hidden; */
 }
+
 .checkoutItem img {
   border-radius: 5px 0 0 5px;
 }
@@ -98,7 +101,7 @@
   .detailsContainer {
     flex-direction: column;
     gap: 20px;
-    padding: 20px;
+    padding: 10px;
   }
   .checkoutItemsContainer {
     order: 1;
