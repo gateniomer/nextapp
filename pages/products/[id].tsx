@@ -38,7 +38,8 @@ export const Product:NextPage<{product:ProductType}> =  ({product}) => {
   const [selectedSize,setSelectedSize] = useState(0);
 
   useEffect(()=>{
-    fetch(`${process.env.NEXT_PUBLIC_URL}/api/products?limit=4&random=true&ignore=${product.id}&category=${product.category.id}`)
+    const url = process.env.NODE_ENV === 'development' ? window.location.origin : process.env.NEXT_PUBLIC_URL;
+    fetch(`${url}/api/products?limit=4&random=true&ignore=${product.id}&category=${product.category.id}`)
     .then(resp=>resp.json())
     .then(data=>setRelatedProducts(data));
   },[]);
