@@ -88,6 +88,9 @@ nav {
   cursor: pointer;
   transition: all 0.3s ease-in-out;
 }
+.btn-dark {
+  background: #333;
+}
 .btn:hover {
   opacity: 0.8;
 }

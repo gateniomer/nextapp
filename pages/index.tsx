@@ -28,7 +28,7 @@ const Home = ({products}:{title:string,products:ProductType[]}) => {
         <h1>Next E-Store</h1>
         <p>A simple online store made with <strong>NextJS</strong>, <strong>Redux</strong>, <strong>Firebase</strong> & <strong>Stripe</strong>. Written in <strong>TypeScript</strong>, with implementation of Webhooks, self made API and much more!</p>
         <p><i>This project was made as part of a challenge: learn from docs with no help from any tutorials/videos. I think it went alright! Please provide any feedback through linkedin.</i></p>
-        <a href="https://github.com/gateniomer/nextapp" target={'_blank'} rel="noreferrer"><button className='btn' style={{marginRight:'10px'}}><FontAwesomeIcon icon={faGithub}/> Source Code</button></a>
+        <a href="https://github.com/gateniomer/nextapp" target={'_blank'} rel="noreferrer"><button className='btn btn-dark' style={{marginRight:'10px'}}><FontAwesomeIcon icon={faGithub}/> Source Code</button></a>
         <a href="https://github.com/gateniomer/" target={'_blank'} rel="noreferrer"><button className='btn' style={{marginRight:'10px'}}><FontAwesomeIcon icon={faLayerGroup}/> More Projects</button></a>
       </div>
       <div className={styles.cardContainer}>
