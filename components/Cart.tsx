@@ -63,8 +63,8 @@ export const Cart = () => {
     )}
     </div>
     {cartProducts.length > 0 ? <>
-      <span><strong>Cart Total: {totalPrice}₪</strong></span>
-      <button className={styles.checkoutButton} onClick={()=>{
+      <span className={styles.total}><strong>Cart Total: {totalPrice}₪</strong></span>
+      <button className={styles.checkoutButton + ' btn'} onClick={()=>{
       setOpened(false);
       router.push('/checkout')
     }}>Proceed to Checkout</button>

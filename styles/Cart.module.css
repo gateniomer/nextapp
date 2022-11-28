@@ -72,14 +72,13 @@
 .checkoutButton {
   display: block;
   width: 100%;
-  margin-top: 10px;
-  background: #333;
-  color: #fff;
-  padding: 0.5rem 1rem;
-  border-radius: 30px;
+  margin-top: 20px;
+  padding: 1rem;
   border: none;
-  font-size: 1rem;
-  cursor: pointer;
+}
+
+.total {
+  font-size: 1.2rem;
 }
 
 @keyframes enter {
