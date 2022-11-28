@@ -1,10 +1,13 @@
-import type { GetServerSideProps } from 'next'
-import { ProductType } from '../utils/types'
-import styles from '../styles/Home.module.css'
-import { useAppDispatch } from '../utils/hooks'
-import { updateProducts } from '../utils/products.slice'
-import Card from '../components/Card'
-import { searchProductsByQuery } from './api/products'
+import type { GetServerSideProps } from 'next';
+import { ProductType } from '../utils/types';
+import styles from '../styles/Home.module.css';
+import { useAppDispatch } from '../utils/hooks';
+import { updateProducts } from '../utils/products.slice';
+import Card from '../components/Card';
+import { searchProductsByQuery } from './api/products';
+import {faGithub} from '@fortawesome/free-brands-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faLayerGroup } from '@fortawesome/free-solid-svg-icons';
 
 export const getServerSideProps:GetServerSideProps = async () => {
   const products = searchProductsByQuery({limit:9,random:'true'});
@@ -22,11 +25,11 @@ const Home = ({products}:{title:string,products:ProductType[]}) => {
     <>
     <main className={styles.container}>
       <div className={styles.mainTextContainer}>
-        <h1>Awesome Next Store</h1>
+        <h1>Next E-Store</h1>
         <p>A simple online store made with <strong>NextJS</strong>, <strong>Redux</strong>, <strong>Firebase</strong> & <strong>Stripe</strong>. Written in <strong>TypeScript</strong>, with implementation of Webhooks, self made API and much more!</p>
-        <p>Most of the website using SSG with some pages using SSR, with minimal API calls and maximum performance!</p>
-        <button className='btn' style={{marginRight:'10px'}}>Button 1</button>
-        <button className='btn'>Button 2</button>
+        <p><i>This project was made as part of a challenge: learn from docs with no help from any tutorials/videos. I think it went alright! Please provide any feedback through linkedin.</i></p>
+        <a href="https://github.com/gateniomer/nextapp" target={'_blank'}><button className='btn' style={{marginRight:'10px'}}><FontAwesomeIcon icon={faGithub}/> Source Code</button></a>
+        <a href="https://github.com/gateniomer/" target={'_blank'}><button className='btn' style={{marginRight:'10px'}}><FontAwesomeIcon icon={faLayerGroup}/> More Projects</button></a>
       </div>
       <div className={styles.cardContainer}>
         {
@@ -34,15 +37,6 @@ const Home = ({products}:{title:string,products:ProductType[]}) => {
         }
       </div>
     </main>
-
-    <section id={'section-a'} className={'block'}>
-      <div>
-
-      </div>
-      <div>
-
-      </div>
-    </section>
     </>
   )
 }
