@@ -1,6 +1,14 @@
 import styles from '../../styles/Success.module.css';
 import {useEffect,useState} from 'react';
 import { useRouter } from 'next/router';
+import { GetStaticProps } from 'next';
+
+export const getStaticProps:GetStaticProps = async () => {
+  return {
+    props:{title:'Success'}
+  }
+}
+
 const Success = () => {
   const router = useRouter();
   const [time,setTime] = useState(3);

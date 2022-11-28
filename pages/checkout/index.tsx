@@ -3,7 +3,13 @@ import { useAppSelector } from "../../utils/hooks";
 import {useEffect,useState} from 'react';
 import styles from '../../styles/Checkout.module.css';
 import Image from "next/image";
+import { GetStaticProps } from "next";
 
+export const getStaticProps:GetStaticProps = async () => {
+  return {
+    props:{title:'Checkout'}
+  }
+}
 const Checkout = ()=>{
   const cartProducts = useAppSelector(state=>state.userDetails.cart);
   const router = useRouter();
