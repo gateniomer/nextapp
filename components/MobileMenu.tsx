@@ -92,11 +92,13 @@ export const MobileMenu = () => {
         </div>
     )}
     </div>
-    <span><strong>Cart Total: {totalPrice}₪</strong></span>
-    <button className={styles.checkoutButton} onClick={()=>{
+    {cartProducts.length > 0 ? <>
+      <span><strong>Cart Total: {totalPrice}₪</strong></span>
+      <button className={styles.checkoutButton} onClick={()=>{
       setOpened(false);
       router.push('/checkout')
     }}>Proceed to Checkout</button>
+    </> : <span>There are no items in cart</span>}
       </>}
   </div>}
   </div>)
