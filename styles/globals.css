@@ -47,6 +47,9 @@ header h1 {
   justify-content: center;
   font-size: 1.1rem;
 }
+.header-links-container svg {
+  cursor: pointer;
+}
 .header-desktop {
   display: flex;
   gap: 10px;
