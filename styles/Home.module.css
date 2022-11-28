@@ -34,15 +34,20 @@
   .container {
     flex-direction: column;
     margin: 0;
-    padding: 10px;
+    padding: 0 10px;
   }
   .mainTextContainer {
     margin-top: 0px;
     width: 100%;
+    padding: 0 10px;
   }
   .mainTextContainer h1 {
+    font-size: 3rem;
     margin: 0;
     padding: 0;
+  }
+  .mainTextContainer p {
+    font-size: 1.2rem;
   }
   .cardContainer {
     width: 100%;
