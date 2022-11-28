@@ -1,11 +1,12 @@
 import {FormEvent,useState,MouseEvent} from 'react';
-import { useAppSelector } from '../utils/hooks';
 import { 
   signInUserWithEmailAndPassword,
   signUpUserWithEmailAndPassword,
   signInUserWithGooglePopup,
  } from '../utils/firebase';
 import styles from '../styles/LoginForm.module.css';
+import { faGoogle } from '@fortawesome/free-brands-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 
 export const LoginForm = () => {
@@ -34,9 +35,9 @@ export const LoginForm = () => {
   return (
     <div className={styles.container}>
       <form onSubmit={(e)=>onSubmitHandler(e)}>
-        <h2>👤Sign {isNewUser ? 'Up' : 'In'}</h2>
+        <h2>Hello stranger 👋</h2>
         <label>
-          Email:
+          Your Email:
           <input 
           required
           type="email" 
@@ -45,7 +46,7 @@ export const LoginForm = () => {
           onChange={(e)=>setEmail(e.target.value)} />
         </label>
         <label>
-          Password:
+          Your Password:
           <input 
           required
           type="password" 
@@ -63,11 +64,11 @@ export const LoginForm = () => {
           value={confirmPassword} 
           onChange={(e)=>setConfirmPassword(e.target.value)}/>
         </label>}
-        <input type="submit" value={`Sign ${isNewUser ? 'Up' : 'In'}`} />
-        <button onClick={(e)=>onGoogleHandler(e)}>{`Sign ${isNewUser ? 'Up' : 'In'} with Google`}</button>
+        <button className={'btn'} type="submit">{`Sign ${isNewUser ? 'Up' : 'In'}`}</button>
+        <button className={'btn'} onClick={(e)=>onGoogleHandler(e)}><FontAwesomeIcon icon={faGoogle}/>{` Sign ${isNewUser ? 'up' : 'in'} with Google`}</button>
         <span onClick={()=>setIsNewUser(prev=>!prev)}>{
           isNewUser ?
-          'Existing user? Click here to sign-in' :
+          'Existing user? Click here to sign in' :
           'New user? Click here to register'
         }</span>
       </form>

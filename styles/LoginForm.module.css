@@ -1,8 +1,8 @@
 .container {
   max-width: 500px;
-  margin: 0 auto;
+  margin: 30px auto;
   padding: 20px;
-  min-height: 85vh;
+  min-height: 80vh;
 }
 .container form h2 {
   margin: 0;
@@ -11,9 +11,23 @@
 .container form {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  padding: 30px;
+  gap: 20px;
+  padding: 40px;
   background: #f4f4f4;
-  border-radius: 20px;
+  border-radius: 5px;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+.container form input {
+  display: block;
+  width: 100%;
+  margin-top: 5px;
+  padding: 10px;
+  border: none;
+  /* background: white; */
+  border-radius: 5px;
+}
+
+.container form input:focus {
+  outline: 2px solid #ffbd59;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
