@@ -1,6 +1,6 @@
 import { GetStaticPaths, GetStaticProps, NextPage, } from "next"
 import Link from "next/link";
-import { Product } from "../../utils/types";
+import { dbProduct,Product } from "../../utils/types";
 import styles from '../../styles/Product.module.css';
 import Image from "next/image";
 import { useAppDispatch, useAppSelector } from "../../utils/hooks";
@@ -38,36 +38,35 @@ export const getStaticPaths:GetStaticPaths = async () => {
   }
 }
 
-export const ProductPage:NextPage<{product:Product,relatedProducts:Product[]}> =  ({product,relatedProducts}) => {
+export const ProductPage:NextPage<{product:dbProduct,relatedProducts:Product[]}> =  ({product,relatedProducts}) => {
   const dispatch = useAppDispatch();
   const user = useAppSelector(state=>state.userDetails.user);
   const router = useRouter();
   
   const [quantity,setQuantity] = useState(1);
-  product.quantity = quantity;
-  console.log('product',product);
   const [selectedSize,setSelectedSize] = useState(0);
 
-
+  let size;
   switch(product.category.id){
     case 0:
     case 1:
-      product.size = CLOTH_SIZES[selectedSize];
+      size = CLOTH_SIZES[selectedSize];
       break;
     case 2:
-      product.size = SHOE_SIZES[selectedSize];
+      size = SHOE_SIZES[selectedSize];
       break;
     default:
-      product.size = "One-Size"
+      size = "One-Size"
   }
   
+  const productToAdd:Product = {
+    ...product,
+    quantity,
+    size
+  }
 
   //dispatch adding product to cart action
   const onAddToCartHandler = () => {
-    const productToAdd = {
-      ...product,
-      quantity
-    }
     dispatch(addProductToCartThunk(productToAdd));
   }
   const onBuyNowHandler = async () => {
@@ -77,7 +76,7 @@ export const ProductPage:NextPage<{product:Product,relatedProducts:Product[]}> =
       headers: {
         'Content-Type': 'application/json'
       },
-      body:JSON.stringify({items:[{...product,quantity}],user,buynow:true})
+      body:JSON.stringify({items:[productToAdd],user,buynow:true})
     }).catch(e=>console.log(e));
 
     const data = resp && await resp.json();
