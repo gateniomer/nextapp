@@ -1,8 +1,6 @@
 import type { GetServerSideProps } from 'next';
 import { ProductType } from '../utils/types';
 import styles from '../styles/Home.module.css';
-import { useAppDispatch } from '../utils/hooks';
-import { updateProducts } from '../utils/products.slice';
 import Card from '../components/Card';
 import { searchProductsByQuery } from './api/products';
 import {faGithub} from '@fortawesome/free-brands-svg-icons';
@@ -18,8 +16,6 @@ export const getServerSideProps:GetServerSideProps = async () => {
 }
 
 const Home = ({products}:{title:string,products:ProductType[]}) => {
-  const dispatch = useAppDispatch();
-  dispatch(updateProducts(products));
 
   return (
     <>

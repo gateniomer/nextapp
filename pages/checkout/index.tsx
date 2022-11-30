@@ -47,8 +47,10 @@ const Checkout = ()=>{
       {
         cartProducts.map((product,index)=>{
           return <div key={index} className={styles.checkoutItem}>
-            <Image src={product.image} width='90px' height='130px' objectFit="cover" />
-            <div>
+            <div className={styles.imageContainer}>
+              <Image src={product.image}  layout={'fill'} objectFit="cover" />
+            </div>
+            <div className={styles.textContainer}>
               <span>{product.title} x{product.quantity}</span>
               <span>Size: {product.size}</span>
               <span>Price: {product.price} x {product.quantity} = {product.price*product.quantity}₪</span>
