@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import {products} from '../../../data/products';
-import { Product } from "../../../utils/types";
+import { dbProduct } from "../../../utils/types";
 // type APIQuery = {
 //   search?:string | undefined,
 //   category?:number,
@@ -19,7 +19,7 @@ export const searchProductsByQuery = (anotherConditions?:any) => {
   //count number of filteredItems
   let counter=0;
   //decide if products are random or not
-  let productsArray:Product[] = [...products];
+  let productsArray:dbProduct[] = [...products];
   if(random && random === 'true') productsArray = randomArary(products);
 
   return productsArray.filter((product)=>{
@@ -41,9 +41,9 @@ export const searchProductsByQuery = (anotherConditions?:any) => {
   });
  }
 
- const randomArary = (orignalArray:Product[]) => {
+ const randomArary = (orignalArray:dbProduct[]) => {
   let temp = [...orignalArray];
-  let productsArray:Product[] = [];
+  let productsArray:dbProduct[] = [];
 
   while(temp.length>0){
     const random = Math.floor(Math.random()*temp.length);
