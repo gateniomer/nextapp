@@ -1,6 +1,7 @@
 import {CATEGORIES} from './categories';
+import { ProductType } from '../utils/types';
 
-export const products = [
+export const products:ProductType[] = [
   {
     id:0,
     title:'Red Running Shoes',

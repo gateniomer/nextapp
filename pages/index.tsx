@@ -6,9 +6,15 @@ import { searchProductsByQuery } from './api/products';
 import {faGithub} from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLayerGroup } from '@fortawesome/free-solid-svg-icons';
-
+import CardGrid from '../components/CardGrid';
 export const getServerSideProps:GetServerSideProps = async () => {
-  const products = searchProductsByQuery({limit:9,random:'true'});
+  const searchParams = {
+    limit:9,
+    random:'true'
+  }
+
+  //get list of products by specific parameters
+  const products = searchProductsByQuery(searchParams);
 
   return {
     props:{title:'Welcome Home',products}
@@ -19,7 +25,7 @@ const Home = ({products}:{title:string,products:ProductType[]}) => {
 
   return (
     <>
-    <main className={styles.container}>
+    <main className={'page-container ' + styles.container}>
       <div className={styles.mainTextContainer}>
         <h1>Next E-Store</h1>
         <p>A simple online store made with <strong>NextJS</strong>, <strong>Redux</strong>, <strong>Firebase</strong> & <strong>Stripe</strong>. Written in <strong>TypeScript</strong>, with implementation of Webhooks, self made API and much more!</p>
@@ -27,11 +33,8 @@ const Home = ({products}:{title:string,products:ProductType[]}) => {
         <a href="https://github.com/gateniomer/nextapp" target={'_blank'} rel="noreferrer"><button className='btn btn-dark' style={{marginRight:'10px'}}><FontAwesomeIcon icon={faGithub}/> Source Code</button></a>
         <a href="https://github.com/gateniomer/" target={'_blank'} rel="noreferrer"><button className='btn' style={{marginRight:'10px'}}><FontAwesomeIcon icon={faLayerGroup}/> More Projects</button></a>
       </div>
-      <div className={styles.cardContainer}>
-        {
-          products.map(product=><Card key={product.id} product={product}/>)
-        }
-      </div>
+      
+      <CardGrid products={products}/>
     </main>
     </>
   )

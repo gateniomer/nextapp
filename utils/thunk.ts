@@ -4,42 +4,36 @@ import { ProductType } from "./types";
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import { RootState } from "./store";
 
-type Props = {
-  product:ProductType,
-  subtruct?:boolean,
-  quantity?:number,
-}
+
 type ThunkApi = {
   state:RootState
 }
-export const updateCartThunk = createAsyncThunk
-<any,Props,ThunkApi>
-('updateCartThunk',async (props,thunkApi)=>{
-  const {product,subtruct,quantity} = props;
+
+export const addProductToCartThunk = createAsyncThunk
+<any,ProductType,ThunkApi>
+('updateCartThunk',async (product,thunkApi)=>{
+
   const state = thunkApi.getState();
-  let isExist = -1;
   const oldCart = state.userDetails.cart ? [...state.userDetails.cart]: [];
-  let newCart;
-  oldCart.forEach((item:ProductType,index)=>{
-    if((product.id===item.id ) && (product.size===item.size)) isExist = index;
-  })
-  
-  
-  const quantityToAdd = quantity ? quantity : 1;
-  if(isExist != -1){
-    const updatedProduct:ProductType = {
-      ...product,
-      quantity:subtruct ? oldCart[isExist].quantity-1:oldCart[isExist].quantity+quantityToAdd
-    };
-    oldCart.splice(isExist,1);
-    if(updatedProduct.quantity>0){
-      newCart = [updatedProduct,...oldCart];
-    }else{
-      newCart = [...oldCart];
+
+  let isExist = false;
+  //if product is in cart, update its quantity
+  //also filter products with quantity less then 1
+  const newCart = oldCart.map((item)=>{
+    if((product.id===item.id ) && (product.size===item.size)){
+      isExist = true;
+      return  {
+        ...item,
+        quantity:item.quantity! + product.quantity!
+      }
     }
-  }else{
-    newCart = [{...product,quantity:quantityToAdd},...oldCart];
-  }
+    return item;
+  }).filter(item=>item.quantity!>0);
+  
+  //if the product does not exist in cart, add it.
+  if(!isExist) newCart.push(product);
+
+  //update user cart in firestore then return new cart.
   state.userDetails.user && await updateUserCartInFirestore(state.userDetails.user,newCart);
   console.log(newCart);
   return newCart;

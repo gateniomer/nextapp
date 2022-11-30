@@ -6,7 +6,7 @@ import useOutsideAlerter from '../hooks/useOutsideAlerter';
 import { useRouter } from 'next/router';
 import { useAppDispatch } from '../utils/hooks';
 import { ProductType } from '../utils/types';
-import { updateCartThunk } from '../utils/thunk';
+import { addProductToCartThunk } from '../utils/thunk';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCartShopping,faXmark } from "@fortawesome/free-solid-svg-icons"
@@ -25,11 +25,10 @@ export const Cart = () => {
   useEffect(()=>{setOpened(false)},[clickedOutside]);
 
   const addProductQuantity = (product:ProductType)=>{
-    dispatch(updateCartThunk({product}));
+    dispatch(addProductToCartThunk({...product,quantity:1}));
   } 
   const subtractProductQuantity = (product:ProductType)=>{
-    console.log(product);
-    dispatch(updateCartThunk({product,subtruct:true}));
+    dispatch(addProductToCartThunk({...product,quantity:-1}));
   } 
 
   const navigateToProduct = (id:number)=>{

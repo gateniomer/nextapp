@@ -1,9 +1,7 @@
 .container {
-  display: block;
-  max-width: 1200px;
+  max-width: 1000px;
   padding: 50px;
   margin: 0 auto;
-  min-height: 85vh;
   background: #f4f4f4;
   border-radius: 20px;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
@@ -48,7 +46,7 @@
   overflow-x: hidden;
   overflow-y: scroll;
   max-height: 500px;
-  max-width: 600px;
+  /* max-width: 600px; */
 }
 
 .orderHistoryItem h4 {
@@ -66,7 +64,7 @@
   border: 3px solid #22a39f;
   color: #434242;
   border-radius: 10px;
-  width: 90%;
+  width: 95%;
 }
 .orderHistoryItem div:first-child {
   padding-bottom: 5px;
@@ -86,9 +84,7 @@
 
 @media (max-width: 900px) {
   .container {
-    width: 90%;
-    padding: 10px;
-    min-height: 80vh;
+    padding: 20px;
   }
   .userDetailsContainer {
     flex-direction: column;

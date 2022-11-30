@@ -4,7 +4,7 @@ import { ProductType } from "../../utils/types";
 import styles from '../../styles/Product.module.css';
 import Image from "next/image";
 import { useAppDispatch, useAppSelector } from "../../utils/hooks";
-import { updateCartThunk } from "../../utils/thunk";
+import { addProductToCartThunk } from "../../utils/thunk";
 import { products } from "../../data/products";
 import { getProduct } from "../api/products/[id]";
 import Card from "../../components/Card";
@@ -44,6 +44,8 @@ export const Product:NextPage<{product:ProductType,relatedProducts:ProductType[]
   const router = useRouter();
   
   const [quantity,setQuantity] = useState(1);
+  product.quantity = quantity;
+  console.log('product',product);
   const [selectedSize,setSelectedSize] = useState(0);
 
 
@@ -64,7 +66,11 @@ export const Product:NextPage<{product:ProductType,relatedProducts:ProductType[]
 
   //dispatch adding product to cart action
   const onAddToCartHandler = () => {
-    dispatch(updateCartThunk({product,quantity}));
+    const productToAdd = {
+      ...product,
+      quantity
+    }
+    dispatch(addProductToCartThunk(productToAdd));
   }
   const onBuyNowHandler = async () => {
     // setLoading(true);

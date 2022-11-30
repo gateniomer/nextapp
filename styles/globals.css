@@ -25,6 +25,20 @@ a {
   box-sizing: border-box;
 }
 
+.page-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  min-height: 90vh;
+  padding: 10px;
+}
+
+.page-container h2 {
+  font-size: 3rem;
+}
+.page-container h3 {
+  font-size: 2rem;
+}
+
 header {
   display: flex;
   padding: 10px;

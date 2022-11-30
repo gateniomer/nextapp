@@ -1,4 +1,10 @@
-export const CATEGORIES = {
+import { CategoryType } from "../utils/types"
+
+type CATEGORIES = {
+  [key:string]:CategoryType
+}
+
+export const CATEGORIES:CATEGORIES = {
   TOP:{
     id:0,
     name:'Tops',

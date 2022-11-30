@@ -2,15 +2,15 @@ import { createSlice,PayloadAction,createAsyncThunk } from "@reduxjs/toolkit";
 import { User } from 'firebase/auth'
 import { updateUserCartInFirestore } from "./firebase";
 import { ProductType } from "./types";
-import {updateCartThunk} from './thunk';
+import {addProductToCartThunk} from './thunk';
 
 interface userState {
-  user: User | undefined,
+  user: User | undefined | null,
   cart: ProductType[]
 }
 
 const initialState:userState = {
-  user:undefined,
+  user:null,
   cart:[]
 }
 
@@ -43,10 +43,10 @@ export const userSlice = createSlice({
     // }
   },
   extraReducers:builder=>{
-    builder.addCase(updateCartThunk.fulfilled,(state,action)=>{
+    builder.addCase(addProductToCartThunk.fulfilled,(state,action)=>{
       state.cart = action.payload;
     });
-    builder.addCase(updateCartThunk.rejected,(state,error)=>{
+    builder.addCase(addProductToCartThunk.rejected,(state,error)=>{
       console.log('error',error.error)
     })
   }

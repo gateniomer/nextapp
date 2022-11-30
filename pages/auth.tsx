@@ -11,9 +11,22 @@ export const getStaticProps:GetStaticProps = async () => {
 export const Auth = () => {
   const user = useAppSelector(state=>state.userDetails.user);
 
+  let renderedComponent;
+
+  switch(user){
+    case null:
+      renderedComponent = <h1>Loading..</h1>;
+      break;
+    case undefined:
+      renderedComponent = <LoginForm/>;
+      break;
+    default:
+      renderedComponent = <Profile user={user}/>
+  }
+  
   return (
-  <div>
-    {user ? <Profile user={user}/> : <LoginForm/>};
+  <div className="page-container">
+    {renderedComponent}
   </div>
   )
 }
