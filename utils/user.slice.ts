@@ -1,12 +1,12 @@
 import { createSlice,PayloadAction,createAsyncThunk } from "@reduxjs/toolkit";
 import { User } from 'firebase/auth'
 import { updateUserCartInFirestore } from "./firebase";
-import { ProductType } from "./types";
+import { Product } from "./types";
 import {addProductToCartThunk} from './thunk';
 
 interface userState {
   user: User | undefined | null,
-  cart: ProductType[]
+  cart: Product[]
 }
 
 const initialState:userState = {
@@ -23,7 +23,7 @@ export const userSlice = createSlice({
     updateUser: (state, action:PayloadAction<string|undefined>) => {
       state.user = action.payload ? JSON.parse(action.payload) : undefined;
     },
-    updateCart: (state, action:PayloadAction<ProductType[]>) => {
+    updateCart: (state, action:PayloadAction<Product[]>) => {
       state.cart = action.payload
     },
     // addItemToCart:(state,action:PayloadAction<ProductType>) =>{

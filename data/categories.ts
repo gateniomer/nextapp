@@ -1,7 +1,7 @@
-import { CategoryType } from "../utils/types"
+import { Category } from "../utils/types"
 
 type CATEGORIES = {
-  [key:string]:CategoryType
+  [key:string]:Category
 }
 
 export const CATEGORIES:CATEGORIES = {

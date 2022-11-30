@@ -1,7 +1,7 @@
 import {CATEGORIES} from './categories';
-import { ProductType } from '../utils/types';
+import { dbProduct } from '../utils/types';
 
-export const products:ProductType[] = [
+export const products:dbProduct[] = [
   {
     id:0,
     title:'Red Running Shoes',

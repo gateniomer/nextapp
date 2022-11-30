@@ -1,6 +1,6 @@
 import {useState,useEffect,useRef} from 'react';
 import { useAppSelector } from '../utils/hooks';
-import { ProductType } from '../utils/types';
+import { Product } from '../utils/types';
 import Link from 'next/link';
 import Image from 'next/image';
 import styles from '../styles/Search.module.css';
@@ -8,7 +8,7 @@ import useOutsideAlerter from '../hooks/useOutsideAlerter';
 
 const Search = ({callback}:{callback?:()=>void}) => {
   const [input,setInput] = useState('');
-  const [searchResult,setSearchResult] = useState<ProductType[]>([]);
+  const [searchResult,setSearchResult] = useState<Product[]>([]);
 
   const ref = useRef(null);
   const [clickedOutside] = useOutsideAlerter(ref);
@@ -42,7 +42,7 @@ const Search = ({callback}:{callback?:()=>void}) => {
       {(searchResult.length>0) && 
       <div className={styles.searchResultsContainer}>
         {
-          searchResult.map((product:ProductType)=>
+          searchResult.map((product:Product)=>
           <Link key={product.id} href={'/products/'+product.id}>
             <div onClick={()=>{
               clearSearch();

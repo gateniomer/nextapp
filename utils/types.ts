@@ -1,17 +1,17 @@
-
-export type ProductType = {
-  // [key:string]:any
+export type dbProduct = {
   id:number,
   title:string,
   price:number,
-  category:CategoryType,
+  category:Category,
   image:string,
   description:string,
-  quantity?: number,
-  size?: number | string
+}
+export type Product = dbProduct & {
+  quantity: number,
+  size: number | string
 }
 
-export type CategoryType = {
+export type Category = {
   id:number,
   name:string,
   description:string

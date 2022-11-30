@@ -5,7 +5,7 @@ import Link from 'next/link';
 import useOutsideAlerter from '../hooks/useOutsideAlerter';
 import { useRouter } from 'next/router';
 import { useAppDispatch } from '../utils/hooks';
-import { ProductType } from '../utils/types';
+import { Product } from '../utils/types';
 import { addProductToCartThunk } from '../utils/thunk';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -24,10 +24,10 @@ export const Cart = () => {
   const [clickedOutside] = useOutsideAlerter(ref);
   useEffect(()=>{setOpened(false)},[clickedOutside]);
 
-  const addProductQuantity = (product:ProductType)=>{
+  const addProductQuantity = (product:Product)=>{
     dispatch(addProductToCartThunk({...product,quantity:1}));
   } 
-  const subtractProductQuantity = (product:ProductType)=>{
+  const subtractProductQuantity = (product:Product)=>{
     dispatch(addProductToCartThunk({...product,quantity:-1}));
   } 
 

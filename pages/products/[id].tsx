@@ -1,6 +1,6 @@
 import { GetStaticPaths, GetStaticProps, NextPage, } from "next"
 import Link from "next/link";
-import { ProductType } from "../../utils/types";
+import { Product } from "../../utils/types";
 import styles from '../../styles/Product.module.css';
 import Image from "next/image";
 import { useAppDispatch, useAppSelector } from "../../utils/hooks";
@@ -8,7 +8,7 @@ import { addProductToCartThunk } from "../../utils/thunk";
 import { products } from "../../data/products";
 import { getProduct } from "../api/products/[id]";
 import Card from "../../components/Card";
-import {useState,useEffect} from 'react';
+import {useState} from 'react';
 import {CLOTH_SIZES,SHOE_SIZES} from '../../data/sizes';
 import { searchProductsByQuery } from "../api/products";
 import { useRouter } from "next/router";
@@ -38,7 +38,7 @@ export const getStaticPaths:GetStaticPaths = async () => {
   }
 }
 
-export const Product:NextPage<{product:ProductType,relatedProducts:ProductType[]}> =  ({product,relatedProducts}) => {
+export const ProductPage:NextPage<{product:Product,relatedProducts:Product[]}> =  ({product,relatedProducts}) => {
   const dispatch = useAppDispatch();
   const user = useAppSelector(state=>state.userDetails.user);
   const router = useRouter();
@@ -51,8 +51,6 @@ export const Product:NextPage<{product:ProductType,relatedProducts:ProductType[]
 
   switch(product.category.id){
     case 0:
-      product.size = CLOTH_SIZES[selectedSize];
-      break;
     case 1:
       product.size = CLOTH_SIZES[selectedSize];
       break;
@@ -163,4 +161,4 @@ export const Product:NextPage<{product:ProductType,relatedProducts:ProductType[]
     </>
   )
 }
-export default Product;
+export default ProductPage;

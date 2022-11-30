@@ -1,10 +1,10 @@
 import { createContext,Dispatch } from "react";
-import {ProductType} from './types';
+import {Product} from './types';
 import {User} from 'firebase/auth';
 
 interface INIT_CART_TYPE {
-  cartProducts:ProductType[],
-  addToCart:(product: ProductType) => void
+  cartProducts:Product[],
+  addToCart:(product: Product) => void
 }
 const INIT_CART:INIT_CART_TYPE = {
   cartProducts:[],

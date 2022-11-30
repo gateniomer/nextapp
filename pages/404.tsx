@@ -1,5 +1,4 @@
 import {useState,useEffect} from 'react';
-import styles from '../styles/Page404.module.css';
 import {useRouter} from 'next/router';
 import { GetStaticProps } from 'next';
 

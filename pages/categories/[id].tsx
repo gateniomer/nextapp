@@ -1,6 +1,6 @@
 import { GetServerSideProps, GetStaticPaths, GetStaticProps } from "next";
 import Link from "next/link";
-import { ProductType } from "../../utils/types";
+import { Product } from "../../utils/types";
 import { CATEGORIES } from "../../data/categories";
 import { searchProductsByQuery } from "../api/products";
 import styles from '../../styles/Category.module.css';
@@ -31,7 +31,7 @@ export const getStaticProps:GetStaticProps = (context) => {
   }
 }
 
-const Category = ({products,title,category}:{products:ProductType[],title:string,category:any})=>{
+const Category = ({products,title,category}:{products:Product[],title:string,category:any})=>{
   return(
     <div className={styles.container}>
       <div>

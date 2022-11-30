@@ -1,6 +1,6 @@
 import { AppDispatch } from "./store";
 import { updateUserCartInFirestore } from "./firebase";
-import { ProductType } from "./types";
+import { Product } from "./types";
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import { RootState } from "./store";
 
@@ -10,7 +10,7 @@ type ThunkApi = {
 }
 
 export const addProductToCartThunk = createAsyncThunk
-<any,ProductType,ThunkApi>
+<any,Product,ThunkApi>
 ('updateCartThunk',async (product,thunkApi)=>{
 
   const state = thunkApi.getState();
@@ -24,11 +24,11 @@ export const addProductToCartThunk = createAsyncThunk
       isExist = true;
       return  {
         ...item,
-        quantity:item.quantity! + product.quantity!
+        quantity:item.quantity + product.quantity
       }
     }
     return item;
-  }).filter(item=>item.quantity!>0);
+  }).filter(item=>item.quantity>0);
   
   //if the product does not exist in cart, add it.
   if(!isExist) newCart.push(product);

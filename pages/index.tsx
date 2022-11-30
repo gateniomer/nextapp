@@ -1,7 +1,6 @@
 import type { GetServerSideProps } from 'next';
-import { ProductType } from '../utils/types';
+import { Product } from '../utils/types';
 import styles from '../styles/Home.module.css';
-import Card from '../components/Card';
 import { searchProductsByQuery } from './api/products';
 import {faGithub} from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -21,7 +20,7 @@ export const getServerSideProps:GetServerSideProps = async () => {
   }
 }
 
-const Home = ({products}:{title:string,products:ProductType[]}) => {
+const Home = ({products}:{title:string,products:Product[]}) => {
 
   return (
     <>
