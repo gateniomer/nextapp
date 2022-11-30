@@ -1,7 +1,5 @@
 .container {
   display: flex;
-  max-width: 90%;
-  margin: 20px auto;
   justify-content: center;
   align-items: flex-start;
   gap: 20px;
@@ -115,8 +113,6 @@
 @media (max-width: 900px) {
   .container {
     flex-direction: column;
-    max-width: 95%;
-    margin: 0 auto;
     align-items: center;
   }
   .productDetailsContainer > div:nth-child(2) {

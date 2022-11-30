@@ -37,7 +37,9 @@ export default async function handler(
     line_items: products,
     metadata:{uid:req.body.user.uid,buynow:req.body.buynow},
     success_url: `${req.headers.origin}/checkout/success`,
-    cancel_url: `${req.headers.origin}/checkout?failed=true`,
+    cancel_url: req.body.fallbackUrl ?
+      `${req.body.fallbackUrl}?failed=true`:
+      `${req.headers.origin}/checkout?failed=true`,
   };
 
   //create checkout session and send it to user

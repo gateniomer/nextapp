@@ -115,6 +115,23 @@ nav {
   height: 100px;
   display: none;
 }
+
+.custom-alert {
+  background: #333;
+  color: #fff;
+  padding: 15px 20px;
+  border-radius: 5px;
+  animation: alertpopup 1s;
+  margin-bottom: 20px;
+}
+@keyframes alertpopup {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
 @media (max-width: 1100px) {
   header {
     justify-content: space-between;

@@ -24,7 +24,7 @@ const Home = ({products}:{title:string,products:Product[]}) => {
 
   return (
     <>
-    <main className={'page-container ' + styles.container}>
+    <main className={styles.container}>
       <div className={styles.mainTextContainer}>
         <h1>Next E-Store</h1>
         <p>A simple online store made with <strong>NextJS</strong>, <strong>Redux</strong>, <strong>Firebase</strong> & <strong>Stripe</strong>. Written in <strong>TypeScript</strong>, with implementation of Webhooks, self made API and much more!</p>

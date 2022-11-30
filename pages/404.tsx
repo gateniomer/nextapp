@@ -25,7 +25,7 @@ export const Page404 = () => {
   },[count])
 
   return (
-  <div className={'page-container'}>
+  <div>
     <h2>Woops.. nothing to see here!</h2>
     <h3>Redirecting to home page in {count}</h3>
   </div>

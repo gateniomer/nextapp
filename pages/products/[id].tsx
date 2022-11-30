@@ -42,6 +42,7 @@ export const ProductPage:NextPage<{product:dbProduct,relatedProducts:Product[]}>
   const dispatch = useAppDispatch();
   const user = useAppSelector(state=>state.userDetails.user);
   const router = useRouter();
+  const {failed} = router.query;
   
   const [quantity,setQuantity] = useState(1);
   const [selectedSize,setSelectedSize] = useState(0);
@@ -76,7 +77,11 @@ export const ProductPage:NextPage<{product:dbProduct,relatedProducts:Product[]}>
       headers: {
         'Content-Type': 'application/json'
       },
-      body:JSON.stringify({items:[productToAdd],user,buynow:true})
+      body:JSON.stringify({
+        items:[productToAdd],
+        user,
+        buynow:true,
+        fallbackUrl:`${origin}/products/${product.id}`})
     }).catch(e=>console.log(e));
 
     const data = resp && await resp.json();

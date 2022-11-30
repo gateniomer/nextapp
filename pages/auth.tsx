@@ -24,11 +24,8 @@ export const Auth = () => {
       renderedComponent = <Profile user={user}/>
   }
   
-  return (
-  <div className="page-container">
-    {renderedComponent}
-  </div>
-  )
+  return renderedComponent;
+  
 }
 
 export default Auth;

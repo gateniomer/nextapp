@@ -90,13 +90,6 @@
   margin: 20px 0;
 }
 
-.failedAlert {
-  background: #333;
-  color: #fff;
-  padding: 15px 20px;
-  border-radius: 5px;
-}
-
 @media (max-width: 900px) {
   .container {
     width: 90%;
