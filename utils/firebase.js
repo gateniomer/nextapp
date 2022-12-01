@@ -34,25 +34,14 @@ export const signInUserWithEmailAndPassword = (username,password) =>{
 //Sign In User (google)
 export const signInUserWithGooglePopup = ()=>signInWithPopup(auth, googleProvider)
   .then((result) => {
-    // This gives you a Google Access Token. You can use it to access the Google API.
-    const credential = GoogleAuthProvider.credentialFromResult(result);
-    const token = credential.accessToken;
     // The signed-in user info.
     const user = result.user;
-    //NEED TO CHECK IF SIGN UP
+  
     getUserData(user).then(data=>{
       if(!data) setUserToDb(user);
     });
-    // ...
   }).catch((error) => {
-    // Handle Errors here.
-    const errorCode = error.code;
-    const errorMessage = error.message;
-    // The email of the user's account used.
-    const email = error.customData.email;
-    // The AuthCredential type that was used.
-    const credential = GoogleAuthProvider.credentialFromError(error);
-    // ...
+    console.log(`Error ${error.code}: ${error.message}`)
   });
 
 // Sign Up User (email and password)
@@ -78,21 +67,21 @@ export const setUserToDb = async (userDetails) => {
     console.error("Error adding document: ", e);
   }
 }
+
 export const getAllUsers = async () => {
   const querySnapshot = await getDocs(collection(db, "users"));
   querySnapshot.forEach((doc) => {
   console.log(doc.id,doc.data());
 });
 }
+
 export const getUserData = async (user) => {
   const docRef = doc(db, "users", user.uid);
   const docSnap = await getDoc(docRef);
 
   if (docSnap.exists()) {
-  // console.log("Document data:", docSnap.data());
   return docSnap.data()
   } else {
-  // doc.data() will be undefined in this case
   console.log("No such document!");
 }
 }
@@ -102,10 +91,8 @@ export const getUserDataById = async (uid) => {
   const docSnap = await getDoc(docRef);
 
   if (docSnap.exists()) {
-  // console.log("Document data:", docSnap.data());
   return docSnap.data()
   } else {
-  // doc.data() will be undefined in this case
   console.log("No such document!");
 }
 }
@@ -117,7 +104,6 @@ export const updateUserCartInFirestore = async(userDetails,products)=>{
       ...userData,
       products
     });
-    // console.log("Document written with ID: ", docRef.id);
   } catch (e) {
     console.error("Error adding document: ", e);
   }
@@ -130,7 +116,6 @@ export const updateUserLoginInFirestore = async(userDetails)=>{
       ...userData,
       lastSignIn:userDetails.metadata.lastSignInTime
     });
-    // console.log("Document written with ID: ", docRef.id);
   } catch (e) {
     console.error("Error adding document: ", e);
   }

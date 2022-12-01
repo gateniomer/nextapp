@@ -1,6 +1,5 @@
-import { createSlice,PayloadAction,createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice,PayloadAction } from "@reduxjs/toolkit";
 import { User } from 'firebase/auth'
-import { updateUserCartInFirestore } from "./firebase";
 import { Product } from "./types";
 import {addProductToCartThunk} from './thunk';
 
@@ -26,21 +25,6 @@ export const userSlice = createSlice({
     updateCart: (state, action:PayloadAction<Product[]>) => {
       state.cart = action.payload
     },
-    // addItemToCart:(state,action:PayloadAction<ProductType>) =>{
-    //   let isExist = -1;
-    //   const oldCard = state.cart;
-
-    //   oldCard.forEach((product,index)=>{
-    //     if(product.id===action.payload.id) isExist = index;
-    //   })
-    //   if(isExist != -1){
-    //     const updatedProduct = {...action.payload,quantity:oldCard[isExist].quantity+1};
-    //     oldCard.splice(isExist,1)
-    //     state.cart = [updatedProduct,...oldCard];
-    //   }else{
-    //     state.cart = [{...action.payload,quantity:1},...oldCard];
-    //   }
-    // }
   },
   extraReducers:builder=>{
     builder.addCase(addProductToCartThunk.fulfilled,(state,action)=>{
