@@ -7,7 +7,6 @@ import { useAppDispatch, useAppSelector } from "../../utils/hooks";
 import { addProductToCartThunk } from "../../utils/thunk";
 import { products } from "../../data/products";
 import { getProduct } from "../api/products/[id]";
-import Card from "../../components/Card";
 import {useState} from 'react';
 import {CLOTH_SIZES,SHOE_SIZES} from '../../data/sizes';
 import { searchProductsByQuery } from "../api/products";
@@ -113,7 +112,7 @@ export const ProductPage:NextPage<{product:dbProduct,relatedProducts:dbProduct[]
         {/* Product Thumbnail and description */}
         <div className={styles.productDetailsContainer}>
         <div className={styles.imageContainer}>
-          <Image src={product.image} layout={'fill'} objectFit={'cover'}/>
+          <Image src={product.image} layout={'fill'} objectFit={'cover'} placeholder={'blur'} blurDataURL={product.image}/>
         </div>
         <div>
           <Link href={'/categories/'+product.category.id}><span>{product.category.name}</span></Link>

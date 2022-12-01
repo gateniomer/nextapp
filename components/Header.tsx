@@ -13,7 +13,7 @@ export default function Header () {
 
   const dispatch = useAppDispatch();
 
-
+  //get auth state from firebase app then send the user data (undefind if no user found) to redux
   useEffect(()=>{
     onAuthStateChanged(auth, (user) => {
       if (user) {
@@ -47,7 +47,6 @@ export default function Header () {
         {Object.values(CATEGORIES).map(category=>
         <Link key={category.id} href={'/categories/'+category.id}>{category.name}</Link>
         )}
-        
       </nav>
       <Search/>
     </div>

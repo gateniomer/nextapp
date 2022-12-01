@@ -2,7 +2,6 @@ import Link from "next/link";
 import Image from "next/image";
 import styles from '../styles/Card.module.css';
 import { dbProduct } from "../utils/types";
-import {useState} from 'react';
 
 const Card = ({product}:{product:dbProduct}) => {
 
