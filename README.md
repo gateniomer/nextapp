@@ -1,34 +1,43 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Next E-Store Project
+As part of my self-learning journey, I made a simple online store with NextJS, Redux, Firebase & Stripe. Written in TypeScript, with implementation of Webhooks, self made API and much more!.
 
-## Getting Started
+I created this project using some of the knowledge I gained in:
+- HTML, CSS ,JavaScript
+- Typescript
+- React & NextJS
+- Redux
+- Firebase/Firestore
+- Stripe API
+- REST API
+- Webhooks
+- CSS Modules
+- Graphic Design
+- Git & Github
 
-First, run the development server:
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+## About this app
+**This project was made as part of a challenge: learn from docs with no help from any tutorials/videos. I think it went alright! Please provide any feedback through linkedin.**
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Main Features:
+- Choose between 40 items to buy (Tops, Trousers, Shoes, Accessories)
+- Cart items & order history saved to the cloud, access them from anywhere! (firestore)
+- Login/Signup with email or Google account. (firebase)
+- Search for specific products through the search bar. (communicating with my own API)
+- Enjoy lightning fast performance & loading speeds! (Thanks to Nextjs SSG/SSR)
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+### Interesting Technical Details:
+- Thanks to NextJS, most of the pages are SSG, with some SSR.
+- Site's Header component is listning for auth status from firebase, then dispatch an action to store the user's details in Redux.
+- When adding item to cart, we dispatch an action, then have thunk middleware that deal with storing out new cart to Firebase.
+- When user continue to stripe with he's cart items, the server make new array with the same items from the 'database' (based on the item's id & size in the request body). It is a safer approach in case the user manipulate the items in the request.
+- When the payment is complete at Stripe servers, Stripe sends request to our webhook. Then, our webhook calling firestore to update the user's order history (with the information given in the request) & empty the user's cart.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+.
+.
+.
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+I hope you enjoyed reading about this project, thank you for your time 😁
 
-## Learn More
+Live site: https://nextapp-gilt.vercel.app/
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Github repo: https://github.com/gateniomer/nextapp
