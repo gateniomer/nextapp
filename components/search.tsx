@@ -39,7 +39,6 @@ const Search = ({callback}:{callback?:()=>void}) => {
 
     return ()=>clearTimeout(timer);
   },[input])
-  console.log('res',searchResult);
   return (
     <div className={styles.search} ref={ref}>
       <input type="text" value={input} onInput={(e)=>setInput((e.target as HTMLInputElement).value)} placeholder='search for products'/>

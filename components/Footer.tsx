@@ -10,7 +10,7 @@ const Footer = () => {
         <li><a href="https://linkedin.com/in/omer-gatenio-949482174" aria-label="Linkedin" target="_blank" rel="noreferrer"><FontAwesomeIcon icon={faLinkedin}/></a></li>
         <li><a href="mailto:gateniomer@gmail.com" aria-label="Gmail" target="_blank" rel="noreferrer"><FontAwesomeIcon icon={faEnvelope}/></a></li>
       </ul>
-      <span>Desgined & Created by Omer Gatenio | A learning project for Web development.</span>
+      <span>Desgined & created by Omer Gatenio | Web development learning project</span>
     </div>
   )
 }

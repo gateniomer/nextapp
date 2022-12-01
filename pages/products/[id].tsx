@@ -50,10 +50,20 @@ export const ProductPage:NextPage<{product:dbProduct,relatedProducts:dbProduct[]
   switch(product.category.id){
     case 0:
     case 1:
-      size = CLOTH_SIZES[selectedSize];
+      if(CLOTH_SIZES[selectedSize]){
+        size = CLOTH_SIZES[selectedSize];
+      }else{
+        size= CLOTH_SIZES[0];
+        setSelectedSize(0);
+      }
       break;
     case 2:
-      size = SHOE_SIZES[selectedSize];
+      if(SHOE_SIZES[selectedSize]){
+        size = SHOE_SIZES[selectedSize];
+      }else{
+        size= SHOE_SIZES[0];
+        setSelectedSize(0);
+      }
       break;
     default:
       size = "One-Size"

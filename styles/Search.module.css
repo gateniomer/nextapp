@@ -21,11 +21,13 @@
   background-color: #fff;
   transform: translate(2.5%, 10px);
   width: 95%;
+  max-height: 300px;
   z-index: 999;
   padding: 5px;
   gap: 10px;
   transition: all 1s ease-in-out;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  overflow-y: scroll;
 }
 
 .searchResultsItem {
