@@ -15,7 +15,7 @@ export const Auth = () => {
 
   switch(user){
     case null:
-      renderedComponent = <h1>Loading..</h1>;
+      renderedComponent = <h1>Loading Details..</h1>;
       break;
     case undefined:
       renderedComponent = <LoginForm/>;
