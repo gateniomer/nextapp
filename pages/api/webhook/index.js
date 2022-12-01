@@ -2,14 +2,14 @@ import Stripe from "stripe";
 const admin = require("firebase-admin");
 const {initializeApp,getApps} = require("firebase-admin/app");
 
-//disable body parser (need raw body cus of Stripe)
+//disable body parser (need raw body for Stripe)
 export const config = {
   api: {
     bodyParser: false,
   },
 };
 
-//convert request body to Buffer (need raw body cus of Stripe)
+//convert request body to Buffer (need raw body for Stripe)
 async function buffer(readable) {
   const chunks = [];
   for await (const chunk of readable) {
@@ -72,6 +72,7 @@ const handler = async (req, res) => {
   }
 };
 
+//Access user's firestore doc to write new order & empty cart
 const handleCheckoutSession = async (uid,products,buynow)=>{
   if(!uid) return console.log("uid",uid);
 
