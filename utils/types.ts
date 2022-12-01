@@ -14,5 +14,6 @@ export type Product = dbProduct & {
 export type Category = {
   id:number,
   name:string,
-  description:string
+  description:string,
+  sizes:(string | number)[]
 }

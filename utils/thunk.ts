@@ -34,6 +34,5 @@ export const addProductToCartThunk = createAsyncThunk
 
   //update user cart in firestore then return new cart.
   state.userDetails.user && await updateUserCartInFirestore(state.userDetails.user,newCart);
-  console.log(newCart);
   return newCart;
 })

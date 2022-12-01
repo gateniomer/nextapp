@@ -7,7 +7,7 @@ import { useAppDispatch, useAppSelector } from "../../utils/hooks";
 import { addProductToCartThunk } from "../../utils/thunk";
 import { products } from "../../data/products";
 import { getProduct } from "../api/products/[id]";
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import {CLOTH_SIZES,SHOE_SIZES} from '../../data/sizes';
 import { searchProductsByQuery } from "../api/products";
 import { useRouter } from "next/router";
@@ -46,34 +46,17 @@ export const ProductPage:NextPage<{product:dbProduct,relatedProducts:dbProduct[]
   const [quantity,setQuantity] = useState(1);
   const [selectedSize,setSelectedSize] = useState(0);
 
-  let size;
-  switch(product.category.id){
-    case 0:
-    case 1:
-      if(CLOTH_SIZES[selectedSize]){
-        size = CLOTH_SIZES[selectedSize];
-      }else{
-        size= CLOTH_SIZES[0];
-        setSelectedSize(0);
-      }
-      break;
-    case 2:
-      if(SHOE_SIZES[selectedSize]){
-        size = SHOE_SIZES[selectedSize];
-      }else{
-        size= SHOE_SIZES[0];
-        setSelectedSize(0);
-      }
-      break;
-    default:
-      size = "One-Size"
-  }
+  //reset selections when changing category
+  useEffect(()=>{
+    setSelectedSize(0);
+    setQuantity(1);
+  },[product.category.name]);
   
   //adding quantity and size to convert to 'Product' type (product is a 'dbProduct' type)
   const productToAdd:Product = {
     ...product,
     quantity,
-    size
+    size:product.category.sizes[selectedSize]
   }
 
   //dispatch adding product to cart action
