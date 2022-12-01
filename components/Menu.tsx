@@ -1,5 +1,5 @@
 import { useState,useRef,useEffect } from 'react';
-import styles from '../styles/MobileMenu.module.css';
+import styles from '../styles/Menu.module.css';
 import { useAppSelector } from "../utils/hooks";
 import Link from 'next/link';
 import useOutsideAlerter from '../hooks/useOutsideAlerter';
@@ -11,7 +11,7 @@ import Search from './search';
 import { signOutUser } from '../utils/firebase';
 import CartList from './CartList';
 
-export const MobileMenu = () => {
+export const Menu = () => {
   const cartProducts = useAppSelector(state=>state.userDetails.cart);
   const [opened,setOpened] = useState(false);
   const numOfItems = cartProducts?.reduce((prev,current)=>prev+current.quantity,0);
@@ -26,7 +26,7 @@ export const MobileMenu = () => {
 
   return (
     <div ref={ref}>
-    <div className={styles.button} onClick={()=>setOpened(prev=>!prev)}>
+    <div className={styles.menuIcon} onClick={()=>setOpened(prev=>!prev)}>
       <FontAwesomeIcon icon={faBurger}/>
       <span>{numOfItems}</span>
     </div>
@@ -35,7 +35,7 @@ export const MobileMenu = () => {
     <div className={styles.container}>
 
       {/* Top Bar */}
-      <div className={styles.iconContainer}>
+      <div className={styles.topBar}>
         <FontAwesomeIcon icon={faXmark} className={styles.closeButton} onClick={()=>setOpened(false)}/>
           <div className={styles.userDetailsContainer}>
             <div onClick={()=>{
@@ -55,16 +55,18 @@ export const MobileMenu = () => {
       </div>
 
       {/* Categories */}
-      <h2>Browse Categories</h2>
-      <nav>
-        <ul>
-          {Object.values(CATEGORIES).map(category=>
-          <li onClick={()=>setOpened(false)} key={category.id}>
-            <Link key={category.id} href={'/categories/'+category.id}>{category.name}</Link>
-          </li>
-          )}
-        </ul>
-      </nav>
+      <div className={styles.categoriesContainer}>
+        <h2>Browse Categories</h2>
+        <nav>
+          <ul>
+            {Object.values(CATEGORIES).map(category=>
+            <li onClick={()=>setOpened(false)} key={category.id}>
+              <Link key={category.id} href={'/categories/'+category.id}>{category.name}</Link>
+            </li>
+            )}
+          </ul>
+        </nav>
+      </div>
 
       <CartList closeCallback={setOpened}/>
 
@@ -72,4 +74,4 @@ export const MobileMenu = () => {
   </div>)
 }
 
-export default MobileMenu;
+export default Menu;

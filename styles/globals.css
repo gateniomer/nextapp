@@ -75,9 +75,6 @@ header h1 {
   align-content: center;
   flex-grow: 4;
 }
-.header-mobile {
-  display: none;
-}
 nav {
   display: flex;
   justify-content: center;
@@ -135,9 +132,6 @@ nav {
   }
   .header-desktop {
     display: none;
-  }
-  .header-mobile {
-    display: block;
   }
 }
 @media (max-width: 900px) {

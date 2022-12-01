@@ -1,17 +1,13 @@
 import Link from "next/link"
-import DesktopCartMenu from "./DesktopCartMenu"
 import { useEffect } from "react"
-import { signOutUser, updateUserLoginInFirestore} from "../utils/firebase"
+import {  updateUserLoginInFirestore} from "../utils/firebase"
 import { useAppDispatch, useAppSelector } from "../utils/hooks"
 import { onAuthStateChanged } from "firebase/auth"
 import { auth,getUserData } from "../utils/firebase"
 import { updateUser,updateCart } from "../utils/user.slice"
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faUserGroup,faRightFromBracket,faRightToBracket,faBurger } from "@fortawesome/free-solid-svg-icons";
 import {CATEGORIES} from '../data/categories';
 import Search from "./search";
-import MobileMenu from "./MobileMenu"
-
+import Menu from "./Menu"
 
 export default function Header () {
 
@@ -55,24 +51,8 @@ export default function Header () {
         
       </nav>
       <Search/>
-      {!user && 
-          <Link href={'/auth'}>
-            <div>
-              Sign In <FontAwesomeIcon icon={faRightToBracket}/>
-            </div>
-          </Link>
-      }
-      {user &&
-        <div className='header-links-container'>
-          <DesktopCartMenu/>
-          <Link href={'/auth'}><FontAwesomeIcon icon={faUserGroup}/></Link>
-          <FontAwesomeIcon icon={faRightFromBracket} onClick={signOutUser}/>
-        </div>
-      }
     </div>
-    <div className='header-mobile'>
-      <MobileMenu/>
-    </div>
+    <Menu/>
     </header>
   </>
   ) 
