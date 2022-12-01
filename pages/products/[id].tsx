@@ -12,6 +12,7 @@ import {useState} from 'react';
 import {CLOTH_SIZES,SHOE_SIZES} from '../../data/sizes';
 import { searchProductsByQuery } from "../api/products";
 import { useRouter } from "next/router";
+import CardGrid from "../../components/CardGrid";
 
 export const getStaticProps:GetStaticProps = async (context)=>{
   const id = context.params?.id;
@@ -38,11 +39,10 @@ export const getStaticPaths:GetStaticPaths = async () => {
   }
 }
 
-export const ProductPage:NextPage<{product:dbProduct,relatedProducts:Product[]}> =  ({product,relatedProducts}) => {
+export const ProductPage:NextPage<{product:dbProduct,relatedProducts:dbProduct[]}> =  ({product,relatedProducts}) => {
   const dispatch = useAppDispatch();
   const user = useAppSelector(state=>state.userDetails.user);
   const router = useRouter();
-  const {failed} = router.query;
   
   const [quantity,setQuantity] = useState(1);
   const [selectedSize,setSelectedSize] = useState(0);
@@ -60,6 +60,7 @@ export const ProductPage:NextPage<{product:dbProduct,relatedProducts:Product[]}>
       size = "One-Size"
   }
   
+  //adding quantity and size to convert to 'Product' type (product is a 'dbProduct' type)
   const productToAdd:Product = {
     ...product,
     quantity,
@@ -70,8 +71,9 @@ export const ProductPage:NextPage<{product:dbProduct,relatedProducts:Product[]}>
   const onAddToCartHandler = () => {
     dispatch(addProductToCartThunk(productToAdd));
   }
+
   const onBuyNowHandler = async () => {
-    // setLoading(true);
+    //creating new checkout session by fetching request to out api.
     const resp = await fetch('/api/checkout-sessions',{
       method:'POST',
       headers: {
@@ -86,20 +88,29 @@ export const ProductPage:NextPage<{product:dbProduct,relatedProducts:Product[]}>
 
     const data = resp && await resp.json();
     
+    //redirect user to the recived url from stripe
     router.push(data.url); 
   }
 
+  //add quantity by updating 'quantity' state
   const addQuantity = () => {
     setQuantity(prev=>prev+1);
   }
+  //subtract quantity by updating 'quantity' state
   const subtractQuantity = () => {
     setQuantity(prev=> (prev===1) ? prev : prev-1);
   }
 
   return(
-    <>
-      {product && 
-      <div className={styles.container}>
+    <div className={styles.container}>
+
+      {/* Related Products */}
+      <div className={styles.cardGridContainer}>
+        <CardGrid products={relatedProducts}/>
+      </div>
+
+      <div className={styles.containerSmall}>
+        {/* Product Thumbnail and description */}
         <div className={styles.productDetailsContainer}>
         <div className={styles.imageContainer}>
           <Image src={product.image} layout={'fill'} objectFit={'cover'}/>
@@ -111,7 +122,8 @@ export const ProductPage:NextPage<{product:dbProduct,relatedProducts:Product[]}>
           
         </div>
         </div>
-
+        
+        {/* Product details selection */}
         <div className={styles.productSelections}>
         <span className={styles.price}>{product.price}₪</span >
 
@@ -155,14 +167,8 @@ export const ProductPage:NextPage<{product:dbProduct,relatedProducts:Product[]}>
           </div>}
         </div>
         
-        </div>}
-        
-        <div className={styles.relatedProductsContainer}>
-          {relatedProducts.map(product=>
-            <Card key={product.id} product={product}/>
-          )}
         </div>
-    </>
+    </div>
   )
 }
 export default ProductPage;

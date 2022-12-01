@@ -1,10 +1,10 @@
 import Link from "next/link";
 import Image from "next/image";
 import styles from '../styles/Card.module.css';
-import { Product } from "../utils/types";
+import { dbProduct } from "../utils/types";
 import {useState} from 'react';
 
-const Card = ({product}:{product:Product}) => {
+const Card = ({product}:{product:dbProduct}) => {
 
   return (
     <Link key={product.id} href={'/products/'+product.id}>

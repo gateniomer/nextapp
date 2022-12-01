@@ -1,6 +1,11 @@
 .container {
   display: flex;
   justify-content: center;
+  gap: 10px;
+}
+.containerSmall {
+  display: flex;
+  justify-content: center;
   align-items: flex-start;
   gap: 20px;
 }
@@ -45,15 +50,11 @@
   border: 5px solid white;
   opacity: 0;
   animation: 0.5s enter forwards 0.2s;
-  margin-top: 50px;
 }
 
 .relatedProductsContainer {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  /* flex-wrap: wrap;
-  align-items: center;
-  justify-content: center; */
   max-width: 1200px;
   gap: 30px;
   padding: 20px;
@@ -90,12 +91,14 @@
   align-items: center;
   font-weight: bold;
 }
+
 .quantityContainer > button {
   color: white !important;
   background-color: black !important;
   opacity: 0.8;
   padding: 5px 15px;
 }
+
 .quantityContainer span {
   font-size: 1.5rem;
 }
@@ -110,8 +113,18 @@
   font-size: 1.4rem;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1100px) {
   .container {
+    flex-direction: column;
+  }
+  .cardGridContainer {
+    order: 1;
+    width: 100%;
+  }
+}
+
+@media (max-width: 900px) {
+  .containerSmall {
     flex-direction: column;
     align-items: center;
   }
@@ -129,6 +142,7 @@
     max-width: 500px;
   }
 }
+
 @media (max-width: 600px) {
   .relatedProductsContainer {
     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));

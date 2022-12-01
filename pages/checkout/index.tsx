@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import { useAppSelector } from "../../utils/hooks";
-import {useEffect,useState} from 'react';
+import {useState} from 'react';
 import styles from '../../styles/Checkout.module.css';
 import Image from "next/image";
 import { GetStaticProps } from "next";
@@ -33,6 +33,7 @@ const Checkout = ()=>{
 
     router.push(data.url); 
   }
+  
   return (
     <div className={styles.container}>
     <h2>Proceed to Payment</h2>
@@ -66,7 +67,8 @@ const Checkout = ()=>{
         </div>
       </div>
     </div>
-    </div>)
+    </div>
+)
 }
 
 export default Checkout;

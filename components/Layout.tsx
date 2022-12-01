@@ -14,8 +14,8 @@ export default function Layout ({children}:{children?: ReactElement}) {
     </Head>
     <Header/>
     <div className='page-container'>
-    {failed && <StripeErrorMessage/>}
-    {children}
+      {failed && <StripeErrorMessage/>}
+      {children}
     </div>
     <Footer/>
   </div>

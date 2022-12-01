@@ -1,9 +1,9 @@
 import styles from '../styles/CardGrid.module.css';
-import { Product } from '../utils/types';
+import { dbProduct } from '../utils/types';
 import Card from './Card';
 
 type Props = {
-  products:Product[]
+  products:dbProduct[]
 }
 
 export const CardGrid = ({products}:Props) => {

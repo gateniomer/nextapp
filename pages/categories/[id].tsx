@@ -1,10 +1,9 @@
-import { GetServerSideProps, GetStaticPaths, GetStaticProps } from "next";
-import Link from "next/link";
-import { Product } from "../../utils/types";
+import { GetStaticPaths, GetStaticProps } from "next";
+import { Product,Category } from "../../utils/types";
 import { CATEGORIES } from "../../data/categories";
 import { searchProductsByQuery } from "../api/products";
 import styles from '../../styles/Category.module.css';
-import Card from "../../components/Card";
+import CardGrid from "../../components/CardGrid";
 
 export const getStaticPaths:GetStaticPaths = () => {
   const paths = Object.values(CATEGORIES).map(category=>(
@@ -22,27 +21,25 @@ export const getStaticProps:GetStaticProps = (context) => {
   if(!id || typeof id === 'object') return{props:{}};
 
   const products=searchProductsByQuery({category:id});
-  
+  const category = Object.values(CATEGORIES)[parseInt(id)];
+
   return {
     props:{
-      title:Object.values(CATEGORIES)[parseInt(id)].name,
+      title:category.name,
       products,
-      category:Object.values(CATEGORIES)[parseInt(id)]}
+      category
+    }
   }
 }
 
-const Category = ({products,title,category}:{products:Product[],title:string,category:any})=>{
+const Category = ({products,title,category}:{products:Product[],title:string,category:Category})=>{
   return(
     <div className={styles.container}>
       <div>
       <h2>Browsing {title}</h2>
       <p>{category.description}</p>
       </div>
-      <div className={styles.cardContainer}>
-      {products.map((product,index)=>
-        <Card key={index} product={product}/>
-      )}
-      </div>
+      <CardGrid products={products}/>
     </div>
   )
 }

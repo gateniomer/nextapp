@@ -2,13 +2,9 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 30px;
-  width: 60%;
   overflow: visible !important;
 }
 
-.container > div {
-  transform: skew(-10deg, 10deg);
-}
 @media (max-width: 900px) {
   .container {
     width: 100%;

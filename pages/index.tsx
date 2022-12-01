@@ -32,8 +32,9 @@ const Home = ({products}:{title:string,products:Product[]}) => {
         <a href="https://github.com/gateniomer/nextapp" target={'_blank'} rel="noreferrer"><button className='btn btn-dark' style={{marginRight:'10px'}}><FontAwesomeIcon icon={faGithub}/> Source Code</button></a>
         <a href="https://github.com/gateniomer/" target={'_blank'} rel="noreferrer"><button className='btn' style={{marginRight:'10px'}}><FontAwesomeIcon icon={faLayerGroup}/> More Projects</button></a>
       </div>
-      
-      <CardGrid products={products}/>
+      <div className={styles.cardGridContainer}>
+        <CardGrid products={products}/>
+      </div>
     </main>
     </>
   )

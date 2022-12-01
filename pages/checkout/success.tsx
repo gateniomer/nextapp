@@ -1,4 +1,3 @@
-import styles from '../../styles/Success.module.css';
 import {useEffect,useState} from 'react';
 import { useRouter } from 'next/router';
 import { GetStaticProps } from 'next';
@@ -12,6 +11,8 @@ export const getStaticProps:GetStaticProps = async () => {
 const Success = () => {
   const router = useRouter();
   const [time,setTime] = useState(3);
+
+  //count time then redirect to profile page (auth)
   useEffect(()=>{
     const timeout = setTimeout(()=>{
       if(time>1){
@@ -22,8 +23,9 @@ const Success = () => {
     },1000);
     return ()=>clearTimeout(timeout);
   },[time]);
+
   return (
-    <div className={styles.container}>
+    <div>
       <h2>Purchased Complete!</h2>
       <h3>Redirecting to profile page in {time}</h3>
     </div>

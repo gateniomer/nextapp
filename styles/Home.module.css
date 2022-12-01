@@ -5,6 +5,12 @@
   gap: 50px;
   margin-top: 50px;
 }
+.cardGridContainer {
+  width: 60%;
+}
+.cardGridContainer > div > div {
+  transform: skew(-10deg, 10deg);
+}
 .mainTextContainer {
   display: block;
   font-size: 2rem;

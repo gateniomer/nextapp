@@ -2,9 +2,8 @@
   max-width: 1200px;
   margin: 0 auto;
   padding: 50px;
-  position: relative;
-  overflow: hidden;
-  min-height: 85vh;
+  /* position: relative; */
+  /* overflow: hidden; */
 }
 .container h2 {
   font-size: 3rem;
