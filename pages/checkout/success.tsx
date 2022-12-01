@@ -1,6 +1,7 @@
 import {useEffect,useState} from 'react';
 import { useRouter } from 'next/router';
 import { GetStaticProps } from 'next';
+import { PurchaseSuccussAlert } from '../../components/CustomAlert';
 
 export const getStaticProps:GetStaticProps = async () => {
   return {
@@ -10,7 +11,7 @@ export const getStaticProps:GetStaticProps = async () => {
 
 const Success = () => {
   const router = useRouter();
-  const [time,setTime] = useState(3);
+  const [time,setTime] = useState(5);
 
   //count time then redirect to profile page (auth)
   useEffect(()=>{
@@ -26,7 +27,7 @@ const Success = () => {
 
   return (
     <div>
-      <h2>Purchased Complete!</h2>
+      <PurchaseSuccussAlert/>
       <h3>Redirecting to profile page in {time}</h3>
     </div>
   )

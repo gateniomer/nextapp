@@ -3,7 +3,7 @@ import {ReactElement } from "react"
 import Header from './Header';
 import Footer from './Footer';
 import { useRouter } from 'next/router';
-import {StripeErrorMessage} from './CustomAlert';
+import {StripeErrorAlert} from './CustomAlert';
 export default function Layout ({children}:{children?: ReactElement}) {
   const router = useRouter();
   const {failed} = router.query;
@@ -14,7 +14,7 @@ export default function Layout ({children}:{children?: ReactElement}) {
     </Head>
     <Header/>
     <div className='page-container'>
-      {failed && <StripeErrorMessage/>}
+      {failed && <StripeErrorAlert/>}
       {children}
     </div>
     <Footer/>

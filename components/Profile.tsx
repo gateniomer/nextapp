@@ -14,16 +14,15 @@ const Profile = ({user}:{user:User}) =>{
 
   return user && (
     <div className={styles.container}>
-      <h2>Hello {userData?.displayName} 👋</h2>
-      <div className={styles.userDetailsContainer}>
-        <div className={styles.avatar}>{userData?.displayName && userData.displayName[0].toUpperCase()}</div>
-        <div>
-          <span><strong>Email:</strong> {userData?.email}</span>
-          <span><strong>Last sign-in:</strong> {userData?.lastSignIn}</span>
-          <span><strong>Created at:</strong> {userData?.createdAt}</span>
+      <div>
+        <h2>Hello {userData?.displayName} 👋</h2>
+        <div className={styles.userDetailsContainer}>
+            <span><strong>Email:</strong> {userData?.email}</span>
+            <span><strong>Last sign-in:</strong> {userData?.lastSignIn}</span>
+            <span><strong>Created at:</strong> {userData?.createdAt}</span>
         </div>
       </div>
-      <h3>Order History : {userData?.orders?.length | 0} in total</h3>
+      <div>
       <div className={styles.orderHistoryContainer}>
         {userData?.orders?.map((order:any)=>
         <div key={order.id} className={styles.orderHistoryItem}>
@@ -39,6 +38,7 @@ const Profile = ({user}:{user:User}) =>{
           )}
           {order.total && <span className={styles.orderTotal}><strong>Order Total: {order.total}₪</strong></span>}
         </div>)}
+      </div>
       </div>
       
     </div>
