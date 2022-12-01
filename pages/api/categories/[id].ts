@@ -5,7 +5,7 @@ export default function handler(req:NextApiRequest,res:NextApiResponse) {
   const {id} = req.query;
   const category = getCategory(id);
   category ? 
-  res.status(200).json(category):
+  res.status(200).json(category) :
   res.status(400).json({error:"category not found"});
 }
 

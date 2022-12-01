@@ -1,17 +1,25 @@
 import Stripe from "stripe";
 import type { NextApiRequest, NextApiResponse } from 'next';
 import {getProduct} from '../../api/products/[id]';
+import { Product } from "../../../utils/types";
 
-type Item = {
-  [key:string]:any
-}
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
   
-
-  const products:Item[] = req.body.items ? req.body.items.map((item:Item) => {
+  type LineItem = {
+    price_data:{
+      currency:string,
+      unit_amount:number,
+      product_data:{
+        name:string,
+      }
+    },
+    quantity:number,
+  }
+  
+  const products:LineItem[] = req.body.items ? req.body.items.map((item:Product) => {
     //get product from server database
     const product = getProduct(item.id);
     if (!product) return;

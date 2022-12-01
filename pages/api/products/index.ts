@@ -1,12 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import {products} from '../../../data/products';
 import { dbProduct } from "../../../utils/types";
-// type APIQuery = {
-//   search?:string | undefined,
-//   category?:number,
-//   limit?:number,
-//   ignore?:number | number[]
-// }
 
 export default function handler(req:NextApiRequest,res:NextApiResponse) {
   const {search,category,limit,ignore,random} = req.query;
@@ -17,25 +11,26 @@ export const searchProductsByQuery = (anotherConditions?:any) => {
   //destructure conditions
   const {search,category,limit,ignore,random} = anotherConditions;
   //count number of filteredItems
-  let counter=0;
+  let validItemsAmount=0;
   //decide if products are random or not
   let productsArray:dbProduct[] = [...products];
   if(random && random === 'true') productsArray = randomArary(products);
 
   return productsArray.filter((product)=>{
-    //if items exceeds limit (if exists)
-    if((limit && counter >= limit)|| 
+    //if productsArray exceeds limit, do not add more items
+    if((limit && validItemsAmount >= limit)|| 
     (ignore && ignore.includes(product.id)))
      return false;
-    //item is valid by default
+    //item meets all conditions by default
     let isValid = true;
 
-    //checks if item has search input
+    //filter item if not met search condition
     if(search) isValid = isValid && product.title.toLowerCase().includes(search.trim().toLowerCase());
-    //checks if item is in category
+    //filter item if not on the same category
     if(typeof category !== "undefined") isValid = isValid && (product.category.id === parseInt(category));
-    //if valid item, then count it.
-    isValid && counter++;
+    
+    //if item met all condistions(isValid), then count it.
+    isValid && validItemsAmount++;
 
     return isValid;
   });
