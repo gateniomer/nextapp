@@ -1,5 +1,5 @@
 import Link from "next/link"
-import Cart from "./Cart"
+import DesktopCartMenu from "./DesktopCartMenu"
 import { useEffect } from "react"
 import { signOutUser, updateUserLoginInFirestore} from "../utils/firebase"
 import { useAppDispatch, useAppSelector } from "../utils/hooks"
@@ -64,7 +64,7 @@ export default function Header () {
       }
       {user &&
         <div className='header-links-container'>
-          <Cart/>
+          <DesktopCartMenu/>
           <Link href={'/auth'}><FontAwesomeIcon icon={faUserGroup}/></Link>
           <FontAwesomeIcon icon={faRightFromBracket} onClick={signOutUser}/>
         </div>

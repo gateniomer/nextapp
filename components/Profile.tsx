@@ -2,9 +2,11 @@ import {useEffect,useState} from 'react';
 import styles from '../styles/Profile.module.css';
 import { getUserData } from "../utils/firebase";
 import { User } from "firebase/auth";
+import { DocumentData } from 'firebase/firestore';
 
+//fetch given user's data from firestore, then display it
 const Profile = ({user}:{user:User}) =>{
-  const [userData,setUserData] = useState<any>(undefined);
+  const [userData,setUserData] = useState<DocumentData|undefined>(undefined);
 
   useEffect(()=>{
     user && getUserData(user).then(data=>setUserData(data));

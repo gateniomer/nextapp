@@ -1,6 +1,5 @@
 import {useState,useEffect,useRef} from 'react';
-import { useAppSelector } from '../utils/hooks';
-import { Product } from '../utils/types';
+import { dbProduct } from '../utils/types';
 import Link from 'next/link';
 import Image from 'next/image';
 import styles from '../styles/Search.module.css';
@@ -8,7 +7,7 @@ import useOutsideAlerter from '../hooks/useOutsideAlerter';
 
 const Search = ({callback}:{callback?:()=>void}) => {
   const [input,setInput] = useState('');
-  const [searchResult,setSearchResult] = useState<Product[]>([]);
+  const [searchResult,setSearchResult] = useState<(dbProduct|string)[]>([]);
 
   const ref = useRef(null);
   const [clickedOutside] = useOutsideAlerter(ref);
@@ -28,22 +27,34 @@ const Search = ({callback}:{callback?:()=>void}) => {
       }else{
         fetch(`${process.env.NEXT_PUBLIC_URL}/api/products?search=${input}`)
         .then(resp=>resp.json())
-        .then(filteredProducts=>setSearchResult(filteredProducts))
+        .then(filteredProducts=>{
+          if(filteredProducts.length===0){
+            return setSearchResult(['No products found..'])
+          }
+          setSearchResult(filteredProducts)
+        })
         .catch(error=>console.log(error))
       }
     },500);
 
     return ()=>clearTimeout(timer);
   },[input])
-
+  console.log('res',searchResult);
   return (
     <div className={styles.search} ref={ref}>
       <input type="text" value={input} onInput={(e)=>setInput((e.target as HTMLInputElement).value)} placeholder='search for products'/>
       {(searchResult.length>0) && 
       <div className={styles.searchResultsContainer}>
         {
-          searchResult.map((product:Product)=>
-          <Link key={product.id} href={'/products/'+product.id}>
+          searchResult.map((product:dbProduct|string)=>{
+            if(typeof product === 'string'){
+              return(
+                <div key={product} className={styles.searchResultsItem}>
+                  <span>{product}</span>
+                </div>
+              )
+            } 
+            return <Link key={product.id} href={'/products/'+product.id}>
             <div onClick={()=>{
               clearSearch();
               callback && callback();
@@ -55,6 +66,8 @@ const Search = ({callback}:{callback?:()=>void}) => {
               <span>{product.title}</span>
             </div>
           </Link>
+          }
+          
         )
         }
       </div>}

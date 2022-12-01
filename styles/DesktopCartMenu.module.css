@@ -1,0 +1,40 @@
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+.container {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  transform: translate(100%, 0);
+  z-index: 1000;
+  max-width: 400px;
+  margin: 0 auto;
+  height: 100vh;
+  background: #f4f4f4;
+  top: 0;
+  right: 0;
+  padding: 20px;
+  animation: enter 0.4s forwards;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.closeButton {
+  display: inline;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  font-size: 2rem;
+}
+
+@keyframes enter {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+}
