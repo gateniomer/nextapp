@@ -6,7 +6,7 @@ import useOutsideAlerter from '../hooks/useOutsideAlerter';
 import { useRouter } from 'next/router';
 import { CATEGORIES } from '../data/categories';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faXmark,faBurger, faUser, faRightFromBracket } from "@fortawesome/free-solid-svg-icons"
+import { faShoppingBag,faXmark,faBurger, faUser, faRightFromBracket } from "@fortawesome/free-solid-svg-icons"
 import Search from './search';
 import { signOutUser } from '../utils/firebase';
 import CartList from './CartList';
@@ -27,7 +27,8 @@ export const Menu = () => {
   return (
     <div ref={ref}>
     <div className={styles.menuIcon} onClick={()=>setOpened(prev=>!prev)}>
-      <FontAwesomeIcon icon={faBurger}/>
+      <FontAwesomeIcon className='only-on-mobile' icon={faBurger}/>
+      <FontAwesomeIcon className='only-on-desktop' icon={faShoppingBag}/>
       <span>{numOfItems}</span>
     </div>
 

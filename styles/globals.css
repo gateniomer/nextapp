@@ -125,6 +125,12 @@ nav {
   margin-bottom: 20px;
 }
 
+.only-on-desktop {
+  display: inline-block !important;
+}
+.only-on-mobile {
+  display: none !important;
+}
 @media (max-width: 1100px) {
   header {
     justify-content: space-between;
@@ -132,6 +138,12 @@ nav {
   }
   .header-desktop {
     display: none;
+  }
+  .only-on-desktop {
+    display: none !important;
+  }
+  .only-on-mobile {
+    display: inline-block !important;
   }
 }
 @media (max-width: 900px) {

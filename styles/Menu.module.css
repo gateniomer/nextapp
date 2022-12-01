@@ -1,5 +1,10 @@
 .menuIcon {
-  font-size: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  font-size: 1.8rem;
+  cursor: pointer;
 }
 .container {
   position: fixed;

@@ -1,7 +1,7 @@
 import Link from "next/link"
 import { useEffect } from "react"
 import {  updateUserLoginInFirestore} from "../utils/firebase"
-import { useAppDispatch, useAppSelector } from "../utils/hooks"
+import { useAppDispatch } from "../utils/hooks"
 import { onAuthStateChanged } from "firebase/auth"
 import { auth,getUserData } from "../utils/firebase"
 import { updateUser,updateCart } from "../utils/user.slice"
@@ -11,7 +11,6 @@ import Menu from "./Menu"
 
 export default function Header () {
 
-  const user = useAppSelector(state=>state.userDetails.user);
   const dispatch = useAppDispatch();
 
 
