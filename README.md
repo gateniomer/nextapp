@@ -41,3 +41,5 @@ I hope you enjoyed reading about this project, thank you for your time 😁
 Live site: https://nextapp-gilt.vercel.app/
 
 Github repo: https://github.com/gateniomer/nextapp
+
+![showcase](./showcase.png)
