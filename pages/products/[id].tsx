@@ -26,7 +26,7 @@ export const getStaticProps:GetStaticProps = async (context)=>{
   });
 
   return {
-    props: {title:`${product.title}`,product,relatedProducts}
+    props: {title:`${product.title}`,product,relatedProducts,key:id}
   }
 }
 
@@ -45,12 +45,6 @@ export const ProductPage:NextPage<{product:dbProduct,relatedProducts:dbProduct[]
   
   const [quantity,setQuantity] = useState(1);
   const [selectedSize,setSelectedSize] = useState(0);
-
-  //reset selections when changing category
-  useEffect(()=>{
-    setSelectedSize(0);
-    setQuantity(1);
-  },[product.category.name]);
   
   //adding quantity and size to convert to 'Product' type (product is a 'dbProduct' type)
   const productToAdd:Product = {
