@@ -120,3 +120,14 @@ export const updateUserLoginInFirestore = async(userDetails)=>{
     console.error("Error adding document: ", e);
   }
 }
+
+export const getProductsByCategory = async (category) => {
+  const docRef = doc(db, "products", category);
+  const docSnap = await getDoc(docRef);
+
+  if (docSnap.exists()) {
+  return docSnap.data()
+  } else {
+  console.log("No such document!");
+}
+}
